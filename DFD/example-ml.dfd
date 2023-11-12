@@ -1,0 +1,14 @@
+Storage Database "Main Database"
+
+IO User "User"
+
+Process CreateUser "Create user":
+	Process CreateDbRecord "Create record in database"
+	Process FillDataIn "Fill data in"
+	Process ReturnNewUser "Return new user"
+	
+	User --> CreateDbRecord
+	CreateDbRecord --> FillDataIn
+	FillDataIn --> ReturnNewUser
+	ReturnNewUser --> User
+	CreateDbRecord --> Database "Store in db"
