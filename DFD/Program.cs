@@ -2,44 +2,25 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using DFD.Interpreter;
+using DFD.Model.Interfaces;
 
 class Program
 {
     static void Main()
     {
-        string dotSource = "digraph G { ProcessA -> ProcessB }"; 
+        Interpreter interpreter = new Interpreter();
 
-        string jsonOutput = GenerateGraphJson(dotSource);
+        var dfdString = File.ReadAllText("example-simple.dfd");
 
-        Console.WriteLine(jsonOutput);
-        Console.ReadKey();
-    }
+        IDiagram diagram = interpreter.ToDiagram(dfdString);
 
-    static string GenerateGraphJson(string dotSource)
-    {
-        using (Process process = new Process())
+        foreach (var entity in diagram.Entities)
         {
-            process.StartInfo.FileName = "dot";
-            process.StartInfo.Arguments = "-Tjson";
-            process.StartInfo.RedirectStandardInput = true;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.CreateNoWindow = true;
-
-            process.Start();
-
-            using (StreamWriter sw = process.StandardInput)
-            {
-                if (sw.BaseStream.CanWrite)
-                {
-                    sw.Write(dotSource);
-                }
-            }
-
-            using (StreamReader sr = process.StandardOutput)
-            {
-                return sr.ReadToEnd();
-            }
+            Console.WriteLine(entity);
         }
+
+        Console.WriteLine("END");
+        Console.ReadKey();
     }
 }

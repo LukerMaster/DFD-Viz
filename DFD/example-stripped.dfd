@@ -1,0 +1,5 @@
+Process SomeProcess "Some Process"
+IO UserInput	"User Input"
+Storage Db "Main #Database" # dupa
+UserInput --> SomeProcess "User gives input to a process"
+SomeProcess <-> Db "Exchange of connection keys"

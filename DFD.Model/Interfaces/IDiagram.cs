@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DFD
+namespace DFD.Model.Interfaces
 {
-    public interface IDisplayesText
+    public interface IDiagram
     {
-        string DisplayedText { get; }
+        public ICollection<IGraphEntity> Entities { get; }
     }
 }
