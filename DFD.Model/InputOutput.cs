@@ -17,5 +17,7 @@ namespace DFD
             get => DisplayType.IOSymbol;
         }
         public Color Color { get => Color.Aqua; }
+        public IGraphEntity Parent { get; set; }
+        public ICollection<IGraphEntity> Children { get; set; }
     }
 }

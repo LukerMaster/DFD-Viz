@@ -9,5 +9,6 @@ namespace DFD.Model.Interfaces
     public interface IDiagram
     {
         public ICollection<IGraphEntity> Entities { get; }
+        public ICollection<IFlow> Flows { get; }
     }
 }

@@ -17,5 +17,7 @@ namespace DFD
             get => DisplayType.DbSymbol;
         }
         public Color Color { get => Color.Coral; }
+        public IGraphEntity Parent { get; set; }
+        public ICollection<IGraphEntity> Children { get; set; }
     }
 }

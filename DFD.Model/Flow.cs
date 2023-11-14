@@ -8,9 +8,8 @@ using DFD.Model.Interfaces;
 
 namespace DFD
 {
-    public class Flow : IFlow, IGraphEntity
+    public class Flow : IFlow
     {
-        public string EntityName { get; init; }
         public IGraphEntity Source { get; init; }
         public IGraphEntity Target { get; init; }
         public string DisplayedText { get; init; }

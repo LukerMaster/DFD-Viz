@@ -11,13 +11,18 @@ class Program
     {
         Interpreter interpreter = new Interpreter();
 
-        var dfdString = File.ReadAllText("example-simple.dfd");
+        var dfdString = File.ReadAllText("example-ml.dfd");
 
         IDiagram diagram = interpreter.ToDiagram(dfdString);
 
         foreach (var entity in diagram.Entities)
         {
-            Console.WriteLine(entity);
+            Console.WriteLine($"Entity {entity.EntityName}");
+        }
+
+        foreach (var flow in diagram.Flows)
+        {
+            Console.WriteLine($"Flow {flow.Source.EntityName} --> {flow.Target.EntityName}");
         }
 
         Console.WriteLine("END");
