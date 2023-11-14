@@ -161,6 +161,7 @@ namespace DFD.Interpreter
                 {
                     var type = ValidDefinitions[typeName];
                     entity = CreateStandardEntity(type, entityName, displayedName, currentParent);
+                    currentParent.Children.Add(entity);
                 }
             }
             catch (Exception e)
@@ -245,6 +246,7 @@ namespace DFD.Interpreter
             {
                 return new Storage() { EntityName = name, DisplayedText = displayedName, Parent = parent };
             }
+            
 
             throw new ArgumentException($"Invalid entity type {type.Name}.");
         }
@@ -266,7 +268,6 @@ namespace DFD.Interpreter
 
         public void RaiseScope(IGraphEntity newChild)
         {
-            CurrentScopeNode.Children.Add(newChild);
             CurrentScopeNode = newChild;
             CurrentScopeLevel++;
         }
