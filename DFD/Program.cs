@@ -11,7 +11,7 @@ class Program
     {
         Interpreter interpreter = new Interpreter();
 
-        var dfdString = File.ReadAllText("example-ml.dfd");
+        var dfdString = File.ReadAllText("documentation.dfd");
 
         IDiagram diagram = interpreter.ToDiagram(dfdString);
 

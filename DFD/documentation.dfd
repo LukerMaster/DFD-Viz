@@ -27,3 +27,16 @@ SomeProcess <-> Db "Exchange of connection keys"
 
 # Lines starting with # are completely ignored (ie. comment-like)
 # Do NOT however place # after a statement on the same line.
+
+# To make multi-level diagrams you define processes with subprocesses inside.
+# All it takes is adding colon ':' at the end of process declaration
+# And writing processes in indented scopes.
+Process AdvancedProcess "Advanced Process":
+	Process SubProcessA "Sub-Process A"
+	Process SubProcessB "Sub-Process B"
+	Process SubProcessC "Sub-Process C with subprocesses":
+		Process SubProcessC1 "Sub-Process C1"
+
+	# To create connections between subprocesses you can use syntax with dot
+	SubProcessA --> SubProcessC.SubProcessC1
+	# You don't have to define full path as long as it is not ambiguous
