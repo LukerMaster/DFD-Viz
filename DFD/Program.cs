@@ -17,12 +17,12 @@ class Program
 
         foreach (var entity in diagram.Entities)
         {
-            Console.WriteLine($"Entity {entity.EntityName}");
+            Console.WriteLine($"Entity {entity.FullEntityName}");
         }
 
         foreach (var flow in diagram.Flows)
         {
-            Console.WriteLine($"Flow {flow.Source.EntityName} --> {flow.Target.EntityName}");
+            Console.WriteLine($"Flow {flow.Source.FullEntityName} --> {flow.Target.FullEntityName}");
         }
 
         Console.WriteLine("END");

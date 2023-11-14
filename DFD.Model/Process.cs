@@ -19,5 +19,6 @@ namespace DFD
         public Color Color { get => Color.LightCyan; }
         public IGraphEntity Parent { get; set; }
         public ICollection<IGraphEntity> Children { get; set; } = new List<IGraphEntity>();
+
     }
 }

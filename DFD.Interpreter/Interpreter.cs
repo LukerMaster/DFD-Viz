@@ -154,7 +154,7 @@ namespace DFD.Interpreter
                 var definition = SplitByWhitespace(line);
 
                 var typeName =      definition[0];
-                var entityName =    SetFullEntityName(definition[1], currentParent);
+                var entityName =    definition[1];
                 var displayedName = definition[2];
                 
                 if (ValidDefinitions.ContainsKey(typeName))
@@ -171,10 +171,6 @@ namespace DFD.Interpreter
             return entity;
         }
 
-        private string SetFullEntityName(string entityName, IGraphEntity currentParent)
-        {
-            return currentParent.EntityName + '.' + entityName;
-        }
 
         private static IList<string> SplitByWhitespace(string line)
         {
@@ -218,7 +214,7 @@ namespace DFD.Interpreter
             IGraphEntity? found = null;
             foreach (var entity in knownEntities)
             {
-                if (HasMatchingEntityNames(entity.EntityName, EntityName))
+                if (entity.CanNameBeThisEntity(EntityName))
                 {
                     if (found is null)
                         found = entity;
@@ -231,34 +227,6 @@ namespace DFD.Interpreter
                 throw new ArgumentException("Entity is not defined.");
 
             return found;
-        }
-
-        private bool HasMatchingEntityNames(string first, string second)
-        {
-            // Check whether two entities have matching names
-            // Example: Namespace.Process.Subprocess
-            //                    Process.Subprocess
-            //                    ^ Matching
-
-            // Namespace.Process.Subprocess
-            //     Other.Process.Subprocess
-            //     ^ Not matching
-
-            var firstSections = first.Split('.');
-            var secondSections = second.Split('.');
-
-            // Reverse so we check from the innermost
-            firstSections = firstSections.Reverse().ToArray();
-            secondSections = secondSections.Reverse().ToArray();
-
-            var checkLimit = Math.Min(firstSections.Length, secondSections.Length);
-
-            for (int i = 0; i < checkLimit; i++)
-            {
-                if (firstSections[i] != secondSections[i])
-                    return false;
-            }
-            return true;
         }
 
         private ISymbolicEntity CreateStandardEntity(Type type, string name, string displayedName, IGraphEntity parent)
