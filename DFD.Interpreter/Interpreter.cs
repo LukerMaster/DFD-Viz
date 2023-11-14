@@ -13,13 +13,6 @@ namespace DFD.Interpreter
             NestedProcessDeclaration,
             FlowDeclaration
         }
-        
-        private readonly Dictionary<string, Type> ValidDefinitions = new()
-        {
-            { "Process", typeof(Process) },
-            { "Storage", typeof(Storage) },
-            { "IO", typeof(InputOutput) },
-        };
 
         private readonly Dictionary<StatementType, Regex> Regexes = new()
         {
@@ -37,10 +30,12 @@ namespace DFD.Interpreter
             }
         };
 
-        
+        private readonly CodeSanitizer codeSanitizer = new CodeSanitizer();
+        private readonly GraphObjectParser objectParser = new GraphObjectParser();
+
         public IDiagram ToDiagram(string dfdString)
         {
-            var preparedString = StripCommentsAndBlankLines(dfdString);
+            var preparedString = codeSanitizer.StripCommentsAndBlankLines(dfdString);
             var entities = new List<IGraphEntity>();
             var flows = new List<IFlow>();
 
@@ -58,7 +53,7 @@ namespace DFD.Interpreter
                 // Creation of basic entities.
                 if (Regexes[StatementType.SimpleEntityDeclaration].Match(statement).Success)
                 {
-                    newEntity = TryParseEntity(statement, runData.CurrentScopeNode);
+                    newEntity = objectParser.TryParseEntity(statement, runData.CurrentScopeNode);
                     entities.Add(newEntity);
                     continue;
                 }
@@ -66,7 +61,7 @@ namespace DFD.Interpreter
                 // Creation of nested entities.
                 if (Regexes[StatementType.NestedProcessDeclaration].Match(statement).Success)
                 {
-                    newEntity = TryParseEntity(statement.TrimEnd(':'), runData.CurrentScopeNode);
+                    newEntity = objectParser.TryParseEntity(statement.TrimEnd(':'), runData.CurrentScopeNode);
                     runData.RaiseScope(newEntity);
                     entities.Add(newEntity);
                     continue;
@@ -75,7 +70,7 @@ namespace DFD.Interpreter
                 // Creation of flows.
                 if (Regexes[StatementType.FlowDeclaration].Match(statement).Success)
                 {
-                    flows.Add(TryParseFlow(statement, entities));
+                    flows.Add(objectParser.TryParseFlow(statement, entities));
                     continue;
                 }
 
@@ -119,157 +114,5 @@ namespace DFD.Interpreter
             return indentations / 4;
         }
 
-        string StripCommentsAndBlankLines(string code)
-        {
-            // Use a regular expression to match and remove comments marked by "#" and entirely blank lines
-            string commentlessCode = Regex.Replace(code, "^\\s*#.*", "", RegexOptions.Multiline);
-
-            // Remove leading and trailing whitespaces from each line
-            var strippedCode = StripEmptyLines(commentlessCode);
-            return strippedCode;
-        }
-
-        string StripEmptyLines(string code)
-        {
-            var lines = code.Replace("\r\n", "\n").Split('\n');
-            var newString = String.Empty;
-            foreach (var line in lines)
-            {
-                if (!Regex.Match(line, "^\\s*$", RegexOptions.Singleline).Success)
-                {
-                    newString = newString + line.TrimEnd() + '\n';
-                }
-            }
-
-            return newString.TrimEnd();
-        }
-
-        private IGraphEntity? TryParseEntity(string line, IGraphEntity currentParent)
-        {
-            IGraphEntity? entity = null;
-            
-            try
-            {
-                // Split by any amount of whitespace
-                var definition = SplitByWhitespace(line);
-
-                var typeName =      definition[0];
-                var entityName =    definition[1];
-                var displayedName = definition[2];
-                
-                if (ValidDefinitions.ContainsKey(typeName))
-                {
-                    var type = ValidDefinitions[typeName];
-                    entity = CreateStandardEntity(type, entityName, displayedName, currentParent);
-                    currentParent.Children.Add(entity);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            return entity;
-        }
-
-
-        private static IList<string> SplitByWhitespace(string line)
-        {
-            return Regex.Split(line, @"\s+").Where(s => s != string.Empty).ToList();
-        }
-
-        private IFlow? TryParseFlow(string statement, ICollection<IGraphEntity> declaredEntities)
-        {
-            IFlow? entity = null;
-
-            try
-            {
-                var definition = SplitByWhitespace(statement);
-
-                var entityNameA = definition[0];
-                var flowType = definition[1];
-                var entityNameB = definition[2];
-
-                var displayedName = String.Empty;
-                if (definition.Count > 3)
-                    displayedName = definition[3];
-
-                entity = new Flow()
-                {
-                    Source = FindEntityByName(entityNameA, declaredEntities),
-                    Target = FindEntityByName(entityNameB, declaredEntities),
-                    DisplayedText = displayedName
-                };
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            return entity;
-        }
-
-        private IGraphEntity FindEntityByName(string EntityName, ICollection<IGraphEntity> knownEntities)
-        {
-            IGraphEntity? found = null;
-            foreach (var entity in knownEntities)
-            {
-                if (entity.CanNameBeThisEntity(EntityName))
-                {
-                    if (found is null)
-                        found = entity;
-                    else
-                        throw new ArgumentException("Ambiguous entity declaration.");
-                }
-            }
-
-            if (found is null)
-                throw new ArgumentException("Entity is not defined.");
-
-            return found;
-        }
-
-        private ISymbolicEntity CreateStandardEntity(Type type, string name, string displayedName, IGraphEntity parent)
-        {
-            if (type == typeof(Process))
-            {
-                return new Process() { EntityName = name, DisplayedText = displayedName, Parent = parent };
-            }
-
-            if (type == typeof(Storage))
-            {
-                return new InputOutput() { EntityName = name, DisplayedText = displayedName, Parent = parent };
-            }
-
-            if (type == typeof(InputOutput))
-            {
-                return new Storage() { EntityName = name, DisplayedText = displayedName, Parent = parent };
-            }
-            
-
-            throw new ArgumentException($"Invalid entity type {type.Name}.");
-        }
-    }
-
-    internal class ParserRunData
-    {
-        public IGraphEntity CurrentScopeNode { get; set; }
-        public int CurrentScopeLevel { get; set; }
-
-        public ParserRunData()
-        {
-            CurrentScopeNode = new Process()
-            {
-                EntityName = "top",
-                DisplayedText = "System"
-            };
-        }
-
-        public void RaiseScope(IGraphEntity newChild)
-        {
-            CurrentScopeNode = newChild;
-            CurrentScopeLevel++;
-        }
     }
 }
