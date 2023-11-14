@@ -41,26 +41,30 @@ internal class GraphObjectParser
 
     public IFlow? TryParseFlow(string statement, ICollection<IGraphEntity> declaredEntities)
     {
-        IFlow? entity = null;
+        IFlow? flow = null;
 
         var definition = SplitByWhitespace(statement);
 
         var entityNameA = definition[0];
-        var flowType = definition[1];
+        var flowType = definition[1]; // TODO: do something with this value.
         var entityNameB = definition[2];
 
         var displayedName = String.Empty;
         if (definition.Count > 3)
             displayedName = definition[3];
 
-        entity = new Flow()
+        flow = new Flow()
         {
             Source = FindEntityByName(entityNameA, declaredEntities),
             Target = FindEntityByName(entityNameB, declaredEntities),
             DisplayedText = displayedName
         };
 
-        return entity;
+        if (flow.Source.Children.Count > 0 || flow.Target.Children.Count > 0)
+            throw new Exception(
+                "Cannot create flow from (or to) a process containing subprocesses. Connect it to subprocess instead.");
+
+        return flow;
     }
 
     private IGraphEntity FindEntityByName(string EntityName, ICollection<IGraphEntity> knownEntities)

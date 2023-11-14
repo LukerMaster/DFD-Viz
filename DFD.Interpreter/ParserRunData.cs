@@ -21,4 +21,18 @@ internal class ParserRunData
         CurrentScopeNode = newChild;
         CurrentScopeLevel++;
     }
+
+    public void LowerScope()
+    {
+        CurrentScopeNode = CurrentScopeNode.Parent;
+        CurrentScopeLevel--;
+    }
+
+    public void LowerScopeTo(int level)
+    {
+        while (CurrentScopeLevel > level)
+        {
+            LowerScope();
+        }
+    }
 }

@@ -13,7 +13,8 @@ Process CreateUser "Create user":
 	Process ReturnNewUser "Return new user"
 	
 	User --> CreateDbRecord
-	CreateDbRecord --> FillDataIn
-	FillDataIn --> ReturnNewUser
+	User --> FillDataIn.FillUserName
+	CreateDbRecord --> FillDataIn.FillEmail.FillActualDataIn
+	FillDataIn.FillEmail.FillActualDataIn --> ReturnNewUser
 	ReturnNewUser --> User
 	CreateDbRecord --> Database "Store in db"

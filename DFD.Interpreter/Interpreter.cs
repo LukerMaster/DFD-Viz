@@ -22,7 +22,7 @@ namespace DFD.Interpreter
             },
             {
                 StatementType.FlowDeclaration,
-                new Regex("^\\s*[a-zA-Z][a-zA-Z0-9]*\\s+(?:<->|-->) [a-zA-Z][a-zA-Z0-9]*(?:\\s+\"[^\"]*\")?$")
+                new Regex("^\\s*[a-zA-Z][a-zA-Z0-9.]*\\s+(?:<->|-->) [a-zA-Z][a-zA-Z0-9.]*(?:\\s+\"[^\"]*\")?$")
             },
             {
                 StatementType.NestedProcessDeclaration,
@@ -86,12 +86,7 @@ namespace DFD.Interpreter
             var statementScopeLevel = GetScopeLevel(statement);
             if (statementScopeLevel < runData.CurrentScopeLevel)
             {
-                var steps = runData.CurrentScopeLevel - statementScopeLevel;
-                for (var i = 0; i < steps; i++)
-                {
-                    runData.CurrentScopeNode = runData.CurrentScopeNode.Parent;
-                    runData.CurrentScopeLevel--;
-                }
+                runData.LowerScopeTo(statementScopeLevel);
             }
         }
 

@@ -18,6 +18,6 @@ namespace DFD
         }
         public Color Color { get => Color.Aqua; }
         public IGraphEntity Parent { get; set; }
-        public ICollection<IGraphEntity> Children { get; set; }
+        public ICollection<IGraphEntity> Children { get; set; } = new List<IGraphEntity>();
     }
 }
