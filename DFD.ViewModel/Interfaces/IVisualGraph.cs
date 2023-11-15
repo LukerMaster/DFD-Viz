@@ -2,5 +2,5 @@
 
 public interface IVisualGraph
 {
-    IGraphSymbol GraphRoot { get; set; }
+    IVisualGraphEntity VisualGraphRoot { get; set; }
 }

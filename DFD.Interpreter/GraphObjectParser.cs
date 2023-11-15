@@ -36,7 +36,19 @@ internal class GraphObjectParser
 
     private static IList<string> SplitByWhitespace(string line)
     {
-        return Regex.Split(line, @"\s+").Where(s => s != string.Empty).ToList();
+        Regex regex = new Regex(@"(?:[^\s""]+|""[^""]*"")+", RegexOptions.Compiled);
+
+        // Extract matches
+        MatchCollection matches = regex.Matches(line);
+
+        // Convert matches to string array
+        string[] result = new string[matches.Count];
+        for (int i = 0; i < matches.Count; i++)
+        {
+            result[i] = matches[i].Value;
+        }
+
+        return result;
     }
 
     public IFlow? TryParseFlow(string statement, IGraphEntity currentParent)

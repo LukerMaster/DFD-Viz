@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DFD.Model.Interfaces
 {
-    public interface IDiagram
+    public interface IGraph
     {
         public ICollection<IGraphEntity> Entities { get; }
         public ICollection<IFlow> Flows { get; }

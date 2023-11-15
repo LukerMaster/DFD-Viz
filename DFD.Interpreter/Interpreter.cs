@@ -33,7 +33,7 @@ namespace DFD.Interpreter
         private readonly CodeSanitizer codeSanitizer = new CodeSanitizer();
         private readonly GraphObjectParser objectParser = new GraphObjectParser();
 
-        public IDiagram ToDiagram(string dfdString)
+        public IGraph ToDiagram(string dfdString)
         {
             var preparedString = codeSanitizer.StripCommentsAndBlankLines(dfdString);
             var entities = new List<IGraphEntity>();
@@ -78,7 +78,7 @@ namespace DFD.Interpreter
                 throw new InvalidStatementException(statement);
             }
 
-            return new Diagram(entities, flows);
+            return new Graph(entities, flows);
         }
 
         private void SetCorrectScopeLevel(ParserRunData runData, string statement)

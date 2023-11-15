@@ -13,21 +13,21 @@ class Program
     {
         Interpreter interpreter = new Interpreter();
 
-        var dfdString = File.ReadAllText("disambiguouation.dfd");
+        var dfdString = File.ReadAllText("documentation.dfd");
 
-        IDiagram diagram = interpreter.ToDiagram(dfdString);
+        IGraph graph = interpreter.ToDiagram(dfdString);
 
-        foreach (var entity in diagram.Entities)
+        foreach (var entity in graph.Entities)
         {
             Console.WriteLine($"Entity {entity.FullEntityName}");
         }
 
-        foreach (var flow in diagram.Flows)
+        foreach (var flow in graph.Flows)
         {
             Console.WriteLine($"Flow {flow.Source.FullEntityName} --> {flow.Target.FullEntityName}");
         }
 
-        var dotCode = new DiagramToDotConverter().ToDot(diagram);
+        var dotCode = new DiagramToDotConverter().ToDot(graph);
 
         Console.WriteLine(dotCode);
 

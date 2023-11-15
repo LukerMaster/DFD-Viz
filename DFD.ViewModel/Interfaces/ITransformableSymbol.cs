@@ -18,10 +18,3 @@ public interface ITransformableSymbol
     Vector2 Position { get; set; }
     Vector2 Size { get; set; }
 }
-
-class TransformableSymbol : ITransformableSymbol
-{
-    public bool HasChildrenCollapsed { get; set; }
-    public Vector2 Position { get; set; }
-    public Vector2 Size { get; set; }
-}
