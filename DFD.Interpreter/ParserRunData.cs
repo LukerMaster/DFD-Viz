@@ -12,7 +12,7 @@ internal class ParserRunData
         CurrentScopeNode = new Process()
         {
             EntityName = "top",
-            DisplayedText = "System"
+            DisplayedName = "System"
         };
     }
 

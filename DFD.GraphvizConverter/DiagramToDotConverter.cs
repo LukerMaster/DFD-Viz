@@ -29,7 +29,7 @@ namespace DFD.GraphvizConverter
                 foreach (var child in node.Children)
                 {
                     code += $"subgraph {child.FullEntityName.Replace('.', '_')} \n" +
-                            $"{{ label={child.FullEntityName.Replace('.','_')} \n " +
+                            $"{{ label=\"{child.DisplayedName.Replace("\"", "\\\"")}\" \n " +
                             $"cluster=True \n";
                     code = RepresentNode(child, code);
                     code += "} \n";
