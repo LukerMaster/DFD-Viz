@@ -1,0 +1,39 @@
+Process CreateUser "Create user":
+	Process AddData "Add data"
+	Process SaveFiles "Save files"
+
+Process CreateDb "Create db":
+	Process AddData "Add data"
+	Process SaveFiles "Save files"
+
+Process CreateLogin "Create login":
+	Process AddData "Add data"
+	Process SaveFiles "Save files"
+
+Process CreatePage "Create page":
+	Process AddData "Add data"
+	Process SaveFiles "Save files"
+	AddData --> SaveFiles
+
+
+Process E "E":
+	Process A1 "A1"
+
+	Process C1 "C1":
+		Process D1 "D1"
+		Process A "A":
+			Process A1 "A1"
+
+		
+	Process C2 "C2":
+		Process C1 "C1":
+			Process D1 "D1"
+
+
+Process A "A":
+	Process A1 "A1"
+	Process C "C":
+		Process D1 "D1"
+		Process X "X":
+			Process A1 "A1"
+	top.A.A1 --> C.X.A1

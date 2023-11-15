@@ -12,6 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="diambigueuation.dfd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="example-ml.dfd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -22,6 +22,47 @@ public interface IGraphEntity
         }
     }
 
+    public IGraphEntity FindClosestMatchingLeaf(string leafEntityPath)
+    {
+        IGraphEntity candidate = null;
+
+
+        Queue<IGraphEntity> queue = new Queue<IGraphEntity>();
+        queue.Enqueue(this);
+
+        while (queue.Count > 0)
+        {
+            IGraphEntity currentNode = queue.Dequeue();
+
+            // Check if the current node contains the target value
+            if (currentNode.CanNameBeThisEntity(leafEntityPath) && currentNode.Children.Count == 0)
+            {
+                if (candidate is null)
+                    candidate = currentNode;
+                else
+                    throw new Exception("Ambiguous entity definition.");
+            }
+
+            // If we already found matching node, do not enqueue lower levels
+            // We just need to check whether there is any other node
+            // matching on THE SAME level, so we can throw ambiguity error.
+            if (candidate is null)
+            {
+                // Enqueue children for further exploration
+                foreach (IGraphEntity child in currentNode.Children)
+                {
+                    queue.Enqueue(child);
+                }
+            }
+
+        }
+
+        if (candidate is not null)
+            return candidate;
+        // Target value not found in the tree
+        throw new ArgumentException("Entity could not be found within scope.");
+    }
+
     public bool CanNameBeThisEntity(string entityName)
     {
         // Check whether two entities have matching names

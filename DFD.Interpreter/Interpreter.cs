@@ -70,12 +70,12 @@ namespace DFD.Interpreter
                 // Creation of flows.
                 if (Regexes[StatementType.FlowDeclaration].Match(statement).Success)
                 {
-                    flows.Add(objectParser.TryParseFlow(statement, entities));
+                    flows.Add(objectParser.TryParseFlow(statement, runData.CurrentScopeNode));
                     continue;
                 }
 
                 // Error if line does not match any valid statements.
-                throw new ArgumentException("Invalid statement.");
+                throw new InvalidStatementException("[DFD00] Invalid statement.");
             }
 
             return new Diagram(entities, flows);
@@ -88,6 +88,9 @@ namespace DFD.Interpreter
             {
                 runData.LowerScopeTo(statementScopeLevel);
             }
+
+            if (statementScopeLevel > runData.CurrentScopeLevel)
+                throw new Exception("[DFD02] Indentation too big out of nowhere. Did you forget ':' one line above?");
         }
 
         int GetScopeLevel(string line)
@@ -104,10 +107,12 @@ namespace DFD.Interpreter
             }
 
             if (indentations % 4 != 0)
-                throw new ArgumentException($"Wrong indentation count: {indentations}");
+                throw new ArgumentException($"[DFD01] Wrong indentation count: {indentations}.");
 
             return indentations / 4;
         }
 
     }
+
+    
 }

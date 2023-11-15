@@ -39,7 +39,7 @@ internal class GraphObjectParser
         return Regex.Split(line, @"\s+").Where(s => s != string.Empty).ToList();
     }
 
-    public IFlow? TryParseFlow(string statement, ICollection<IGraphEntity> declaredEntities)
+    public IFlow? TryParseFlow(string statement, IGraphEntity currentParent)
     {
         IFlow? flow = null;
 
@@ -55,36 +55,16 @@ internal class GraphObjectParser
 
         flow = new Flow()
         {
-            Source = FindEntityByName(entityNameA, declaredEntities),
-            Target = FindEntityByName(entityNameB, declaredEntities),
+            Source = currentParent.FindClosestMatchingLeaf(entityNameA),
+            Target = currentParent.FindClosestMatchingLeaf(entityNameB),
             DisplayedText = displayedName
         };
 
         if (flow.Source.Children.Count > 0 || flow.Target.Children.Count > 0)
-            throw new Exception(
+            throw new ProcessWithChildrenConnectedException(
                 "Cannot create flow from (or to) a process containing subprocesses. Connect it to subprocess instead.");
 
         return flow;
-    }
-
-    private IGraphEntity FindEntityByName(string EntityName, ICollection<IGraphEntity> knownEntities)
-    {
-        IGraphEntity? found = null;
-        foreach (var entity in knownEntities)
-        {
-            if (entity.CanNameBeThisEntity(EntityName))
-            {
-                if (found is null)
-                    found = entity;
-                else
-                    throw new ArgumentException("Ambiguous entity declaration.");
-            }
-        }
-
-        if (found is null)
-            throw new ArgumentException("Entity is not defined.");
-
-        return found;
     }
 
     private ISymbolicEntity CreateStandardEntity(Type type, string name, string displayedName, IGraphEntity parent)
@@ -105,6 +85,7 @@ internal class GraphObjectParser
         }
 
 
-        throw new ArgumentException($"Invalid entity type {type.Name}.");
+        throw new InvalidEntityTypeException($"Invalid entity type {type.Name}.");
     }
 }
+
