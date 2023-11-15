@@ -78,7 +78,7 @@ namespace DFD.Interpreter
                 throw new InvalidStatementException(statement);
             }
 
-            return new Graph(entities, flows);
+            return new Graph(entities.First().Root, flows);
         }
 
         private void SetCorrectScopeLevel(ParserRunData runData, string statement)

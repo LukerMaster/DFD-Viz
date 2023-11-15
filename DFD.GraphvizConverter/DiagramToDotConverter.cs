@@ -10,16 +10,6 @@ namespace DFD.GraphvizConverter
 {
     public class DiagramToDotConverter
     {
-        private IGraphEntity GetRoot(IGraph graph)
-        {
-            IGraphEntity Root = graph.Entities.First();
-            while (Root.Parent is not null)
-            {
-                Root = Root.Parent;
-            }
-            return Root;
-        }
-
         private string RepresentNode(IGraphEntity node, string code, bool useDisplayNames = false)
         {
             foreach (var child in node.Children)
@@ -47,7 +37,7 @@ namespace DFD.GraphvizConverter
         public string ToDot(IGraph graph)
         {
             string code = "digraph { ";
-            code = RepresentNode(GetRoot(graph), code);
+            code = RepresentNode(graph.Root, code);
             foreach (var flow in graph.Flows)
             {
                 code += $"{flow.Source.FullEntityName.Replace('.', '_')} -> {flow.Target.FullEntityName.Replace('.', '_')}; \n";

@@ -23,6 +23,19 @@ public interface IGraphEntity
         }
     }
 
+    public IGraphEntity Root
+    {
+        get
+        {
+            IGraphEntity? root = this;
+            while (root.Parent is not null)
+            {
+                root = root.Parent;
+            }
+            return root;
+        }
+    }
+
     public IGraphEntity FindClosestMatchingLeaf(string leafEntityPath)
     {
         List<IGraphEntity> candidates = new();

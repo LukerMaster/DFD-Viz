@@ -17,9 +17,9 @@ class Program
 
         IGraph graph = interpreter.ToDiagram(dfdString);
 
-        foreach (var entity in graph.Entities)
+        foreach (var child in graph.Root.Children)
         {
-            Console.WriteLine($"Entity {entity.FullEntityName}");
+            Console.WriteLine($"Entity {child.FullEntityName}");
         }
 
         foreach (var flow in graph.Flows)

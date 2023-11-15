@@ -8,7 +8,7 @@ namespace DFD.Model.Interfaces
 {
     public interface IGraph
     {
-        public ICollection<IGraphEntity> Entities { get; }
+        public IGraphEntity Root { get; }
         public ICollection<IFlow> Flows { get; }
     }
 }

@@ -4,12 +4,12 @@ namespace DFD.Model;
 
 public class Graph : IGraph
 {
-    public ICollection<IGraphEntity> Entities { get; init; }
+    public IGraphEntity Root { get; init; }
     public ICollection<IFlow> Flows { get; }
 
-    public Graph(ICollection<IGraphEntity> entities, ICollection<IFlow> flows)
+    public Graph(IGraphEntity root, ICollection<IFlow> flows)
     {
-        Entities = entities;
+        Root = root;
         Flows = flows;
     }
 }
