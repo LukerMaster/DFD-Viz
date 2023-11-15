@@ -8,11 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DFD.GraphvizConverter\DFD.GraphvizConverter.csproj" />
     <ProjectReference Include="..\DFD.Interpreter\DFD.Interpreter.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="diambigueuation.dfd">
+    <None Update="disambiguouation.dfd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="example-ml.dfd">

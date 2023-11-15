@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Numerics;
 
-namespace DFD.Model.Interfaces;
+namespace DFD.ViewModel.Interfaces;
 
 public enum DisplayType
 {

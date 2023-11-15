@@ -1,20 +1,27 @@
 Process CreateUser "Create user":
 	Process AddData "Add data"
 	Process SaveFiles "Save files"
+	AddData --> SaveFiles
 
 Process CreateDb "Create db":
 	Process AddData "Add data"
 	Process SaveFiles "Save files"
+	AddData --> SaveFiles
 
 Process CreateLogin "Create login":
 	Process AddData "Add data"
 	Process SaveFiles "Save files"
+	AddData --> SaveFiles
 
 Process CreatePage "Create page":
 	Process AddData "Add data"
 	Process SaveFiles "Save files"
 	AddData --> SaveFiles
 
+CreateDb.SaveFiles --> CreateUser.AddData
+CreateUser.SaveFiles --> CreateLogin.AddData
+CreateLogin.SaveFiles --> CreatePage.AddData
+CreateDb.AddData --> CreatePage.SaveFiles
 
 Process E "E":
 	Process A1 "A1"
@@ -28,7 +35,7 @@ Process E "E":
 	Process C2 "C2":
 		Process C1 "C1":
 			Process D1 "D1"
-	A1 --> D1
+	A1 --> X.C1.D1
 
 Process A "A":
 	Process A1 "A1"

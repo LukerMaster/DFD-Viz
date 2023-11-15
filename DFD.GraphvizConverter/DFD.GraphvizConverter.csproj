@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DFD.ViewModel\DFD.ViewModel.csproj" />
+  </ItemGroup>
+
 </Project>
