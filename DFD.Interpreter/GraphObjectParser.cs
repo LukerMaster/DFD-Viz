@@ -79,17 +79,17 @@ internal class GraphObjectParser
     {
         if (type == typeof(Process))
         {
-            return new Process() { EntityName = name, DisplayedText = displayedName, Parent = parent };
+            return new Process() { EntityName = name, DisplayedName = displayedName, Parent = parent };
         }
 
         if (type == typeof(Storage))
         {
-            return new InputOutput() { EntityName = name, DisplayedText = displayedName, Parent = parent };
+            return new InputOutput() { EntityName = name, DisplayedName = displayedName, Parent = parent };
         }
 
         if (type == typeof(InputOutput))
         {
-            return new Storage() { EntityName = name, DisplayedText = displayedName, Parent = parent };
+            return new Storage() { EntityName = name, DisplayedName = displayedName, Parent = parent };
         }
 
 

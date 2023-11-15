@@ -14,14 +14,14 @@ public enum DisplayType
 
 public interface ITransformableSymbol
 {
-    bool IsVisible { get; set; }
+    bool HasChildrenCollapsed { get; set; }
     Vector2 Position { get; set; }
     Vector2 Size { get; set; }
 }
 
 class TransformableSymbol : ITransformableSymbol
 {
-    public bool IsVisible { get; set; }
+    public bool HasChildrenCollapsed { get; set; }
     public Vector2 Position { get; set; }
     public Vector2 Size { get; set; }
 }

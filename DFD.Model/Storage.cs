@@ -11,7 +11,7 @@ namespace DFD
     public class Storage : IGraphEntity
     {
         public string EntityName { get; init; }
-        public string DisplayedText { get; init; }
+        public string DisplayedName { get; set; }
         public IGraphEntity Parent { get; set; }
         public ICollection<IGraphEntity> Children { get; set; } = new List<IGraphEntity>();
     }
