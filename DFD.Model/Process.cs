@@ -8,15 +8,10 @@ using DFD.Model.Interfaces;
 
 namespace DFD
 {
-    public class Process : ISymbolicEntity
+    public class Process : IGraphEntity
     {
         public string EntityName { get; init; }
         public string DisplayedText { get; init; }
-        public DisplayType DisplayType
-        {
-            get => DisplayType.Rectangle;
-        }
-        public Color Color { get => Color.LightCyan; }
         public IGraphEntity Parent { get; set; }
         public ICollection<IGraphEntity> Children { get; set; } = new List<IGraphEntity>();
 

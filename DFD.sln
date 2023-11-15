@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFD.Vizualizer", "DFD.Vizua
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFD.GraphvizConverter", "DFD.GraphvizConverter\DFD.GraphvizConverter.csproj", "{8C571271-B20C-4F35-BF13-D4A2679727A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFD.ViewModel", "DFD.ViewModel\DFD.ViewModel.csproj", "{017768D7-D228-4EBF-8768-5D6313B7F181}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8C571271-B20C-4F35-BF13-D4A2679727A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C571271-B20C-4F35-BF13-D4A2679727A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C571271-B20C-4F35-BF13-D4A2679727A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{017768D7-D228-4EBF-8768-5D6313B7F181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{017768D7-D228-4EBF-8768-5D6313B7F181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{017768D7-D228-4EBF-8768-5D6313B7F181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{017768D7-D228-4EBF-8768-5D6313B7F181}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

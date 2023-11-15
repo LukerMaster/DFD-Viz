@@ -75,7 +75,7 @@ internal class GraphObjectParser
         return flow;
     }
 
-    private ISymbolicEntity CreateStandardEntity(Type type, string name, string displayedName, IGraphEntity parent)
+    private IGraphEntity CreateStandardEntity(Type type, string name, string displayedName, IGraphEntity parent)
     {
         if (type == typeof(Process))
         {
