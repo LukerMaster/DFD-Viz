@@ -29,8 +29,8 @@ SomeProcess <-> Db "Exchange of connection keys"
 # Do NOT however place # after a statement on the same line.
 
 # To make multi-level diagrams you define processes with subprocesses inside.
-# All it takes is adding colon ':' at the end of process declaration
-# And writing processes in indented scopes.
+# Just add colon ':' at the end of process declaration
+# And write processes in an indented scope.
 Process AdvancedProcess "Advanced Process":
 	Process SubProcessA "Sub-Process A"
 	Process SubProcessB "Sub-Process B"
@@ -46,7 +46,7 @@ Process AdvancedProcess "Advanced Process":
 # is somewhere higher up (less indented) - Breath-first search is utilized here.
 
 # Allowed:
-#Process A "A":
+# Process A "A":
 #	Process B "B"
 #	Process C "C":
 #		Process C1 "C1"
