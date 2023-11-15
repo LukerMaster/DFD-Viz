@@ -4,6 +4,8 @@ namespace DFD.ViewModel
 {
     public class GraphSymbol
     {
-        private IGraphEntity Entity;
+        public IGraphEntity Entity;
+
+        public IVisualSymbol VisualSymbol;
     }
 }
