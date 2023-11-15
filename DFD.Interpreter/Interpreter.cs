@@ -75,7 +75,7 @@ namespace DFD.Interpreter
                 }
 
                 // Error if line does not match any valid statements.
-                throw new InvalidStatementException("[DFD00] Invalid statement.");
+                throw new InvalidStatementException(statement);
             }
 
             return new Diagram(entities, flows);
@@ -90,7 +90,7 @@ namespace DFD.Interpreter
             }
 
             if (statementScopeLevel > runData.CurrentScopeLevel)
-                throw new Exception("[DFD02] Indentation too big out of nowhere. Did you forget ':' one line above?");
+                throw new IndentationTooBigException(runData.CurrentScopeLevel, statementScopeLevel);
         }
 
         int GetScopeLevel(string line)
@@ -107,7 +107,7 @@ namespace DFD.Interpreter
             }
 
             if (indentations % 4 != 0)
-                throw new ArgumentException($"[DFD01] Wrong indentation count: {indentations}.");
+                throw new IndentationWrongException(indentations);
 
             return indentations / 4;
         }

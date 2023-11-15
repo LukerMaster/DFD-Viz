@@ -18,9 +18,9 @@ Process CreatePage "Create page":
 
 Process E "E":
 	Process A1 "A1"
-
-	Process C1 "C1":
-		Process D1 "D1"
+	Process X "X":
+		Process C1 "C1":
+			Process D1 "D1"
 		Process A "A":
 			Process A1 "A1"
 
@@ -28,7 +28,7 @@ Process E "E":
 	Process C2 "C2":
 		Process C1 "C1":
 			Process D1 "D1"
-
+	A1 --> D1
 
 Process A "A":
 	Process A1 "A1"
@@ -36,4 +36,4 @@ Process A "A":
 		Process D1 "D1"
 		Process X "X":
 			Process A1 "A1"
-	top.A.A1 --> C.X.A1
+	

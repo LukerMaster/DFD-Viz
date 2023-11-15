@@ -53,16 +53,24 @@ internal class GraphObjectParser
         if (definition.Count > 3)
             displayedName = definition[3];
 
-        flow = new Flow()
+        try
         {
-            Source = currentParent.FindClosestMatchingLeaf(entityNameA),
-            Target = currentParent.FindClosestMatchingLeaf(entityNameB),
-            DisplayedText = displayedName
-        };
+            flow = new Flow()
+            {
+                Source = currentParent.FindClosestMatchingLeaf(entityNameA),
+                Target = currentParent.FindClosestMatchingLeaf(entityNameB),
+                DisplayedText = displayedName
+            };
+        }
+        catch (AmbiguousEntityMatchException e)
+        {
+            throw new FlowWithAmbiguousEntityException(e.EntityName, e.Candidates);
+        }
 
-        if (flow.Source.Children.Count > 0 || flow.Target.Children.Count > 0)
-            throw new ProcessWithChildrenConnectedException(
-                "Cannot create flow from (or to) a process containing subprocesses. Connect it to subprocess instead.");
+        if (flow.Source.Children.Count > 0)
+            throw new ProcessWithChildrenConnectedException(flow.Source);
+        if (flow.Target.Children.Count > 0)
+            throw new ProcessWithChildrenConnectedException(flow.Target);
 
         return flow;
     }
@@ -85,7 +93,7 @@ internal class GraphObjectParser
         }
 
 
-        throw new InvalidEntityTypeException($"Invalid entity type {type.Name}.");
+        throw new InvalidEntityTypeException(type.Name);
     }
 }
 

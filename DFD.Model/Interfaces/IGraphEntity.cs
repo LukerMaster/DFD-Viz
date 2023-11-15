@@ -24,7 +24,7 @@ public interface IGraphEntity
 
     public IGraphEntity FindClosestMatchingLeaf(string leafEntityPath)
     {
-        IGraphEntity candidate = null;
+        List<IGraphEntity> candidates = new();
 
 
         Queue<IGraphEntity> queue = new Queue<IGraphEntity>();
@@ -37,16 +37,13 @@ public interface IGraphEntity
             // Check if the current node contains the target value
             if (currentNode.CanNameBeThisEntity(leafEntityPath) && currentNode.Children.Count == 0)
             {
-                if (candidate is null)
-                    candidate = currentNode;
-                else
-                    throw new Exception("Ambiguous entity definition.");
+                candidates.Add(currentNode);
             }
 
             // If we already found matching node, do not enqueue lower levels
             // We just need to check whether there is any other node
             // matching on THE SAME level, so we can throw ambiguity error.
-            if (candidate is null)
+            if (candidates.Count == 0)
             {
                 // Enqueue children for further exploration
                 foreach (IGraphEntity child in currentNode.Children)
@@ -57,10 +54,12 @@ public interface IGraphEntity
 
         }
 
-        if (candidate is not null)
-            return candidate;
+        if (candidates.Count == 1)
+            return candidates[0];
+        if (candidates.Count > 1)
+            throw new AmbiguousEntityMatchException(leafEntityPath, candidates.ToArray());
         // Target value not found in the tree
-        throw new ArgumentException("Entity could not be found within scope.");
+        throw new EntityNotFoundException("Entity could not be found within scope.");
     }
 
     public bool CanNameBeThisEntity(string entityName)
@@ -89,5 +88,24 @@ public interface IGraphEntity
                 return false;
         }
         return true;
+    }
+}
+
+public class EntityNotFoundException : Exception
+{
+    public EntityNotFoundException(string message) : base(message)
+    {
+        
+    }
+}
+
+public class AmbiguousEntityMatchException : Exception
+{
+    public string EntityName { get; }
+    public IGraphEntity[] Candidates { get; }
+    public AmbiguousEntityMatchException(string entityName, params IGraphEntity[] candidates)
+    {
+        EntityName = entityName;
+        Candidates = candidates;
     }
 }
