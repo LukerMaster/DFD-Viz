@@ -1,6 +1,6 @@
 ﻿using DataStructure.NamedTree;
-using DFD.Interpreter.ModelImplementations;
 using DFD.Model.Interfaces;
+using DFD.ModelImplementations;
 
 namespace DFD.Interpreter;
 

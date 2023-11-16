@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
 using DataStructure.NamedTree;
-using DFD.Interpreter.ModelImplementations;
 using DFD.Model;
 using DFD.Model.Interfaces;
+using DFD.ModelImplementations;
 
 namespace DFD.Interpreter;
 
@@ -69,9 +69,9 @@ internal class GraphObjectParser
         var flowType = definition[1]; // TODO: do something with this value.
         var entityNameB = definition[2];
 
-        var displayedName = String.Empty;
+        var flowName = String.Empty;
         if (definition.Count > 3)
-            displayedName = definition[3];
+            flowName = definition[3];
 
         try
         {
@@ -79,7 +79,8 @@ internal class GraphObjectParser
             {
                 Source = currentParent.FindClosestMatchingLeaf(entityNameA),
                 Target = currentParent.FindClosestMatchingLeaf(entityNameB),
-                DisplayedText = displayedName
+                FlowName = flowName,
+                BiDirectional = flowType == "<->"
             };
         }
         catch (AmbiguousEntityMatchException<T> e)

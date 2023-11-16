@@ -8,7 +8,7 @@ using DataStructure.NamedTree;
 using DFD.Model;
 using DFD.Model.Interfaces;
 
-namespace DFD
+namespace DFD.ModelImplementations
 {
     public class TreeNode<T> : ITreeNode<T>
     {

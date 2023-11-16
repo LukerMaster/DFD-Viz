@@ -5,8 +5,8 @@ using System.Reflection.Emit;
 using System.Text;
 using DFD.GraphvizConverter;
 using DFD.Interpreter;
-using DFD.Interpreter.ModelImplementations;
 using DFD.Model.Interfaces;
+using DFD.ModelImplementations;
 
 class Program
 {

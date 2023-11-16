@@ -7,12 +7,13 @@ using DataStructure.NamedTree;
 using DFD.Model;
 using DFD.Model.Interfaces;
 
-namespace DFD
+namespace DFD.ModelImplementations
 {
     public class Flow<T> : IFlow<T>
     {
         public ITreeNode<T> Source { get; init; }
         public ITreeNode<T> Target { get; init; }
-        public string DisplayedText { get; init; }
+        public bool BiDirectional { get; init; }
+        public string FlowName { get; init; }
     }
 }

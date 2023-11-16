@@ -1,7 +1,7 @@
 ﻿using DataStructure.NamedTree;
 using DFD.Model.Interfaces;
 
-namespace DFD.Model;
+namespace DFD.ModelImplementations;
 
 public class Graph<T> : IGraph<T>
 {

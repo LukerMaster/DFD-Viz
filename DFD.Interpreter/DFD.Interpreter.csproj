@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DataStructure.NamedTree\DataStructure.NamedTree.csproj" />
+    <ProjectReference Include="..\DFD.ModelImplementations\DFD.ModelImplementations.csproj" />
     <ProjectReference Include="..\DFD.Model\DFD.Model.csproj" />
   </ItemGroup>
 

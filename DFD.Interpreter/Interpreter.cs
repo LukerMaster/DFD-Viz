@@ -1,9 +1,9 @@
 ﻿using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
 using DataStructure.NamedTree;
-using DFD.Interpreter.ModelImplementations;
 using DFD.Model;
 using DFD.Model.Interfaces;
+using DFD.ModelImplementations;
 
 namespace DFD.Interpreter
 {

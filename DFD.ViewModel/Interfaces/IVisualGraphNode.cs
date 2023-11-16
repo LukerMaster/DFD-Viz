@@ -12,8 +12,10 @@ public enum DisplayType
 }
 
 
-public interface ITransformableSymbol
+public interface IVisualGraphNode
 {
+    string DisplayedText { get; set; }
+    DisplayType Symbol { get; set; }
     bool HasChildrenCollapsed { get; set; }
     Vector2 Position { get; set; }
     Vector2 Size { get; set; }
