@@ -8,7 +8,7 @@ public enum DisplayType
     Rectangle,
     Circle,
     DbSymbol,
-    IOSymbol
+    IoSymbol
 }
 
 

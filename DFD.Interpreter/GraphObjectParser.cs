@@ -9,14 +9,14 @@ namespace DFD.Interpreter;
 
 internal class GraphObjectParser
 {
-    private readonly Dictionary<string, NodeType> ValidDefinitions = new()
+    private readonly Dictionary<string, NodeType> _validDefinitions = new()
     {
         { "Process", NodeType.Process },
         { "Storage", NodeType.Storage },
         { "IO", NodeType.InputOutput },
     };
 
-    public ITreeNode<GraphNodeData>? TryParseEntity(string line, ITreeNode<GraphNodeData> currentParent)
+    public ITreeNode<GraphNodeData> TryParseEntity(string line, ITreeNode<GraphNodeData> currentParent)
     {
         ITreeNode<GraphNodeData>? entity = null;
 
@@ -27,11 +27,15 @@ internal class GraphObjectParser
         var entityName = definition[1];
         var displayedName = definition[2];
 
-        if (ValidDefinitions.ContainsKey(typeName))
+        if (_validDefinitions.ContainsKey(typeName))
         {
-            var type = ValidDefinitions[typeName];
+            var type = _validDefinitions[typeName];
             entity = CreateStandardEntity(type, entityName, displayedName, currentParent);
             currentParent.Children.Add(entity);
+        }
+        else
+        {
+            throw new InvalidEntityTypeException(typeName);
         }
         
         return entity;
@@ -55,7 +59,7 @@ internal class GraphObjectParser
         return result;
     }
 
-    public IFlow<T>? TryParseFlow<T>(string statement, ITreeNode<T> currentParent)
+    public IFlow<T> TryParseFlow<T>(string statement, ITreeNode<T> currentParent)
     {
         IFlow<T>? flow = null;
 

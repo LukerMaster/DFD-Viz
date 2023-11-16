@@ -3,15 +3,15 @@ using DFD.Model.Interfaces;
 
 namespace DFD.Interpreter;
 
-internal class DFDException : Exception
+internal class DfdException : Exception
 {
-    public DFDException(string message) : base(message)
+    public DfdException(string message) : base(message)
     {
         
     }
 }
 
-internal class InvalidEntityTypeException : DFDException
+internal class InvalidEntityTypeException : DfdException
 {
     public InvalidEntityTypeException(string entityName) 
         : base($"Invalid entity type {entityName}.")
@@ -19,7 +19,7 @@ internal class InvalidEntityTypeException : DFDException
     }
 }
 
-internal class ProcessWithChildrenConnectedException<T> : DFDException
+internal class ProcessWithChildrenConnectedException<T> : DfdException
 {
     public ProcessWithChildrenConnectedException(ITreeNode<T> process) 
         : base($"Cannot create flow from (or to) a process containing subprocesses. {process.FullEntityName} contains subprocesses.")
@@ -28,7 +28,7 @@ internal class ProcessWithChildrenConnectedException<T> : DFDException
     }
 }
 
-internal class InvalidStatementException : DFDException
+internal class InvalidStatementException : DfdException
 {
     public InvalidStatementException(string statement) 
         : base($"Invalid statement: {statement}.")
@@ -36,16 +36,16 @@ internal class InvalidStatementException : DFDException
     }
 }
 
-internal class IndentationTooBigException : DFDException
+internal class IndentationTooBigException : DfdException
 {
-    public IndentationTooBigException(int _is, int _shouldBe) 
-        : base($"Indentation too big out of nowhere (is {_is}, should be {_shouldBe}. Did you forget ':' one line above?")
+    public IndentationTooBigException(int _is, int shouldBe) 
+        : base($"Indentation too big out of nowhere (is {_is}, should be {shouldBe}. Did you forget ':' one line above?")
     {
 
     }
 }
 
-internal class FlowWithAmbiguousEntityException<T> : DFDException
+internal class FlowWithAmbiguousEntityException<T> : DfdException
 {
     public FlowWithAmbiguousEntityException(string entityName, ITreeNode<T>[] candidates)
         : base($"Flow with ambiguous entity: '{entityName}' declared. Valid candidates are: {string.Join("; ", candidates.Select(c => c.FullEntityName))}")
@@ -54,7 +54,7 @@ internal class FlowWithAmbiguousEntityException<T> : DFDException
     }
 }
 
-internal class IndentationWrongException : DFDException
+internal class IndentationWrongException : DfdException
 {
     public IndentationWrongException(int indentations) 
         : base($"Wrong indentation count: {indentations}. Indentations should be divisible by 4. Each 'space' is 1. Each 'tab' is 4.")

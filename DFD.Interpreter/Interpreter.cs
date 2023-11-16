@@ -16,7 +16,7 @@ namespace DFD.Interpreter
             FlowDeclaration
         }
 
-        private readonly Dictionary<StatementType, Regex> Regexes = new()
+        private readonly Dictionary<StatementType, Regex> _regexes = new()
         {
             {
                 StatementType.SimpleEntityDeclaration,
@@ -32,12 +32,12 @@ namespace DFD.Interpreter
             }
         };
 
-        private readonly CodeSanitizer codeSanitizer = new CodeSanitizer();
-        private readonly GraphObjectParser objectParser = new GraphObjectParser();
+        private readonly CodeSanitizer _codeSanitizer = new CodeSanitizer();
+        private readonly GraphObjectParser _objectParser = new GraphObjectParser();
 
         public IGraph<GraphNodeData> ToDiagram(string dfdString)
         {
-            var preparedString = codeSanitizer.StripCommentsAndBlankLines(dfdString);
+            var preparedString = _codeSanitizer.StripCommentsAndBlankLines(dfdString);
             var entities = new List<ITreeNode<GraphNodeData>>();
             var flows = new List<IFlow<GraphNodeData>>();
 
@@ -53,26 +53,26 @@ namespace DFD.Interpreter
                 ITreeNode<GraphNodeData>? newEntity = null;
 
                 // Creation of basic entities.
-                if (Regexes[StatementType.SimpleEntityDeclaration].Match(statement).Success)
+                if (_regexes[StatementType.SimpleEntityDeclaration].Match(statement).Success)
                 {
-                    newEntity = objectParser.TryParseEntity(statement, runData.CurrentScopeNode);
+                    newEntity = _objectParser.TryParseEntity(statement, runData.CurrentScopeNode);
                     entities.Add(newEntity);
                     continue;
                 }
 
                 // Creation of nested entities.
-                if (Regexes[StatementType.NestedProcessDeclaration].Match(statement).Success)
+                if (_regexes[StatementType.NestedProcessDeclaration].Match(statement).Success)
                 {
-                    newEntity = objectParser.TryParseEntity(statement.TrimEnd(':'), runData.CurrentScopeNode);
+                    newEntity = _objectParser.TryParseEntity(statement.TrimEnd(':'), runData.CurrentScopeNode);
                     runData.RaiseScope(newEntity);
                     entities.Add(newEntity);
                     continue;
                 }
 
                 // Creation of flows.
-                if (Regexes[StatementType.FlowDeclaration].Match(statement).Success)
+                if (_regexes[StatementType.FlowDeclaration].Match(statement).Success)
                 {
-                    flows.Add(objectParser.TryParseFlow(statement, runData.CurrentScopeNode));
+                    flows.Add(_objectParser.TryParseFlow(statement, runData.CurrentScopeNode));
                     continue;
                 }
 
