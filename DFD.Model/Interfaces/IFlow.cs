@@ -1,7 +1,9 @@
-﻿namespace DFD.Model.Interfaces;
+﻿using DataStructure.NamedTree;
 
-public interface IFlow
+namespace DFD.Model.Interfaces;
+
+public interface IFlow<T>
 {
-    IGraphEntity Source { get; }
-    IGraphEntity Target { get; }
+    ITreeNode<T> Source { get; }
+    ITreeNode<T> Target { get; }
 }

@@ -1,4 +1,5 @@
-﻿using DFD.Model.Interfaces;
+﻿using DataStructure.NamedTree;
+using DFD.Model.Interfaces;
 
 namespace DFD.Interpreter;
 
@@ -18,9 +19,9 @@ internal class InvalidEntityTypeException : DFDException
     }
 }
 
-internal class ProcessWithChildrenConnectedException : DFDException
+internal class ProcessWithChildrenConnectedException<T> : DFDException
 {
-    public ProcessWithChildrenConnectedException(IGraphEntity process) 
+    public ProcessWithChildrenConnectedException(ITreeNode<T> process) 
         : base($"Cannot create flow from (or to) a process containing subprocesses. {process.FullEntityName} contains subprocesses.")
     {
 
@@ -44,9 +45,9 @@ internal class IndentationTooBigException : DFDException
     }
 }
 
-internal class FlowWithAmbiguousEntityException : DFDException
+internal class FlowWithAmbiguousEntityException<T> : DFDException
 {
-    public FlowWithAmbiguousEntityException(string entityName, IGraphEntity[] candidates)
+    public FlowWithAmbiguousEntityException(string entityName, ITreeNode<T>[] candidates)
         : base($"Flow with ambiguous entity: '{entityName}' declared. Valid candidates are: {string.Join("; ", candidates.Select(c => c.FullEntityName))}")
     {
 

@@ -1,20 +1,24 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
+using DataStructure.NamedTree;
+using DFD.Interpreter.ModelImplementations;
+using DFD.Model;
 using DFD.Model.Interfaces;
 
 namespace DFD.Interpreter;
 
 internal class GraphObjectParser
 {
-    private readonly Dictionary<string, Type> ValidDefinitions = new()
+    private readonly Dictionary<string, NodeType> ValidDefinitions = new()
     {
-        { "Process", typeof(Process) },
-        { "Storage", typeof(Storage) },
-        { "IO", typeof(InputOutput) },
+        { "Process", NodeType.Process },
+        { "Storage", NodeType.Storage },
+        { "IO", NodeType.InputOutput },
     };
 
-    public IGraphEntity? TryParseEntity(string line, IGraphEntity currentParent)
+    public ITreeNode<GraphNodeData>? TryParseEntity(string line, ITreeNode<GraphNodeData> currentParent)
     {
-        IGraphEntity? entity = null;
+        ITreeNode<GraphNodeData>? entity = null;
 
         // Split by any amount of whitespace
         var definition = SplitByWhitespace(line);
@@ -51,9 +55,9 @@ internal class GraphObjectParser
         return result;
     }
 
-    public IFlow? TryParseFlow(string statement, IGraphEntity currentParent)
+    public IFlow<T>? TryParseFlow<T>(string statement, ITreeNode<T> currentParent)
     {
-        IFlow? flow = null;
+        IFlow<T>? flow = null;
 
         var definition = SplitByWhitespace(statement);
 
@@ -67,45 +71,54 @@ internal class GraphObjectParser
 
         try
         {
-            flow = new Flow()
+            flow = new Flow<T>()
             {
                 Source = currentParent.FindClosestMatchingLeaf(entityNameA),
                 Target = currentParent.FindClosestMatchingLeaf(entityNameB),
                 DisplayedText = displayedName
             };
         }
-        catch (AmbiguousEntityMatchException e)
+        catch (AmbiguousEntityMatchException<T> e)
         {
-            throw new FlowWithAmbiguousEntityException(e.EntityName, e.Candidates);
+            throw new FlowWithAmbiguousEntityException<T>(e.EntityName, e.Candidates);
         }
 
         if (flow.Source.Children.Count > 0)
-            throw new ProcessWithChildrenConnectedException(flow.Source);
+            throw new ProcessWithChildrenConnectedException<T>(flow.Source);
         if (flow.Target.Children.Count > 0)
-            throw new ProcessWithChildrenConnectedException(flow.Target);
+            throw new ProcessWithChildrenConnectedException<T>(flow.Target);
 
         return flow;
     }
 
-    private IGraphEntity CreateStandardEntity(Type type, string name, string displayedName, IGraphEntity parent)
+    private ITreeNode<GraphNodeData> CreateStandardEntity(NodeType type, string name, string displayedName, ITreeNode<GraphNodeData> parent)
     {
-        if (type == typeof(Process))
+        GraphNodeData? data = null;
+
+        if (type == NodeType.Process)
         {
-            return new Process() { EntityName = name, DisplayedName = displayedName.Trim('"'), Parent = parent };
+            data = new GraphNodeData() { Name = displayedName.Trim('"'), Type = NodeType.Process };
         }
 
-        if (type == typeof(Storage))
+        if (type == NodeType.Storage)
         {
-            return new InputOutput() { EntityName = name, DisplayedName = displayedName.Trim('"'), Parent = parent };
+            data = new GraphNodeData() { Name = displayedName.Trim('"'), Type = NodeType.Storage };
         }
 
-        if (type == typeof(InputOutput))
+        if (type == NodeType.InputOutput)
         {
-            return new Storage() { EntityName = name, DisplayedName = displayedName.Trim('"'), Parent = parent };
+            data = new GraphNodeData() { Name = displayedName.Trim('"'), Type = NodeType.InputOutput };
         }
 
+        if (data == null)
+            throw new InvalidEntityTypeException(type.ToString());
 
-        throw new InvalidEntityTypeException(type.Name);
+        return new TreeNode<GraphNodeData>() 
+        { 
+            EntityName = name,
+            Data = data, 
+            Parent = parent
+        };
     }
 }
 

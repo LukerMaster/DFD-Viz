@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataStructure.NamedTree;
 
 namespace DFD.Model.Interfaces
 {
-    public interface IGraph
+    public interface IGraph<T>
     {
-        public IGraphEntity Root { get; }
-        public ICollection<IFlow> Flows { get; }
+        public ITreeNode<T> Root { get; }
+        public ICollection<IFlow<T>> Flows { get; }
     }
 }

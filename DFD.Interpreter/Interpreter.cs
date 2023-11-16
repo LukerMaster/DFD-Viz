@@ -1,5 +1,7 @@
 ﻿using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
+using DataStructure.NamedTree;
+using DFD.Interpreter.ModelImplementations;
 using DFD.Model;
 using DFD.Model.Interfaces;
 
@@ -33,11 +35,11 @@ namespace DFD.Interpreter
         private readonly CodeSanitizer codeSanitizer = new CodeSanitizer();
         private readonly GraphObjectParser objectParser = new GraphObjectParser();
 
-        public IGraph ToDiagram(string dfdString)
+        public IGraph<GraphNodeData> ToDiagram(string dfdString)
         {
             var preparedString = codeSanitizer.StripCommentsAndBlankLines(dfdString);
-            var entities = new List<IGraphEntity>();
-            var flows = new List<IFlow>();
+            var entities = new List<ITreeNode<GraphNodeData>>();
+            var flows = new List<IFlow<GraphNodeData>>();
 
             ParserRunData runData = new ParserRunData();
 
@@ -48,7 +50,7 @@ namespace DFD.Interpreter
                 // Setting a correct scope for the statement (correct Parent).
                 SetCorrectScopeLevel(runData, statement);
 
-                IGraphEntity? newEntity = null;
+                ITreeNode<GraphNodeData>? newEntity = null;
 
                 // Creation of basic entities.
                 if (Regexes[StatementType.SimpleEntityDeclaration].Match(statement).Success)
@@ -78,7 +80,7 @@ namespace DFD.Interpreter
                 throw new InvalidStatementException(statement);
             }
 
-            return new Graph(entities.First().Root, flows);
+            return new Graph<GraphNodeData>(entities.First().Root, flows);
         }
 
         private void SetCorrectScopeLevel(ParserRunData runData, string statement)

@@ -1,13 +1,14 @@
-﻿using DFD.Model.Interfaces;
+﻿using DataStructure.NamedTree;
+using DFD.Model.Interfaces;
 
 namespace DFD.Model;
 
-public class Graph : IGraph
+public class Graph<T> : IGraph<T>
 {
-    public IGraphEntity Root { get; init; }
-    public ICollection<IFlow> Flows { get; }
+    public ITreeNode<T> Root { get; init; }
+    public ICollection<IFlow<T>> Flows { get; }
 
-    public Graph(IGraphEntity root, ICollection<IFlow> flows)
+    public Graph(ITreeNode<T> root, ICollection<IFlow<T>> flows)
     {
         Root = root;
         Flows = flows;

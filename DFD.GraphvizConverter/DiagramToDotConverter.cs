@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataStructure.NamedTree;
 using DFD.Model;
 using DFD.Model.Interfaces;
 
@@ -10,7 +11,7 @@ namespace DFD.GraphvizConverter
 {
     public class DiagramToDotConverter
     {
-        private string RepresentNode(IGraphEntity node, string code, bool useDisplayNames = false)
+        private string RepresentNode<T>(ITreeNode<T> node, string code, bool useDisplayNames = false)
         {
             foreach (var child in node.Children)
             {
@@ -34,7 +35,7 @@ namespace DFD.GraphvizConverter
             return code;
         }
 
-        public string ToDot(IGraph graph)
+        public string ToDot<T>(IGraph<T> graph)
         {
             string code = "digraph { ";
             code = RepresentNode(graph.Root, code);

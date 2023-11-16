@@ -9,11 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.Interpreter", "DFD.Inte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.Model", "DFD.Model\DFD.Model.csproj", "{0F47A0FE-673F-40B8-97EB-BDD4E9E78470}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFD.Vizualizer", "DFD.Vizualizer\DFD.Vizualizer.csproj", "{A0AAED23-F005-4A1F-A8F8-46209E915019}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.Vizualizer", "DFD.Vizualizer\DFD.Vizualizer.csproj", "{A0AAED23-F005-4A1F-A8F8-46209E915019}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFD.GraphvizConverter", "DFD.GraphvizConverter\DFD.GraphvizConverter.csproj", "{8C571271-B20C-4F35-BF13-D4A2679727A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.GraphvizConverter", "DFD.GraphvizConverter\DFD.GraphvizConverter.csproj", "{8C571271-B20C-4F35-BF13-D4A2679727A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFD.ViewModel", "DFD.ViewModel\DFD.ViewModel.csproj", "{017768D7-D228-4EBF-8768-5D6313B7F181}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.ViewModel", "DFD.ViewModel\DFD.ViewModel.csproj", "{017768D7-D228-4EBF-8768-5D6313B7F181}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructure.NamedTree", "DataStructure.NamedTree\DataStructure.NamedTree.csproj", "{3E7D7464-F60D-4CD8-B4B0-31B4C2B1D950}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{017768D7-D228-4EBF-8768-5D6313B7F181}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{017768D7-D228-4EBF-8768-5D6313B7F181}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{017768D7-D228-4EBF-8768-5D6313B7F181}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E7D7464-F60D-4CD8-B4B0-31B4C2B1D950}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E7D7464-F60D-4CD8-B4B0-31B4C2B1D950}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E7D7464-F60D-4CD8-B4B0-31B4C2B1D950}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E7D7464-F60D-4CD8-B4B0-31B4C2B1D950}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

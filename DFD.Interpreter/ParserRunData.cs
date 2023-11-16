@@ -1,22 +1,28 @@
-﻿using DFD.Model.Interfaces;
+﻿using DataStructure.NamedTree;
+using DFD.Interpreter.ModelImplementations;
+using DFD.Model.Interfaces;
 
 namespace DFD.Interpreter;
 
 internal class ParserRunData
 {
-    public IGraphEntity CurrentScopeNode { get; set; }
+    public ITreeNode<GraphNodeData> CurrentScopeNode { get; set; }
     public int CurrentScopeLevel { get; set; }
 
     public ParserRunData()
     {
-        CurrentScopeNode = new Process()
+        CurrentScopeNode = new TreeNode<GraphNodeData>()
         {
             EntityName = "top",
-            DisplayedName = "System"
+            Data = new GraphNodeData()
+            {
+                Name = "System",
+                Type = NodeType.Process
+            }
         };
     }
 
-    public void RaiseScope(IGraphEntity newChild)
+    public void RaiseScope(ITreeNode<GraphNodeData> newChild)
     {
         CurrentScopeNode = newChild;
         CurrentScopeLevel++;

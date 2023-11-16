@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
+﻿namespace DataStructure.NamedTree;
 
-namespace DFD.Model.Interfaces;
-
-public interface IGraphEntity
+public interface ITreeNode<T>
 {
-    IGraphEntity? Parent { get; set; }
-    ICollection<IGraphEntity> Children { get; set; }
-    public string DisplayedName { get; set; }
+    ITreeNode<T>? Parent { get; set; }
+    ICollection<ITreeNode<T>> Children { get; set; }
+    public T Data { get; set; }
     public string EntityName { get; }
     public string FullEntityName
     {
@@ -23,11 +21,11 @@ public interface IGraphEntity
         }
     }
 
-    public IGraphEntity Root
+    public ITreeNode<T> Root
     {
         get
         {
-            IGraphEntity? root = this;
+            ITreeNode<T>? root = this;
             while (root.Parent is not null)
             {
                 root = root.Parent;
@@ -36,17 +34,17 @@ public interface IGraphEntity
         }
     }
 
-    public IGraphEntity FindClosestMatchingLeaf(string leafEntityPath)
+    public ITreeNode<T> FindClosestMatchingLeaf(string leafEntityPath)
     {
-        List<IGraphEntity> candidates = new();
+        List<ITreeNode<T>> candidates = new();
 
 
-        Queue<IGraphEntity> queue = new Queue<IGraphEntity>();
+        Queue<ITreeNode<T>> queue = new Queue<ITreeNode<T>>();
         queue.Enqueue(this);
 
         while (queue.Count > 0)
         {
-            IGraphEntity currentNode = queue.Dequeue();
+            ITreeNode<T> currentNode = queue.Dequeue();
 
             // Check if the current node contains the target value
             if (currentNode.CanNameBeThisEntity(leafEntityPath) && currentNode.Children.Count == 0)
@@ -60,7 +58,7 @@ public interface IGraphEntity
             if (candidates.Count == 0)
             {
                 // Enqueue children for further exploration
-                foreach (IGraphEntity child in currentNode.Children)
+                foreach (ITreeNode<T> child in currentNode.Children)
                 {
                     queue.Enqueue(child);
                 }
@@ -71,7 +69,7 @@ public interface IGraphEntity
         if (candidates.Count == 1)
             return candidates[0];
         if (candidates.Count > 1)
-            throw new AmbiguousEntityMatchException(leafEntityPath, candidates.ToArray());
+            throw new AmbiguousEntityMatchException<T>(leafEntityPath, candidates.ToArray());
         // Target value not found in the tree
         throw new EntityNotFoundException("Entity could not be found within scope.");
     }

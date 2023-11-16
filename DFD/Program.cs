@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 using System.Text;
 using DFD.GraphvizConverter;
 using DFD.Interpreter;
+using DFD.Interpreter.ModelImplementations;
 using DFD.Model.Interfaces;
 
 class Program
@@ -15,7 +16,7 @@ class Program
 
         var dfdString = File.ReadAllText("documentation.dfd");
 
-        IGraph graph = interpreter.ToDiagram(dfdString);
+        IGraph<GraphNodeData> graph = interpreter.ToDiagram(dfdString);
 
         foreach (var child in graph.Root.Children)
         {
