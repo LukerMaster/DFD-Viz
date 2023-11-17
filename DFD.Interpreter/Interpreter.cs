@@ -35,11 +35,11 @@ namespace DFD.Interpreter
         private readonly CodeSanitizer _codeSanitizer = new CodeSanitizer();
         private readonly GraphObjectParser _objectParser = new GraphObjectParser();
 
-        public IGraph<GraphNodeData> ToDiagram(string dfdString)
+        public IGraph<IGraphNodeData> ToDiagram(string dfdString)
         {
             var preparedString = _codeSanitizer.StripCommentsAndBlankLines(dfdString);
-            var entities = new List<ITreeNode<GraphNodeData>>();
-            var flows = new List<IFlow<GraphNodeData>>();
+            var entities = new List<ITreeNode<IGraphNodeData>>();
+            var flows = new List<IFlow<IGraphNodeData>>();
 
             ParserRunData runData = new ParserRunData();
 
@@ -50,7 +50,7 @@ namespace DFD.Interpreter
                 // Setting a correct scope for the statement (correct Parent).
                 SetCorrectScopeLevel(runData, statement);
 
-                ITreeNode<GraphNodeData>? newEntity = null;
+                ITreeNode<IGraphNodeData>? newEntity = null;
 
                 // Creation of basic entities.
                 if (_regexes[StatementType.SimpleEntityDeclaration].Match(statement).Success)
@@ -80,7 +80,7 @@ namespace DFD.Interpreter
                 throw new InvalidStatementException(statement);
             }
 
-            return new Graph<GraphNodeData>(entities.First().Root, flows);
+            return new Graph<IGraphNodeData>(entities.First().Root, flows);
         }
 
         private void SetCorrectScopeLevel(ParserRunData runData, string statement)

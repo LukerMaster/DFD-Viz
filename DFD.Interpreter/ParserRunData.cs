@@ -6,12 +6,12 @@ namespace DFD.Interpreter;
 
 internal class ParserRunData
 {
-    public ITreeNode<GraphNodeData> CurrentScopeNode { get; set; }
+    public ITreeNode<IGraphNodeData> CurrentScopeNode { get; set; }
     public int CurrentScopeLevel { get; set; }
 
     public ParserRunData()
     {
-        CurrentScopeNode = new TreeNode<GraphNodeData>()
+        CurrentScopeNode = new TreeNode<IGraphNodeData>()
         {
             EntityName = "top",
             Data = new GraphNodeData()
@@ -22,7 +22,7 @@ internal class ParserRunData
         };
     }
 
-    public void RaiseScope(ITreeNode<GraphNodeData> newChild)
+    public void RaiseScope(ITreeNode<IGraphNodeData> newChild)
     {
         CurrentScopeNode = newChild;
         CurrentScopeLevel++;

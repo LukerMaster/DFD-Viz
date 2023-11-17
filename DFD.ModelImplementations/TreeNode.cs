@@ -12,9 +12,9 @@ namespace DFD.ModelImplementations
 {
     public class TreeNode<T> : ITreeNode<T>
     {
-        public string EntityName { get; init; }
+        public string EntityName { get; set; }
         public T Data { get; set; }
-        public ITreeNode<T> Parent { get; set; }
+        public ITreeNode<T>? Parent { get; set; }
         public ICollection<ITreeNode<T>> Children { get; set; } = new List<ITreeNode<T>>();
 
     }

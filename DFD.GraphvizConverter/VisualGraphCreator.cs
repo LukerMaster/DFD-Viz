@@ -8,23 +8,30 @@ namespace DFD.GraphvizConverter
 {
     public class VisualGraphCreator
     {
-        public ITreeNode<IGraphNodeData> ConvertToCollapsableGraph(ITreeNode<IGraphNodeData> root)
+        private DiagramToDotConverter dotConverter = new DiagramToDotConverter();
+
+        private GraphvizRunner runner = new GraphvizRunner();
+
+        public IGraph<IVisualGraphNode>? GetVisualGraph(IGraph<IGraphNodeData> codeGraph)
         {
-            var newRoot = new TreeNode<ICollapsableGraphNode>()
-            {
-                Children = root.Children,
-                Data = new CollapsableGraphNode()
+
+
+            IGraph<ICollapsableGraphNode> multilevelGraph =
+                codeGraph.ConvertTo<ICollapsableGraphNode,
+                    TreeNode<ICollapsableGraphNode>,
+                    Flow<ICollapsableGraphNode>,
+                    Graph<ICollapsableGraphNode>>(data => new CollapsableGraphNode()
                 {
-                    Data = root.Data,
                     ChildrenCollapsed = false,
-                },
-                EntityName = root.EntityName,
-                Parent = root.Parent,
-            };
-            foreach (var child in root.Children)
-            {
-                
-            }
+                    Data = data
+                });
+
+            string dotCode = dotConverter.ToDot(multilevelGraph);
+
+            string json = runner.GetGraphAsJson(dotCode);
+
+            Console.WriteLine(json);
+            return null;
         }
     }
 }

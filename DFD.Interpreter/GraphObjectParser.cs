@@ -16,9 +16,9 @@ internal class GraphObjectParser
         { "IO", NodeType.InputOutput },
     };
 
-    public ITreeNode<GraphNodeData> TryParseEntity(string line, ITreeNode<GraphNodeData> currentParent)
+    public ITreeNode<IGraphNodeData> TryParseEntity(string line, ITreeNode<IGraphNodeData> currentParent)
     {
-        ITreeNode<GraphNodeData>? entity = null;
+        ITreeNode<IGraphNodeData>? entity = null;
 
         // Split by any amount of whitespace
         var definition = SplitByWhitespace(line);
@@ -96,7 +96,7 @@ internal class GraphObjectParser
         return flow;
     }
 
-    private ITreeNode<GraphNodeData> CreateStandardEntity(NodeType type, string name, string displayedName, ITreeNode<GraphNodeData> parent)
+    private ITreeNode<IGraphNodeData> CreateStandardEntity(NodeType type, string name, string displayedName, ITreeNode<IGraphNodeData> parent)
     {
         GraphNodeData? data = null;
 
@@ -118,7 +118,7 @@ internal class GraphObjectParser
         if (data == null)
             throw new InvalidEntityTypeException(type.ToString());
 
-        return new TreeNode<GraphNodeData>() 
+        return new TreeNode<IGraphNodeData>() 
         { 
             EntityName = name,
             Data = data, 

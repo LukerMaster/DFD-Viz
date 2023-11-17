@@ -4,8 +4,8 @@ namespace DFD.Model.Interfaces;
 
 public interface IFlow<T>
 {
-    ITreeNode<T> Source { get; }
-    ITreeNode<T> Target { get; }
-    bool BiDirectional { get; }
-    string? FlowName { get; }
+    ITreeNode<T> Source { get; set; }
+    ITreeNode<T> Target { get; set; }
+    bool BiDirectional { get; set; }
+    string? FlowName { get; set; }
 }

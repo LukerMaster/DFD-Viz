@@ -2,10 +2,10 @@
 
 public interface ITreeNode<T>
 {
-    ITreeNode<T>? Parent { get; set; }
-    ICollection<ITreeNode<T>> Children { get; set; }
+    ITreeNode<T>? Parent { get; protected set; }
+    ICollection<ITreeNode<T>> Children { get; }
     public T Data { get; set; }
-    public string EntityName { get; }
+    public string EntityName { get; protected set; }
     public string FullEntityName
     {
         get
@@ -34,10 +34,27 @@ public interface ITreeNode<T>
         }
     }
 
+    public ITreeNode<TNew> ConvertTo<TNew, TTreeNodeImpl>(Func<T, TNew> dataConversionFunc, ITreeNode<TNew> parent = null) 
+        where TTreeNodeImpl : ITreeNode<TNew>, new()
+    {
+        var newNode = new TTreeNodeImpl();
+
+        newNode.Data = dataConversionFunc(Data);
+        newNode.EntityName = EntityName;
+        newNode.Parent = parent;
+
+        foreach (var child in Children)
+        {
+            var newChild = child.ConvertTo<TNew, TTreeNodeImpl>(dataConversionFunc);
+            newNode.Children.Add(newChild);
+        }
+
+        return newNode;
+    }
+
     public ITreeNode<T> FindClosestMatchingLeaf(string leafEntityPath)
     {
         List<ITreeNode<T>> candidates = new();
-
 
         Queue<ITreeNode<T>> queue = new Queue<ITreeNode<T>>();
         queue.Enqueue(this);

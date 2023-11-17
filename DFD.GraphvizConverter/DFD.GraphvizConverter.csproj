@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GraphVizNet" Version="1.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DataStructure.NamedTree\DataStructure.NamedTree.csproj" />
     <ProjectReference Include="..\DFD.ModelImplementations\DFD.ModelImplementations.csproj" />
     <ProjectReference Include="..\DFD.ViewModel\DFD.ViewModel.csproj" />

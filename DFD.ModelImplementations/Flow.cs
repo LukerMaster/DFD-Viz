@@ -11,9 +11,9 @@ namespace DFD.ModelImplementations
 {
     public class Flow<T> : IFlow<T>
     {
-        public ITreeNode<T> Source { get; init; }
-        public ITreeNode<T> Target { get; init; }
-        public bool BiDirectional { get; init; }
-        public string FlowName { get; init; }
+        public ITreeNode<T> Source { get; set; }
+        public ITreeNode<T> Target { get; set; }
+        public bool BiDirectional { get; set; }
+        public string FlowName { get; set; }
     }
 }

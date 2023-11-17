@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 using DataStructure.NamedTree;
 using DFD.Model;
 using DFD.Model.Interfaces;
+using DFD.ViewModel.Interfaces;
 
 namespace DFD.GraphvizConverter
 {
     public class DiagramToDotConverter
     {
-        private string RepresentNode<T>(ITreeNode<T> node, string code, bool useDisplayNames = false)
+        private string RepresentNode(ITreeNode<ICollapsableGraphNode> node, string code, bool useDisplayNames = false)
         {
             foreach (var child in node.Children)
             {
                 // If child node has children, draw them as subgraphs
-                if (child.Children.Count > 0)
+                if (child.Children.Count > 0 && !node.Data.ChildrenCollapsed)
                 {
                     code += $"subgraph {child.FullEntityName.Replace('.', '_')} \n" +
                             $"{{ label={child.FullEntityName.Replace('.', '_')} \n " +
@@ -35,7 +36,7 @@ namespace DFD.GraphvizConverter
             return code;
         }
 
-        public string ToDot<T>(IGraph<T> graph)
+        public string ToDot(IGraph<ICollapsableGraphNode> graph)
         {
             string code = "digraph { ";
             code = RepresentNode(graph.Root, code);
