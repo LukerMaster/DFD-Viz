@@ -2,9 +2,10 @@
 
 public class EntityNotFoundException : Exception
 {
-    public EntityNotFoundException(string message) : base(message)
+    public string EntityName { get; }
+    public EntityNotFoundException(string entityName)
     {
-
+        EntityName = entityName;
     }
 }
 

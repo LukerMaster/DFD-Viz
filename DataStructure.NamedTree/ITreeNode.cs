@@ -52,7 +52,7 @@ public interface ITreeNode<T>
         return newNode;
     }
 
-    public ITreeNode<T> FindClosestMatchingLeaf(string leafEntityPath)
+    public ITreeNode<T> FindClosestMatchingLeaf(string leafEntityName)
     {
         List<ITreeNode<T>> candidates = new();
 
@@ -64,7 +64,7 @@ public interface ITreeNode<T>
             ITreeNode<T> currentNode = queue.Dequeue();
 
             // Check if the current node contains the target value
-            if (currentNode.CanNameBeThisEntity(leafEntityPath) && currentNode.Children.Count == 0)
+            if (currentNode.CanNameBeThisEntity(leafEntityName) && currentNode.Children.Count == 0)
             {
                 candidates.Add(currentNode);
             }
@@ -86,9 +86,9 @@ public interface ITreeNode<T>
         if (candidates.Count == 1)
             return candidates[0];
         if (candidates.Count > 1)
-            throw new AmbiguousEntityMatchException<T>(leafEntityPath, candidates.ToArray());
+            throw new AmbiguousEntityMatchException<T>(leafEntityName, candidates.ToArray());
         // Target value not found in the tree
-        throw new EntityNotFoundException("Entity could not be found within scope.");
+        throw new EntityNotFoundException(leafEntityName);
     }
 
     public bool CanNameBeThisEntity(string entityName)
