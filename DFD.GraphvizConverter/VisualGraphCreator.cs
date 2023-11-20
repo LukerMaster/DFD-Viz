@@ -15,19 +15,16 @@ namespace DFD.GraphvizConverter
         public IGraph<IVisualGraphNode>? GetVisualGraph(IGraph<IGraphNodeData> codeGraph)
         {
             IGraph<ICollapsableGraphNode> multilevelGraph =
-                codeGraph.ConvertTo<ICollapsableGraphNode,
-                    TreeNode<ICollapsableGraphNode>,
-                    Flow<ICollapsableGraphNode>,
-                    Graph<ICollapsableGraphNode>>(data => new CollapsableGraphNode()
+                codeGraph.ConvertGraphTo<ICollapsableGraphNode>(data => new CollapsableGraphNode()
                 {
-                    ChildrenCollapsed = false,
-                    Data = data
+                    Data = data,
+                    ChildrenCollapsed = false
                 });
 
             string dotCode = dotConverter.ToDot(multilevelGraph);
-
+            
             string json = runner.GetGraphAsJson(dotCode);
-
+            
             Console.WriteLine(json);
             return null;
         }

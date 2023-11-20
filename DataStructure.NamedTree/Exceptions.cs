@@ -19,3 +19,20 @@ public class AmbiguousEntityMatchException<T> : Exception
         Candidates = candidates;
     }
 }
+
+public class SameFullEntityNameException : Exception
+{
+    public string EntityName { get; set; }
+    public SameFullEntityNameException(string entityName)
+    {
+        EntityName = entityName;
+    }
+}
+public class NodeConversionWithParentException<T> : Exception
+{
+    public ITreeNode<T> NodeAttemptedToConvert { get; set; }
+    public NodeConversionWithParentException(ITreeNode<T> treeNode)
+    {
+        NodeAttemptedToConvert = treeNode;
+    }
+}

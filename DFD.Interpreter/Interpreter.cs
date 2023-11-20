@@ -39,7 +39,7 @@ namespace DFD.Interpreter
         {
             var preparedString = _codeSanitizer.StripCommentsAndBlankLines(dfdString);
             var entities = new List<ITreeNode<IGraphNodeData>>();
-            var flows = new List<IFlow<IGraphNodeData>>();
+            var flows = new List<INodeFlow<IGraphNodeData>>();
 
             ParserRunData runData = new ParserRunData();
 

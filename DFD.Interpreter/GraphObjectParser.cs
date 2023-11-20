@@ -27,11 +27,10 @@ internal class GraphObjectParser
         var entityName = definition[1];
         var displayedName = definition[2];
 
-        if (_validDefinitions.ContainsKey(typeName))
+        if (_validDefinitions.TryGetValue(typeName, out var type))
         {
-            var type = _validDefinitions[typeName];
             entity = CreateStandardEntity(type, entityName, displayedName, currentParent);
-            currentParent.Children.Add(entity);
+           (currentParent as IModifiableTreeNode<IGraphNodeData>)!.Children.Add(entity);
         }
         else
         {
@@ -59,9 +58,9 @@ internal class GraphObjectParser
         return result;
     }
 
-    public IFlow<T> TryParseFlow<T>(string statement, ITreeNode<T> currentParent)
+    public INodeFlow<T> TryParseFlow<T>(string statement, ITreeNode<T> currentParent)
     {
-        IFlow<T>? flow = null;
+        INodeFlow<T>? flow = null;
 
         var definition = SplitByWhitespace(statement);
 
@@ -75,7 +74,7 @@ internal class GraphObjectParser
 
         try
         {
-            flow = new Flow<T>()
+            flow = new NodeFlow<T>()
             {
                 Source = currentParent.FindClosestMatchingLeaf(entityNameA),
                 Target = currentParent.FindClosestMatchingLeaf(entityNameB),

@@ -2,7 +2,7 @@
 
 namespace DFD.Model.Interfaces;
 
-public interface IFlow<T>
+public interface INodeFlow<T>
 {
     ITreeNode<T> Source { get; set; }
     ITreeNode<T> Target { get; set; }

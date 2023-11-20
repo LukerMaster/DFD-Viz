@@ -9,7 +9,7 @@ using DFD.Model.Interfaces;
 
 namespace DFD.ModelImplementations
 {
-    public class Flow<T> : IFlow<T>
+    public class NodeFlow<T> : INodeFlow<T>
     {
         public ITreeNode<T> Source { get; set; }
         public ITreeNode<T> Target { get; set; }
