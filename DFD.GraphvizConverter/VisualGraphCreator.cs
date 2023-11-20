@@ -14,8 +14,6 @@ namespace DFD.GraphvizConverter
 
         public IGraph<IVisualGraphNode>? GetVisualGraph(IGraph<IGraphNodeData> codeGraph)
         {
-
-
             IGraph<ICollapsableGraphNode> multilevelGraph =
                 codeGraph.ConvertTo<ICollapsableGraphNode,
                     TreeNode<ICollapsableGraphNode>,
