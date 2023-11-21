@@ -9,6 +9,6 @@ namespace DFD.ViewModel.Interfaces
     public interface IVisualGraph
     {
         IReadOnlyCollection<IVisualGraphNode> Nodes { get; }
-        //IReadOnlyCollection<IVisualFlow> Flows { get; }
+        IReadOnlyCollection<IVisualFlow> Flows { get; }
     }
 }

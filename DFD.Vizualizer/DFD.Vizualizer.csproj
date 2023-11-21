@@ -7,4 +7,20 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="SFML.Net" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DFD.GraphvizConverter\DFD.GraphvizConverter.csproj" />
+    <ProjectReference Include="..\DFD.Interpreter\DFD.Interpreter.csproj" />
+    <ProjectReference Include="..\DFD.ViewModel\DFD.ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="documentation.dfd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

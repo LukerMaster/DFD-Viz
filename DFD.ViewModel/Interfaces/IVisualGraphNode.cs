@@ -3,19 +3,17 @@ using System.Numerics;
 
 namespace DFD.ViewModel.Interfaces;
 
-public enum DisplayType
+public enum PointConnectionType
 {
-    Rectangle,
-    Circle,
-    DbSymbol,
-    IoSymbol
+    Straight,
+    Bezier
 }
 
 
 public interface IVisualGraphNode
 {
     ICollapsableGraphNode Node { get; }
-    DisplayType Symbol { get; }
-    Vector2 Position { get; }
-    Vector2 Size { get; }
+    PointConnectionType PointConnectionType { get; }
+    IList<Vector2> DrawPoints { get; }
+    Vector2 TextPosition { get; }
 }

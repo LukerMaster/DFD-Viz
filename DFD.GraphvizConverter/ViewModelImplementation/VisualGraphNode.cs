@@ -6,7 +6,7 @@ namespace DFD.GraphvizConverter.ViewModelImplementation;
 public class VisualGraphNode : IVisualGraphNode
 {
     public ICollapsableGraphNode Node { get; set; }
-    public DisplayType Symbol { get; set; }
-    public Vector2 Position { get; set; }
-    public Vector2 Size { get; set; }
+    public PointConnectionType PointConnectionType { get; set; }
+    public IList<Vector2> DrawPoints { get; set; }
+    public Vector2 TextPosition { get; set; }
 }

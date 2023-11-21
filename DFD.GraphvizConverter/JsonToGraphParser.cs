@@ -17,25 +17,21 @@ public class JsonToGraphParser
         JObject graphObj = JsonConvert.DeserializeObject<JObject>(json);
 
         var visualNodes = new List<IVisualGraphNode>();
-        //var visualFlows = new List<IVisualFlow>();
-
-        Console.WriteLine("\n\nENUMERATE:\n\n");
 
         foreach (JObject node in graphObj["objects"])
         {
-            var boundingBox = node["bb"]
-                .ToString()
-                .Split(",")
-                .Select(x => float.Parse(x, new NumberFormatInfo() { NumberDecimalSeparator = "." }))
-                .ToArray();
 
+            IList<Vector2> points = new List<Vector2>();
+            foreach (var tuple in node["_draw_"][1]["points"])
+            {
+                points.Add(new Vector2((float)tuple[0], (float)tuple[1]));
+            }
 
             visualNodes.Add(new VisualGraphNode()
             {
                 Node = graph.Root.FindMatchingNode(node["name"].ToString().Replace("_", "."), false).Data,
-                Position = new Vector2(boundingBox[0], boundingBox[2]),
-                Size = new Vector2(boundingBox[1], boundingBox[3]),
-                Symbol = DisplayType.Rectangle
+                DrawPoints = points,
+                PointConnectionType = PointConnectionType.Straight,
             });
         }
 
