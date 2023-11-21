@@ -14,9 +14,8 @@ public enum DisplayType
 
 public interface IVisualGraphNode
 {
-    string DisplayedText { get; set; }
-    DisplayType Symbol { get; set; }
-    bool HasChildrenCollapsed { get; set; }
-    Vector2 Position { get; set; }
-    Vector2 Size { get; set; }
+    ICollapsableGraphNode Node { get; }
+    DisplayType Symbol { get; }
+    Vector2 Position { get; }
+    Vector2 Size { get; }
 }

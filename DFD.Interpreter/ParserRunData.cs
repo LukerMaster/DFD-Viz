@@ -13,7 +13,7 @@ internal class ParserRunData
     {
         CurrentScopeNode = new TreeNode<IGraphNodeData>()
         {
-            EntityName = "top",
+            NodeName = "top",
             Data = new GraphNodeData()
             {
                 Name = "System",

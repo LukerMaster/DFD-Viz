@@ -9,12 +9,15 @@ namespace DFD.Model.Interfaces
 {
     public interface IGraph<T>
     {
-        public ITreeNode<T> Root { get; protected set; }
-        public ICollection<INodeFlow<T>> Flows { get; protected set; }
-        public IGraph<TNew> ConvertGraphTo<TNew>(Func<T, TNew> dataConversionFunc)
-        {
-            Root.ConvertTreeTo(dataConversionFunc);
-            return (this as IGraph<TNew>)!;
-        }
+        public ITreeNode<T> Root { get; }
+        public IReadOnlyCollection<INodeFlow<T>> Flows { get; }
+        /// <summary>
+        /// Copies the entire graph and applies <paramref name="dataConversionFunc"/> to all of the nodes
+        /// to allow for data conversion from <see cref="T"/> to <see cref="TNew"/>.
+        /// </summary>
+        /// <typeparam name="TNew"></typeparam>
+        /// <param name="dataConversionFunc">Function to convert data.</param>
+        /// <returns>New graph with all </returns>
+        public IGraph<TNew> CopyGraphAs<TNew>(Func<T, TNew> dataConversionFunc);
     }
 }

@@ -20,17 +20,16 @@ class Program
 
         foreach (var child in graph.Root.Children)
         {
-            Console.WriteLine($"Entity {child.FullEntityName}");
+            Console.WriteLine($"Entity {child.FullNodeName}");
         }
 
         foreach (var flow in graph.Flows)
         {
-            Console.WriteLine($"Flow {flow.Source.FullEntityName} --> {flow.Target.FullEntityName}");
+            Console.WriteLine($"Flow {flow.Source.FullNodeName} --> {flow.Target.FullNodeName}");
         }
 
-        var dotCode = new VisualGraphCreator().GetVisualGraph(graph);
+        var visualGraph = new VisualGraphCreator().GetVisualGraph(graph);
 
-        
 
         Console.WriteLine("END");
         Console.ReadKey();

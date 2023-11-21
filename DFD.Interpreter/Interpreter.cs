@@ -55,7 +55,7 @@ namespace DFD.Interpreter
                 // Creation of basic entities.
                 if (_regexes[StatementType.SimpleEntityDeclaration].Match(statement).Success)
                 {
-                    newEntity = _objectParser.TryParseEntity(statement, runData.CurrentScopeNode);
+                    newEntity = _objectParser.TryParseEntity(statement, (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
                     entities.Add(newEntity);
                     continue;
                 }
@@ -63,7 +63,7 @@ namespace DFD.Interpreter
                 // Creation of nested entities.
                 if (_regexes[StatementType.NestedProcessDeclaration].Match(statement).Success)
                 {
-                    newEntity = _objectParser.TryParseEntity(statement.TrimEnd(':'), runData.CurrentScopeNode);
+                    newEntity = _objectParser.TryParseEntity(statement.TrimEnd(':'), (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
                     runData.RaiseScope(newEntity);
                     entities.Add(newEntity);
                     continue;

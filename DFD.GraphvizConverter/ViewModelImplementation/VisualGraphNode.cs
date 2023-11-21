@@ -1,13 +1,12 @@
 ﻿using System.Numerics;
 using DFD.ViewModel.Interfaces;
 
-namespace DFD.GraphvizConverter;
+namespace DFD.GraphvizConverter.ViewModelImplementation;
 
 public class VisualGraphNode : IVisualGraphNode
 {
-    public string DisplayedText { get; set; }
+    public ICollapsableGraphNode Node { get; set; }
     public DisplayType Symbol { get; set; }
-    public bool HasChildrenCollapsed { get; set; }
     public Vector2 Position { get; set; }
     public Vector2 Size { get; set; }
 }

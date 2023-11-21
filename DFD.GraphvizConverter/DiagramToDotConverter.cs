@@ -19,8 +19,8 @@ namespace DFD.GraphvizConverter
                 // If child node has children, draw them as subgraphs
                 if (child.Children.Count > 0 && !node.Data.ChildrenCollapsed)
                 {
-                    code += $"subgraph {child.FullEntityName.Replace('.', '_')} \n" +
-                            $"{{ label={child.FullEntityName.Replace('.', '_')} \n " +
+                    code += $"subgraph {child.FullNodeName.Replace('.', '_')} \n" +
+                            $"{{ label={child.FullNodeName.Replace('.', '_')} \n " +
                             $"cluster=True \n";
                     code = RepresentNode(child, code);
                     code += "} \n";
@@ -28,7 +28,7 @@ namespace DFD.GraphvizConverter
                 // If child node is a leaf, draw it as node
                 else
                 {
-                    code += $"{child.FullEntityName.Replace('.', '_')}; \n";
+                    code += $"{child.FullNodeName.Replace('.', '_')}; \n";
                 }
                 
             }
@@ -42,7 +42,7 @@ namespace DFD.GraphvizConverter
             code = RepresentNode(graph.Root, code);
             foreach (var flow in graph.Flows)
             {
-                code += $"{flow.Source.FullEntityName.Replace('.', '_')} -> {flow.Target.FullEntityName.Replace('.', '_')}; \n";
+                code += $"{flow.Source.FullNodeName.Replace('.', '_')} -> {flow.Target.FullNodeName.Replace('.', '_')}; \n";
             }
 
             code += " } \n";

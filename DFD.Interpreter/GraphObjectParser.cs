@@ -16,7 +16,7 @@ internal class GraphObjectParser
         { "IO", NodeType.InputOutput },
     };
 
-    public ITreeNode<IGraphNodeData> TryParseEntity(string line, ITreeNode<IGraphNodeData> currentParent)
+    public ITreeNode<IGraphNodeData> TryParseEntity(string line, IModifiableTreeNode<IGraphNodeData> currentParent)
     {
         ITreeNode<IGraphNodeData>? entity = null;
 
@@ -30,7 +30,7 @@ internal class GraphObjectParser
         if (_validDefinitions.TryGetValue(typeName, out var type))
         {
             entity = CreateStandardEntity(type, entityName, displayedName, currentParent);
-           (currentParent as IModifiableTreeNode<IGraphNodeData>)!.Children.Add(entity);
+            currentParent.Children.Add(entity);
         }
         else
         {
@@ -76,8 +76,8 @@ internal class GraphObjectParser
         {
             flow = new NodeFlow<T>()
             {
-                Source = currentParent.FindClosestMatchingLeaf(entityNameA),
-                Target = currentParent.FindClosestMatchingLeaf(entityNameB),
+                Source = currentParent.FindMatchingNode(entityNameA, leavesOnly:true),
+                Target = currentParent.FindMatchingNode(entityNameB, leavesOnly:true),
                 FlowName = flowName,
                 BiDirectional = flowType == "<->"
             };
@@ -119,7 +119,7 @@ internal class GraphObjectParser
 
         return new TreeNode<IGraphNodeData>() 
         { 
-            EntityName = name,
+            NodeName = name,
             Data = data, 
             Parent = parent
         };

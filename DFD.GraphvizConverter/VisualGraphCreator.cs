@@ -12,10 +12,12 @@ namespace DFD.GraphvizConverter
 
         private GraphvizRunner runner = new GraphvizRunner();
 
-        public IGraph<IVisualGraphNode>? GetVisualGraph(IGraph<IGraphNodeData> codeGraph)
+        private JsonToGraphParser jsonToGraphParser = new JsonToGraphParser();
+
+        public IVisualGraph GetVisualGraph(IGraph<IGraphNodeData> codeGraph)
         {
             IGraph<ICollapsableGraphNode> multilevelGraph =
-                codeGraph.ConvertGraphTo<ICollapsableGraphNode>(data => new CollapsableGraphNode()
+                codeGraph.CopyGraphAs<ICollapsableGraphNode>(data => new CollapsableGraphNode()
                 {
                     Data = data,
                     ChildrenCollapsed = false
@@ -24,9 +26,10 @@ namespace DFD.GraphvizConverter
             string dotCode = dotConverter.ToDot(multilevelGraph);
             
             string json = runner.GetGraphAsJson(dotCode);
-            
-            Console.WriteLine(json);
-            return null;
+
+            IVisualGraph visualGraph = jsonToGraphParser.CreateGraphFrom(json, multilevelGraph);
+            //Console.WriteLine(json);
+            return visualGraph;
         }
     }
 }

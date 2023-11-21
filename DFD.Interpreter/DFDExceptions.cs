@@ -22,7 +22,7 @@ internal class InvalidEntityTypeException : DfdException
 internal class ProcessWithChildrenConnectedException<T> : DfdException
 {
     public ProcessWithChildrenConnectedException(ITreeNode<T> process) 
-        : base($"Cannot create flow from (or to) a process containing subprocesses. {process.FullEntityName} contains subprocesses.")
+        : base($"Cannot create flow from (or to) a process containing subprocesses. {process.FullNodeName} contains subprocesses.")
     {
 
     }
@@ -48,7 +48,7 @@ internal class IndentationTooBigException : DfdException
 internal class FlowWithAmbiguousEntityException<T> : DfdException
 {
     public FlowWithAmbiguousEntityException(string entityName, ITreeNode<T>[] candidates)
-        : base($"Flow with ambiguous entity: '{entityName}' declared. Valid candidates are: {string.Join("; ", candidates.Select(c => c.FullEntityName))}")
+        : base($"Flow with ambiguous entity: '{entityName}' declared. Valid candidates are: {string.Join("; ", candidates.Select(c => c.FullNodeName))}")
     {
 
     }

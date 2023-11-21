@@ -3,62 +3,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DFD.ModelImplementations;
 
 namespace DataStructure.NamedTree
 {
-    public class TreeNode<T> : ITreeNode<T>
+    public class TreeNode<T> : IModifiableTreeNode<T>
     {
-        public ITreeNode<T>? Parent { get; set; }
         private readonly ICollection<ITreeNode<T>> _children = new List<ITreeNode<T>>();
-        public IReadOnlyCollection<ITreeNode<T>> Children => (IReadOnlyCollection<ITreeNode<T>>)_children;
-        private object _data = null!;
-        private string _entityName;
+        // TreeNode
+        public IReadOnlyCollection<ITreeNode<T>> Children
+        {
+            get => (IReadOnlyCollection<ITreeNode<T>>)_children;
+            init => _children = (ICollection<ITreeNode<T>>)value;
+        }
+        // ModifiableTreeNode
+        ICollection<ITreeNode<T>> IModifiableTreeNode<T>.Children => _children;
 
+
+        public ITreeNode<T>? Parent { get; set; }
+
+        private object _data = null!;
         public T Data {
             get => (T) _data;
             set => _data = value!;
         }
 
-        public string EntityName
+        private string _nodeName;
+        public string NodeName
         {
-            get => _entityName;
+            get => _nodeName;
             set
             {
                 if (Parent == null)
                 {
-                    _entityName = value;
+                    _nodeName = value;
                 }
                 else
                 {
                     foreach (var parentChild in Parent.Children)
                     {
-                        if (parentChild.EntityName == value && parentChild != this)
+                        if (parentChild.NodeName == value && parentChild != this)
                         {
                             throw new SameFullEntityNameException(value);
                         }
                     }
-                    _entityName = value;
+                    _nodeName = value;
                 }
             }
         }
 
-        private void ConvertAllDownwardsTo<TNew>(Func<T, TNew> dataConversionFunc)
+        public ITreeNode<TNew> CopySubtreeAs<TNew>(Func<T, TNew> dataConversionFunc, ITreeNode<TNew> newParent)
         {
-            _data = dataConversionFunc(Data)!;
-            foreach (var node in Children)
+            TreeNode<TNew> newNode = new TreeNode<TNew>()
             {
-                ConvertAllDownwardsTo<TNew>(dataConversionFunc);
-            }
-        }
-
-        public ITreeNode<TNew>? ConvertTreeTo<TNew>(Func<T, TNew> dataConversionFunc)
-        {
-            if (Parent is not null)
+                Parent = newParent,
+                Data = dataConversionFunc(Data),
+                NodeName = NodeName,
+            };
+            foreach (var child in Children)
             {
-                throw new NodeConversionWithParentException<T>(this);
+                newNode._children.Add(child.CopySubtreeAs(dataConversionFunc, newNode));
             }
-            ConvertAllDownwardsTo(dataConversionFunc);
-            return this as ITreeNode<TNew>;
+            return newNode;
         }
     }
 }
