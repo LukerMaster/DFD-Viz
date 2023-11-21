@@ -1,4 +1,4 @@
-﻿using DFD.GraphvizConverter;
+﻿using DFD.GraphConverter;
 using DFD.Model.Interfaces;
 using SFML.Graphics;
 using SFML.System;

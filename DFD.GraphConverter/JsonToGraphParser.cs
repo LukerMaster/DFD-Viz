@@ -28,17 +28,11 @@ public class JsonToGraphParser
             {
                 Node = graph.Root.FindMatchingNode(node["name"].ToString().Replace("_", "."), false).Data,
                 DrawPoints = points,
-                PointConnectionType = PointConnectionType.Straight,
+                DrawOrder = graph.Root.FullNodeName.ToCharArray().Count(x => x == '.')
             });
         }
-
-        //foreach (var edge in graphObj["edges"])
-        //{
-        //    visualFlows.Add(new VisualFlow()
-        //    {
-        //        Label = graph.Flows.
-        //    });
-        //}
+        
+        visualNodes.Sort((a, b) => a.DrawOrder.CompareTo(b.DrawOrder));
 
         return new VisualGraph()
         {

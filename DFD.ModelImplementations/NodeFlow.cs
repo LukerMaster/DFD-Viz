@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataStructure.NamedTree;
-using DFD.Model;
+﻿using DataStructure.NamedTree;
 using DFD.Model.Interfaces;
 
 namespace DFD.ModelImplementations
