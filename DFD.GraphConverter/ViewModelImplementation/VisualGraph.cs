@@ -1,7 +1,6 @@
-﻿using DFD.Model.Interfaces;
-using DFD.ViewModel.Interfaces;
+﻿using DFD.ViewModel.Interfaces;
 
-namespace DFD.GraphvizConverter.ViewModelImplementation;
+namespace DFD.GraphConverter.ViewModelImplementation;
 
 public class VisualGraph : IVisualGraph
 {

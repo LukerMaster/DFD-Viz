@@ -21,9 +21,9 @@ public class GraphvizRunner
         return GetGraph(dotCode, "png");
     }
 
-    internal void GetDebugGraphAsPng(string dotCode)
+    internal void OutputDebugGraphAsPng(string dotCode, string outputPath = "./debug.png")
     {
         var runner = new GraphVizNet.GraphViz();
-        runner.LayoutAndRender(null, dotCode, "./debug.png", null, "png");
+        runner.LayoutAndRender(null, dotCode, outputPath, null, "png");
     }
 }

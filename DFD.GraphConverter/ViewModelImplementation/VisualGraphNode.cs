@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using DFD.ViewModel.Interfaces;
 
-namespace DFD.GraphvizConverter.ViewModelImplementation;
+namespace DFD.GraphConverter.ViewModelImplementation;
 
 public class VisualGraphNode : IVisualGraphNode
 {

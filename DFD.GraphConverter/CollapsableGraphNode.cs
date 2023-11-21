@@ -1,7 +1,7 @@
 ﻿using DFD.Model.Interfaces;
 using DFD.ViewModel.Interfaces;
 
-namespace DFD.GraphvizConverter;
+namespace DFD.GraphConverter;
 
 public class CollapsableGraphNode : ICollapsableGraphNode
 {

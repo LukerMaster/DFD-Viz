@@ -1,14 +1,11 @@
-﻿using System.Globalization;
-using System.Numerics;
-using System.Text.Json;
-using DataStructure.NamedTree;
-using DFD.GraphvizConverter.ViewModelImplementation;
+﻿using System.Numerics;
+using DFD.GraphConverter.ViewModelImplementation;
 using DFD.Model.Interfaces;
 using DFD.ViewModel.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace DFD.GraphvizConverter;
+namespace DFD.GraphConverter;
 
 public class JsonToGraphParser
 {

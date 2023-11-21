@@ -1,11 +1,8 @@
-﻿using DataStructure.NamedTree;
+﻿using DFD.GraphvizConverter;
 using DFD.Model.Interfaces;
-using DFD.ModelImplementations;
-using DFD.ViewModel;
 using DFD.ViewModel.Interfaces;
 
-
-namespace DFD.GraphvizConverter
+namespace DFD.GraphConverter
 {
     public class VisualGraphCreator
     {
