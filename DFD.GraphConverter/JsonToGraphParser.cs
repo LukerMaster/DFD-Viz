@@ -15,20 +15,22 @@ public class JsonToGraphParser
 
         var visualNodes = new List<IVisualGraphNode>();
 
-        foreach (JObject node in graphObj["objects"])
+        foreach (JObject jsonNode in graphObj["objects"])
         {
 
             IList<Vector2> points = new List<Vector2>();
-            foreach (var tuple in node["_draw_"][1]["points"])
+            foreach (var tuple in jsonNode["_draw_"][1]["points"])
             {
                 points.Add(new Vector2((float)tuple[0], (float)tuple[1]));
             }
 
+            var graphNode = graph.Root.FindMatchingNode(jsonNode["name"].ToString().Replace("_", "."), false);
+
             visualNodes.Add(new VisualGraphNode()
             {
-                Node = graph.Root.FindMatchingNode(node["name"].ToString().Replace("_", "."), false).Data,
+                Node = graphNode.Data,
                 DrawPoints = points,
-                DrawOrder = graph.Root.FullNodeName.ToCharArray().Count(x => x == '.')
+                DrawOrder = graphNode.FullNodeName.ToCharArray().Count(x => x == '.')
             });
         }
         

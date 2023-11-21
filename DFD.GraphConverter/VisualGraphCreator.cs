@@ -12,24 +12,22 @@ namespace DFD.GraphConverter
 
         private JsonToGraphParser jsonToGraphParser = new JsonToGraphParser();
 
+        private MultilevelGraphCreator multilevelGraphCreator = new MultilevelGraphCreator();
+
         public IVisualGraph GetVisualGraph(IGraph<IGraphNodeData> codeGraph)
         {
-            IGraph<ICollapsableGraphNode> multilevelGraph =
-                codeGraph.CopyGraphAs<ICollapsableGraphNode>(data => new CollapsableGraphNode()
-                {
-                    Data = data,
-                    ChildrenCollapsed = false
-                });
-
+            var multilevelGraph = multilevelGraphCreator.CreateMultiLevelGraphOutOf(codeGraph);
             string dotCode = dotConverter.ToDot(multilevelGraph);
-
-            runner.GetDebugGraphAsPng(dotCode);
-
             string json = runner.GetGraphAsJson(dotCode);
-
             IVisualGraph visualGraph = jsonToGraphParser.CreateGraphFrom(json, multilevelGraph);
-            //Console.WriteLine(json);
             return visualGraph;
+        }
+
+        public byte[] GetPngGraph(IGraph<IGraphNodeData> codeGraph)
+        {
+            var multilevelGraph = multilevelGraphCreator.CreateMultiLevelGraphOutOf(codeGraph);
+            string dotCode = dotConverter.ToDot(multilevelGraph);
+            return runner.GetGraphAsPng(dotCode);
         }
     }
 }

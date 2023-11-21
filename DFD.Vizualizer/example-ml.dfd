@@ -1,0 +1,22 @@
+Storage Database "Main Database"
+
+IO User "User"
+
+Process CreateUser "Create user":
+	Process CreateDbRecord "Create record in database"
+	Process FillDataIn "Fill data in":
+		Process FillUserName "Fill username"
+		Process FillPassword "Fill password"
+		Process FillEmail "Fill email":
+			Process CheckForEmailIntegrity "Check for integrity"
+			Process FillActualDataIn "Fill email data"
+	Process ReturnNewUser "Return new user"
+	
+	
+	CreateDbRecord --> FillDataIn.FillEmail.FillActualDataIn
+	FillDataIn.FillEmail.FillActualDataIn --> ReturnNewUser
+	
+CreateDbRecord --> Database "Store in db"
+User --> CreateDbRecord
+User --> FillDataIn.FillUserName
+ReturnNewUser --> User
