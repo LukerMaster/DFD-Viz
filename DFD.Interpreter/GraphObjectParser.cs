@@ -70,7 +70,7 @@ internal class GraphObjectParser
 
         var flowName = String.Empty;
         if (definition.Count > 3)
-            flowName = definition[3];
+            flowName = definition[3].Trim('"');
 
         try
         {

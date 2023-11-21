@@ -4,6 +4,7 @@ using DFD.ModelImplementations;
 using DFD.ViewModel;
 using DFD.ViewModel.Interfaces;
 
+
 namespace DFD.GraphvizConverter
 {
     public class VisualGraphCreator
@@ -24,7 +25,9 @@ namespace DFD.GraphvizConverter
                 });
 
             string dotCode = dotConverter.ToDot(multilevelGraph);
-            
+
+            runner.GetDebugGraphAsPng(dotCode);
+
             string json = runner.GetGraphAsJson(dotCode);
 
             IVisualGraph visualGraph = jsonToGraphParser.CreateGraphFrom(json, multilevelGraph);
