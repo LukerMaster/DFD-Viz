@@ -10,10 +10,10 @@ internal class DfdException : Exception
     }
 }
 
-internal class InvalidEntityTypeException : DfdException
+internal class InvalidNodeTypeException : DfdException
 {
-    public InvalidEntityTypeException(string entityName) 
-        : base($"Invalid entity type {entityName}.")
+    public InvalidNodeTypeException(string nodeName) 
+        : base($"Invalid node type {nodeName}.")
     {
     }
 }
@@ -44,10 +44,10 @@ internal class IndentationTooBigException : DfdException
     }
 }
 
-internal class FlowWithAmbiguousEntityException<T> : DfdException
+internal class FlowWithAmbiguousNodeException<T> : DfdException
 {
-    public FlowWithAmbiguousEntityException(string entityName, ITreeNode<T>[] candidates)
-        : base($"Flow with ambiguous entity: '{entityName}' declared. Valid candidates are: {string.Join("; ", candidates.Select(c => c.FullNodeName))}")
+    public FlowWithAmbiguousNodeException(string nodeName, ITreeNode<T>[] candidates)
+        : base($"Flow with ambiguous node: '{nodeName}' declared. Valid candidates are: {string.Join("; ", candidates.Select(c => c.FullNodeName))}")
     {
 
     }

@@ -39,7 +39,7 @@ namespace DataStructure.NamedTree
                     {
                         if (parentChild.NodeName == value && parentChild != this)
                         {
-                            throw new SameFullEntityNameException(value);
+                            throw new SameFullNodeNameException(value);
                         }
                     }
                     _nodeName = value;

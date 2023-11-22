@@ -14,28 +14,28 @@ internal class GraphObjectParser
         { "IO", NodeType.InputOutput },
     };
 
-    public ITreeNode<IGraphNodeData> TryParseEntity(string line, IModifiableTreeNode<IGraphNodeData> currentParent)
+    public ITreeNode<IGraphNodeData> TryParseNode(string line, IModifiableTreeNode<IGraphNodeData> currentParent)
     {
-        ITreeNode<IGraphNodeData>? entity = null;
+        ITreeNode<IGraphNodeData>? node = null;
 
         // Split by any amount of whitespace
         var definition = SplitByWhitespace(line);
 
         var typeName = definition[0];
-        var entityName = definition[1];
+        var nodeName = definition[1];
         var displayedName = definition[2];
 
         if (_validDefinitions.TryGetValue(typeName, out var type))
         {
-            entity = CreateStandardEntity(type, entityName, displayedName, currentParent);
-            currentParent.Children.Add(entity);
+            node = CreateStandardNode(type, nodeName, displayedName, currentParent);
+            currentParent.Children.Add(node);
         }
         else
         {
-            throw new InvalidEntityTypeException(typeName);
+            throw new InvalidNodeTypeException(typeName);
         }
         
-        return entity;
+        return node;
     }
 
 
@@ -62,9 +62,9 @@ internal class GraphObjectParser
 
         var definition = SplitByWhitespace(statement);
 
-        var entityNameA = definition[0];
+        var nodeNameA = definition[0];
         var flowType = definition[1]; // TODO: do something with this value.
-        var entityNameB = definition[2];
+        var nodeNameB = definition[2];
 
         var flowName = String.Empty;
         if (definition.Count > 3)
@@ -72,8 +72,8 @@ internal class GraphObjectParser
 
         try
         {
-            var source = currentParent.FindMatchingNode(entityNameA, leavesOnly: true);
-            var target = currentParent.FindMatchingNode(entityNameB, leavesOnly: true);
+            var source = currentParent.FindMatchingNode(nodeNameA, leavesOnly: true);
+            var target = currentParent.FindMatchingNode(nodeNameB, leavesOnly: true);
 
             if (source.Children.Count > 0)
                 throw new ProcessWithChildrenConnectedException<T>(source);
@@ -88,9 +88,9 @@ internal class GraphObjectParser
                 BiDirectional = flowType == "<->"
             };
         }
-        catch (AmbiguousEntityMatchException<T> e)
+        catch (AmbiguousNodeMatchException<T> e)
         {
-            throw new FlowWithAmbiguousEntityException<T>(e.EntityName, e.Candidates);
+            throw new FlowWithAmbiguousNodeException<T>(e.NodeName, e.Candidates);
         }
 
         
@@ -98,7 +98,7 @@ internal class GraphObjectParser
         return flow;
     }
 
-    private ITreeNode<IGraphNodeData> CreateStandardEntity(NodeType type, string name, string displayedName, ITreeNode<IGraphNodeData> parent)
+    private ITreeNode<IGraphNodeData> CreateStandardNode(NodeType type, string name, string displayedName, ITreeNode<IGraphNodeData> parent)
     {
         GraphNodeData? data = null;
 
@@ -118,7 +118,7 @@ internal class GraphObjectParser
         }
 
         if (data == null)
-            throw new InvalidEntityTypeException(type.ToString());
+            throw new InvalidNodeTypeException(type.ToString());
 
         return new TreeNode<IGraphNodeData>() 
         { 

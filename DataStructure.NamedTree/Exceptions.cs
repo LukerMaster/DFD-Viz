@@ -1,31 +1,31 @@
 ﻿using DataStructure.NamedTree;
 
-public class EntityNotFoundException : Exception
+public class NodeNotFoundException : Exception
 {
-    public string EntityName { get; }
-    public EntityNotFoundException(string entityName)
+    public string NodeName { get; }
+    public NodeNotFoundException(string nodeName)
     {
-        EntityName = entityName;
+        NodeName = nodeName;
     }
 }
 
-public class AmbiguousEntityMatchException<T> : Exception
+public class AmbiguousNodeMatchException<T> : Exception
 {
-    public string EntityName { get; }
+    public string NodeName { get; }
     public ITreeNode<T>[] Candidates { get; }
-    public AmbiguousEntityMatchException(string entityName, params ITreeNode<T>[] candidates)
+    public AmbiguousNodeMatchException(string nodeName, params ITreeNode<T>[] candidates)
     {
-        EntityName = entityName;
+        NodeName = nodeName;
         Candidates = candidates;
     }
 }
 
-public class SameFullEntityNameException : Exception
+public class SameFullNodeNameException : Exception
 {
-    public string EntityName { get; set; }
-    public SameFullEntityNameException(string entityName)
+    public string NodeName { get; set; }
+    public SameFullNodeNameException(string nodeName)
     {
-        EntityName = entityName;
+        NodeName = nodeName;
     }
 }
 public class NodeConversionWithParentException<T> : Exception

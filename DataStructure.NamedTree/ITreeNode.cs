@@ -56,14 +56,14 @@ public interface ITreeNode<T>
 
     /// <summary>
     /// Find node matching name given. In case <paramref name="fullOrPartialNodeName"/> is not full,
-    /// it may throw <see cref="AmbiguousEntityMatchException{T}"/> if
+    /// it may throw <see cref="AmbiguousNodeMatchException{T}"/> if
     /// two nodes match given name.
     /// </summary>
     /// <param name="fullOrPartialNodeName"></param>
     /// <param name="leavesOnly">Only look for leaves (no child nodes).</param>
     /// <returns>Node that matches the <paramref name="fullOrPartialNodeName"/>.</returns>
-    /// <exception cref="AmbiguousEntityMatchException{T}"></exception>
-    /// <exception cref="EntityNotFoundException"></exception>
+    /// <exception cref="AmbiguousNodeMatchException{T}"></exception>
+    /// <exception cref="NodeNotFoundException"></exception>
     public ITreeNode<T> FindMatchingNode(string fullOrPartialNodeName, bool leavesOnly = false)
     {
         List<ITreeNode<T>> candidates = new();
@@ -102,14 +102,14 @@ public interface ITreeNode<T>
         if (candidates.Count == 1)
             return candidates[0];
         if (candidates.Count > 1)
-            throw new AmbiguousEntityMatchException<T>(fullOrPartialNodeName, candidates.ToArray());
+            throw new AmbiguousNodeMatchException<T>(fullOrPartialNodeName, candidates.ToArray());
         // Target value not found in the tree
-        throw new EntityNotFoundException(fullOrPartialNodeName);
+        throw new NodeNotFoundException(fullOrPartialNodeName);
     }
 
     public bool CanNameBeThisNode(string nodeName)
     {
-        // Check whether two entities have matching names
+        // Check whether two nodes have matching names
         // Example: Namespace.Process.Subprocess
         //                    Process.Subprocess
         //                    ^ Matching

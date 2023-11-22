@@ -14,7 +14,7 @@ class Program
 
         foreach (var child in graph.Root.Children)
         {
-            Console.WriteLine($"Entity {child.FullNodeName}");
+            Console.WriteLine($"Node {child.FullNodeName}");
         }
 
         foreach (var flow in graph.Flows)

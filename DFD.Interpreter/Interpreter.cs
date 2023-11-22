@@ -9,7 +9,7 @@ namespace DFD.Interpreter
     {
         private enum StatementType
         {
-            SimpleEntityDeclaration,
+            SimpleNodeDeclaration,
             NestedProcessDeclaration,
             FlowDeclaration
         }
@@ -17,7 +17,7 @@ namespace DFD.Interpreter
         private readonly Dictionary<StatementType, Regex> _regexes = new()
         {
             {
-                StatementType.SimpleEntityDeclaration,
+                StatementType.SimpleNodeDeclaration,
                 new Regex("^\\s*[a-zA-Z][a-zA-Z0-9]*\\s+[a-zA-Z][a-zA-Z0-9]*(?:\\s+\"[^\"]*\")?$")
             },
             {
@@ -36,7 +36,7 @@ namespace DFD.Interpreter
         public IGraph<IGraphNodeData> ToDiagram(string dfdString)
         {
             var preparedString = _codeSanitizer.StripCommentsAndBlankLines(dfdString);
-            var entities = new List<ITreeNode<IGraphNodeData>>();
+            var nodes = new List<ITreeNode<IGraphNodeData>>();
             var flows = new List<INodeFlow>();
 
             ParserRunData runData = new ParserRunData();
@@ -48,22 +48,22 @@ namespace DFD.Interpreter
                 // Setting a correct scope for the statement (correct Parent).
                 SetCorrectScopeLevel(runData, statement);
 
-                ITreeNode<IGraphNodeData>? newEntity = null;
+                ITreeNode<IGraphNodeData>? newNode = null;
 
-                // Creation of basic entities.
-                if (_regexes[StatementType.SimpleEntityDeclaration].Match(statement).Success)
+                // Creation of basic nodes.
+                if (_regexes[StatementType.SimpleNodeDeclaration].Match(statement).Success)
                 {
-                    newEntity = _objectParser.TryParseEntity(statement, (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
-                    entities.Add(newEntity);
+                    newNode = _objectParser.TryParseNode(statement, (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
+                    nodes.Add(newNode);
                     continue;
                 }
 
-                // Creation of nested entities.
+                // Creation of nested nodes.
                 if (_regexes[StatementType.NestedProcessDeclaration].Match(statement).Success)
                 {
-                    newEntity = _objectParser.TryParseEntity(statement.TrimEnd(':'), (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
-                    runData.RaiseScope(newEntity);
-                    entities.Add(newEntity);
+                    newNode = _objectParser.TryParseNode(statement.TrimEnd(':'), (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
+                    runData.RaiseScope(newNode);
+                    nodes.Add(newNode);
                     continue;
                 }
 
@@ -78,7 +78,7 @@ namespace DFD.Interpreter
                 throw new InvalidStatementException(statement);
             }
 
-            return new Graph<IGraphNodeData>(entities.First().Root, flows);
+            return new Graph<IGraphNodeData>(nodes.First().Root, flows);
         }
 
         private void SetCorrectScopeLevel(ParserRunData runData, string statement)
