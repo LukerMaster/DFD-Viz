@@ -3,7 +3,7 @@ using DFD.ViewModel.Interfaces;
 
 namespace DFD.GraphConverter;
 
-public class MultilevelGraphCreator
+public class MultilevelGraphConverter
 {
     public IGraph<ICollapsableGraphNode> CreateMultiLevelGraphOutOf(IGraph<IGraphNodeData> codeGraph)
     {

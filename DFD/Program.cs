@@ -22,8 +22,8 @@ class Program
             Console.WriteLine($"Flow {flow.Source.FullNodeName} --> {flow.Target.FullNodeName}");
         }
 
-
-        var visualGraph = new VisualGraphCreator().GetVisualGraph(graph);
+        var multilevelGraph = new MultilevelGraphConverter().CreateMultiLevelGraphOutOf(graph);
+        var visualGraph = new VisualGraphCreator().GetVisualGraph(multilevelGraph);
 
 
         Console.WriteLine("END");

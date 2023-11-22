@@ -5,6 +5,6 @@ namespace DFD.Vizualizer.Model;
 
 public interface IDiagramModel
 {
-    IVisualGraph NodeGraph { get; }
+    IVisualGraph NodeGraph { get; set; }
     Sprite BgSprite { get; }
 }

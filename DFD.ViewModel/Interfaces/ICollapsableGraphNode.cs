@@ -5,5 +5,5 @@ namespace DFD.ViewModel.Interfaces;
 public interface ICollapsableGraphNode
 {
     IGraphNodeData Data { get; }
-    bool ChildrenCollapsed { get; }
+    bool ChildrenCollapsed { get; set; }
 }

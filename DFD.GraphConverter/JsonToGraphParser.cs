@@ -10,7 +10,7 @@ namespace DFD.GraphConverter;
 
 public class JsonToGraphParser
 {
-    public VisualGraph CreateGraphFrom(string json, IGraph<ICollapsableGraphNode> graph)
+    public IVisualGraph CreateGraphFrom(string json, IGraph<ICollapsableGraphNode> graph)
     {
         JObject graphObj = JsonConvert.DeserializeObject<JObject>(json);
 
@@ -56,7 +56,8 @@ public class JsonToGraphParser
         return new VisualGraph()
         {
             Size = graphSize,
-            Nodes = visualNodes
+            Nodes = visualNodes,
+            LogicalGraph = graph
         };
     }
 }

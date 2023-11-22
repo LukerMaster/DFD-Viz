@@ -12,10 +12,17 @@ using SFML.System;
 
 namespace DFD.Vizualizer
 {
-    internal class DiagramLoader
+    public class DiagramLoader
     {
         private Interpreter.Interpreter interpreter = new Interpreter.Interpreter();
+        private MultilevelGraphConverter _multilevelGraphConverter = new MultilevelGraphConverter();
         private VisualGraphCreator creator = new VisualGraphCreator();
+
+        public void ReloadModelDataBasedOn(IDiagramModel model)
+        {
+            model.NodeGraph = creator.GetVisualGraph(model.NodeGraph.LogicalGraph);
+            model.BgSprite.Texture = new Texture(creator.GetPngGraph(model.NodeGraph.LogicalGraph));
+        }
 
         public IDiagramModel ReadFromFile(string path)
         {
@@ -23,9 +30,9 @@ namespace DFD.Vizualizer
             
             var dfdString = File.ReadAllText(path);
             IGraph<IGraphNodeData> graph = interpreter.ToDiagram(dfdString);
-
-            model.NodeGraph = creator.GetVisualGraph(graph);
-            var pngData = creator.GetPngGraph(graph);
+            var multilevelGraph = _multilevelGraphConverter.CreateMultiLevelGraphOutOf(graph);
+            model.NodeGraph = creator.GetVisualGraph(multilevelGraph);
+            var pngData = creator.GetPngGraph(multilevelGraph);
 
             Texture tex = new Texture(pngData);
             tex.Smooth = false;
