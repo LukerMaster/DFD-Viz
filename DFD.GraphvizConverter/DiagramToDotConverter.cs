@@ -49,7 +49,8 @@ namespace DFD.GraphvizConverter
 
         public string ToDot(IGraph<ICollapsableGraphNode> graph)
         {
-            string code = "digraph { ";
+            string code = "digraph { " +
+                          "graph [dpi=400]";
             code = RepresentNode(graph.Root, code);
             foreach (var flow in graph.Flows)
             {

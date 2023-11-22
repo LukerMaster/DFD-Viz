@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="complicated.dfd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="documentation.dfd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Globalization;
+using System.Numerics;
 using DFD.GraphConverter.ViewModelImplementation;
 using DFD.Model.Interfaces;
 using DFD.ViewModel.Interfaces;
@@ -36,8 +37,17 @@ public class JsonToGraphParser
         
         visualNodes.Sort((a, b) => a.DrawOrder.CompareTo(b.DrawOrder));
 
+        var boundingBoxOfGraph = graphObj["bb"]
+            .ToString()
+            .Split(',')
+            .Select(x => float.Parse(x, new NumberFormatInfo() { NumberDecimalSeparator = "." }))
+            .ToArray();
+
+        var graphSize = new Vector2(boundingBoxOfGraph[2], boundingBoxOfGraph[3]);
+
         return new VisualGraph()
         {
+            Size = graphSize,
             Nodes = visualNodes
         };
     }

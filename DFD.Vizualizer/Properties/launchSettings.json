@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DFD.Vizualizer": {
+      "commandName": "Project",
+      "commandLineArgs": "\"complicated.dfd\""
+    }
+  }
+}
