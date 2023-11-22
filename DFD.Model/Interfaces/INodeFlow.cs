@@ -2,10 +2,10 @@
 
 namespace DFD.Model.Interfaces;
 
-public interface INodeFlow<T>
+public interface INodeFlow
 {
-    ITreeNode<T> Source { get; set; }
-    ITreeNode<T> Target { get; set; }
+    string SourceNodeName { get; set; }
+    string TargetNodeName { get; set; }
     bool BiDirectional { get; set; }
     string? FlowName { get; set; }
 }

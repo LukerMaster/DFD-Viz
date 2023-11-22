@@ -19,7 +19,7 @@ class Program
 
         foreach (var flow in graph.Flows)
         {
-            Console.WriteLine($"Flow {flow.Source.FullNodeName} --> {flow.Target.FullNodeName}");
+            Console.WriteLine($"Flow {flow.SourceNodeName} --> {flow.TargetNodeName}");
         }
 
         var multilevelGraph = new MultilevelGraphConverter().CreateMultiLevelGraphOutOf(graph);

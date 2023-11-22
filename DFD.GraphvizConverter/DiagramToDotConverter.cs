@@ -48,7 +48,7 @@ namespace DFD.GraphvizConverter
             code = RepresentNode(graph.Root, code);
             foreach (var flow in graph.Flows)
             {
-                code += $"{flow.Source.FullNodeName.Replace('.', '_')} -> {flow.Target.FullNodeName.Replace('.', '_')} [label=\"{flow.FlowName}\"]; \n";
+                code += $"{flow.SourceNodeName.Replace('.', '_')} -> {flow.TargetNodeName.Replace('.', '_')} [label=\"{flow.FlowName}\"]; \n";
             }
 
             code += " } \n";

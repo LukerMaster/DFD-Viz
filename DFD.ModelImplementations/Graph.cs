@@ -13,32 +13,32 @@ public class Graph<T> : IGraph<T>
     }
 
     private object _flows;
-    public IReadOnlyCollection<INodeFlow<T>> Flows
+    public IReadOnlyCollection<INodeFlow> Flows
     {
-        get => (_flows as IReadOnlyCollection<INodeFlow<T>>)!; 
+        get => (_flows as IReadOnlyCollection<INodeFlow>)!; 
         set => _flows = value;
     }
     public IGraph<TNew> CopyGraphAs<TNew>(Func<T, TNew> dataConversionFunc)
     {
         var newRoot = Root.CopySubtreeAs(dataConversionFunc)!;
 
-        var newFlows = new List<INodeFlow<TNew>>();
+        var newFlows = new List<INodeFlow>();
 
         foreach (var flow in Flows)
         {
-            newFlows.Add(new NodeFlow<TNew>()
+            newFlows.Add(new NodeFlow()
             {
                 BiDirectional = flow.BiDirectional,
                 FlowName = flow.FlowName,
-                Source = newRoot.FindMatchingNode(flow.Source.FullNodeName, leavesOnly: true),
-                Target = newRoot.FindMatchingNode(flow.Target.FullNodeName, leavesOnly: true)
+                SourceNodeName = flow.SourceNodeName,
+                TargetNodeName = flow.TargetNodeName
             });
         }
 
         return new Graph<TNew>(newRoot, newFlows);
     }
 
-    public Graph(ITreeNode<T> root, IReadOnlyCollection<INodeFlow<T>> flows)
+    public Graph(ITreeNode<T> root, IReadOnlyCollection<INodeFlow> flows)
     {
         _root = root;
         _flows = flows;

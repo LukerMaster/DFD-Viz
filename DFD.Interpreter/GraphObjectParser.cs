@@ -56,9 +56,9 @@ internal class GraphObjectParser
         return result;
     }
 
-    public INodeFlow<T> TryParseFlow<T>(string statement, ITreeNode<T> currentParent)
+    public INodeFlow TryParseFlow<T>(string statement, ITreeNode<T> currentParent)
     {
-        INodeFlow<T>? flow = null;
+        INodeFlow? flow = null;
 
         var definition = SplitByWhitespace(statement);
 
@@ -72,10 +72,18 @@ internal class GraphObjectParser
 
         try
         {
-            flow = new NodeFlow<T>()
+            var source = currentParent.FindMatchingNode(entityNameA, leavesOnly: true);
+            var target = currentParent.FindMatchingNode(entityNameB, leavesOnly: true);
+
+            if (source.Children.Count > 0)
+                throw new ProcessWithChildrenConnectedException<T>(source);
+            if (source.Children.Count > 0)
+                throw new ProcessWithChildrenConnectedException<T>(target);
+
+            flow = new NodeFlow()
             {
-                Source = currentParent.FindMatchingNode(entityNameA, leavesOnly:true),
-                Target = currentParent.FindMatchingNode(entityNameB, leavesOnly:true),
+                SourceNodeName = source.FullNodeName,
+                TargetNodeName = target.FullNodeName,
                 FlowName = flowName,
                 BiDirectional = flowType == "<->"
             };
@@ -85,10 +93,7 @@ internal class GraphObjectParser
             throw new FlowWithAmbiguousEntityException<T>(e.EntityName, e.Candidates);
         }
 
-        if (flow.Source.Children.Count > 0)
-            throw new ProcessWithChildrenConnectedException<T>(flow.Source);
-        if (flow.Target.Children.Count > 0)
-            throw new ProcessWithChildrenConnectedException<T>(flow.Target);
+        
 
         return flow;
     }

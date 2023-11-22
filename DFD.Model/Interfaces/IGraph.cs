@@ -5,7 +5,7 @@ namespace DFD.Model.Interfaces
     public interface IGraph<T>
     {
         public ITreeNode<T> Root { get; }
-        public IReadOnlyCollection<INodeFlow<T>> Flows { get; }
+        public IReadOnlyCollection<INodeFlow> Flows { get; }
         /// <summary>
         /// Copies the entire graph and applies <paramref name="dataConversionFunc"/> to all of the nodes
         /// to allow for data conversion from <see cref="T"/> to <see cref="TNew"/>.
