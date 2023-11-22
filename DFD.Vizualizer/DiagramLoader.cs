@@ -28,6 +28,7 @@ namespace DFD.Vizualizer
             var pngData = creator.GetPngGraph(graph);
 
             Texture tex = new Texture(pngData);
+            tex.Smooth = false;
             
             model.BgSprite = new Sprite(tex);
             model.BgSprite.Scale = new Vector2f(model.NodeGraph.Size.X / tex.Size.X, model.NodeGraph.Size.Y / tex.Size.Y);

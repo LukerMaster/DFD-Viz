@@ -13,19 +13,19 @@ namespace DFD.Vizualizer
         {
             IDiagramModel model = new DiagramLoader().ReadFromFile(args[0]);
 
-            SFML.Graphics.RenderWindow w = new RenderWindow(new VideoMode(1200, 800), "DFD-Viz", Styles.Default);
+            SFML.Graphics.RenderWindow w = new RenderWindow(new VideoMode(640, 480), "DFD-Viz", Styles.Default);
             w.SetVerticalSyncEnabled(true);
 
             bool shouldRun = true;
 
             w.Closed += (sender, eventArgs) => shouldRun = false;
-
-            DiagramPresenter presenter = new DiagramPresenter(model, w);
+            
+            DiagramUI ui = new DiagramUI(w, model);
 
             while (shouldRun)
             {
                 w.DispatchEvents();
-                presenter.Display();
+                ui.Process();
             }
         }
     }

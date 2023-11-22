@@ -14,6 +14,15 @@ public class JsonToGraphParser
     {
         JObject graphObj = JsonConvert.DeserializeObject<JObject>(json);
 
+        var boundingBoxOfGraph = graphObj["bb"]
+            .ToString()
+            .Split(',')
+            .Select(x => float.Parse(x, new NumberFormatInfo() { NumberDecimalSeparator = "." }))
+            .ToArray();
+
+        var graphSize = new Vector2(boundingBoxOfGraph[2], boundingBoxOfGraph[3]);
+
+
         var visualNodes = new List<IVisualGraphNode>();
 
         foreach (JObject jsonNode in graphObj["objects"])
@@ -24,6 +33,12 @@ public class JsonToGraphParser
             {
                 points.Add(new Vector2((float)tuple[0], (float)tuple[1]));
             }
+
+            for (int i = 0; i < points.Count; i++)
+            {
+                points[i] = new Vector2(points[i].X, -points[i].Y + graphSize.Y);
+            }
+
 
             var graphNode = graph.Root.FindMatchingNode(jsonNode["name"].ToString().Replace("_", "."), false);
 
@@ -37,14 +52,7 @@ public class JsonToGraphParser
         
         visualNodes.Sort((a, b) => a.DrawOrder.CompareTo(b.DrawOrder));
 
-        var boundingBoxOfGraph = graphObj["bb"]
-            .ToString()
-            .Split(',')
-            .Select(x => float.Parse(x, new NumberFormatInfo() { NumberDecimalSeparator = "." }))
-            .ToArray();
-
-        var graphSize = new Vector2(boundingBoxOfGraph[2], boundingBoxOfGraph[3]);
-
+        
         return new VisualGraph()
         {
             Size = graphSize,

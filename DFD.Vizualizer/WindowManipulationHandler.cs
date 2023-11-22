@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using System.Numerics;
+using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
@@ -61,5 +62,10 @@ public class WindowManipulationHandler
     public View CurrentView
     {
         get => _currentView;
+    }
+
+    public void CenterViewTo(Vector2 position)
+    {
+        _currentView.Center = new Vector2f(position.X, position.Y);
     }
 }
