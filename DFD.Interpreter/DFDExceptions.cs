@@ -1,6 +1,6 @@
 ﻿using DataStructure.NamedTree;
 
-namespace DFD.Interpreter;
+namespace DFD.Parsing;
 
 internal class DfdException : Exception
 {

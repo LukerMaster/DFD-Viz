@@ -2,7 +2,7 @@
 using DFD.Model.Interfaces;
 using DFD.ModelImplementations;
 
-namespace DFD.Interpreter;
+namespace DFD.Parsing;
 
 internal class ParserRunData
 {

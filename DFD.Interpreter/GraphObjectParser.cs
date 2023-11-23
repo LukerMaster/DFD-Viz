@@ -3,7 +3,7 @@ using DataStructure.NamedTree;
 using DFD.Model.Interfaces;
 using DFD.ModelImplementations;
 
-namespace DFD.Interpreter;
+namespace DFD.Parsing;
 
 internal class GraphObjectParser
 {

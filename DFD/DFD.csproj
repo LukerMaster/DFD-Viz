@@ -10,7 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DFD.GraphConverter\DFD.GraphConverter.csproj" />
     <ProjectReference Include="..\DFD.GraphvizConverter\DFD.GraphvizConverter.csproj" />
-    <ProjectReference Include="..\DFD.Interpreter\DFD.Interpreter.csproj" />
+    <ProjectReference Include="..\DFD.Interpreter\DFD.Parsing.csproj" />
   </ItemGroup>
 
   <ItemGroup>

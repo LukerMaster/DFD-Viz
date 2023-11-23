@@ -1,6 +1,5 @@
 ﻿using DFD.GraphConverter;
 using DFD.Model.Interfaces;
-using DFD.Vizualizer.Model;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -11,20 +10,33 @@ namespace DFD.Vizualizer
     {
         static void Main(string[] args)
         {
-            IDiagramModel model = new DiagramLoader().ReadFromFile(args[0]);
+            Parsing.Interpreter interpreter = new Parsing.Interpreter();
+            MultilevelGraphConverter converter = new MultilevelGraphConverter();
 
-            SFML.Graphics.RenderWindow w = new RenderWindow(new VideoMode(640, 480), "DFD-Viz", Styles.Default);
-            w.SetVerticalSyncEnabled(true);
+            LogicalGraphLoader loader = new LogicalGraphLoader(interpreter, converter);
+
+            var logicalGraph = loader.GetLogicalGraph(args[0]);
+
+            VisualGraphCreator creator = new VisualGraphCreator();
+
+            VisualGraphProvider provider = new VisualGraphProvider(logicalGraph, creator);
+
+
+            SFML.Graphics.RenderWindow window = new RenderWindow(new VideoMode(640, 480), "DFD-Viz", Styles.Default);
+            window.SetVerticalSyncEnabled(true);
+
+
+            DiagramPresenter presenter = new DiagramPresenter(provider, window);
 
             bool shouldRun = true;
 
-            w.Closed += (sender, eventArgs) => shouldRun = false;
+            window.Closed += (sender, eventArgs) => shouldRun = false;
             
-            DiagramUI ui = new DiagramUI(w, model);
+            DiagramUI ui = new DiagramUI(window, provider, presenter);
 
             while (shouldRun)
             {
-                w.DispatchEvents();
+                window.DispatchEvents();
                 ui.Process();
             }
         }

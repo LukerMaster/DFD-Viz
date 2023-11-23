@@ -13,7 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DFD.GraphvizConverter\DFD.GraphvizConverter.csproj" />
     <ProjectReference Include="..\DFD.Model\DFD.Model.csproj" />
-    <ProjectReference Include="..\DFD.ViewModel\DFD.ViewModel.csproj" />
+    <ProjectReference Include="..\DFD.ViewModel\DFD.DisplayModel.csproj" />
   </ItemGroup>
 
 </Project>

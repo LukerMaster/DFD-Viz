@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD", "DFD\DFD.csproj", "{3A3CCF66-CF2A-46CF-9625-4A91A0836C91}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.Interpreter", "DFD.Interpreter\DFD.Interpreter.csproj", "{070065E6-8A09-4B1E-80E8-64AD4AB23BC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.Parsing", "DFD.Interpreter\DFD.Parsing.csproj", "{070065E6-8A09-4B1E-80E8-64AD4AB23BC7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.Model", "DFD.Model\DFD.Model.csproj", "{0F47A0FE-673F-40B8-97EB-BDD4E9E78470}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.Vizualizer", "DFD.Vizua
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.GraphvizConverter", "DFD.GraphvizConverter\DFD.GraphvizConverter.csproj", "{8C571271-B20C-4F35-BF13-D4A2679727A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.ViewModel", "DFD.ViewModel\DFD.ViewModel.csproj", "{017768D7-D228-4EBF-8768-5D6313B7F181}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.DisplayModel", "DFD.ViewModel\DFD.DisplayModel.csproj", "{017768D7-D228-4EBF-8768-5D6313B7F181}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructure.NamedTree", "DataStructure.NamedTree\DataStructure.NamedTree.csproj", "{3E7D7464-F60D-4CD8-B4B0-31B4C2B1D950}"
 EndProject

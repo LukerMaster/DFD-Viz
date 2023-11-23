@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace DFD.Interpreter;
+namespace DFD.Parsing;
 
 internal class CodeSanitizer
 {
