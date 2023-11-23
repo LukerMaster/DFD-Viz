@@ -30,7 +30,6 @@ public class DiagramUI
                 var inWorldCoords = _window.MapPixelToCoords(new Vector2i(args.X, args.Y));
                 if (HitboxChecker.IsPointInPolygon4(node.DrawPoints, new Vector2(inWorldCoords.X, inWorldCoords.Y)))
                 {
-                    
                     node.Node.ChildrenCollapsed = !node.Node.ChildrenCollapsed;
                     Console.WriteLine($"{node.Node.Data.Name} : Collapesed: {node.Node.ChildrenCollapsed}");
                     break;

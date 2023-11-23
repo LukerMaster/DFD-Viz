@@ -14,12 +14,12 @@ public class DiagramPresenter
 
     private WindowManipulationHandler _windowManipulationHandler;
 
-    public DiagramPresenter(VisualGraphProvider graphProvider, RenderWindow window)
+    public DiagramPresenter(VisualGraphProvider graphProvider, RenderWindow window, WindowManipulationHandler manipulationHandler)
     {
         _graphProvider = graphProvider;
         _window = window;
 
-        _windowManipulationHandler = new WindowManipulationHandler(_window);
+        _windowManipulationHandler = manipulationHandler;
         _windowManipulationHandler.CenterViewTo(_graphProvider.VisualGraph.Size / 2);
 
     }

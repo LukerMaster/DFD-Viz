@@ -43,12 +43,11 @@ namespace DFD.GraphvizConverter
 
         public string ToDot(IGraph<ICollapsableGraphNode> graph)
         {
-            string code = "digraph { " +
-                          "graph [dpi=400]";
+            string code = "digraph { ";
             code = RepresentNode(graph.Root, code);
             foreach (var flow in graph.Flows)
             {
-                code += $"{flow.SourceNodeName.Replace('.', '_')} -> {flow.TargetNodeName.Replace('.', '_')} [label=\"{flow.FlowName}\"]; \n";
+                //code += $"{flow.SourceNodeName.Replace('.', '_')} -> {flow.TargetNodeName.Replace('.', '_')} [label=\"{flow.FlowName}\"]; \n";
             }
 
             code += " } \n";

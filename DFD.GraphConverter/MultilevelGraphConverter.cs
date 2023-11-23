@@ -13,6 +13,9 @@ public class MultilevelGraphConverter
                 Data = data,
                 ChildrenCollapsed = false
             });
+
+        (multilevelGraph.Root.Data as CollapsableGraphNode).CanBeCollapsed = false;
+
         return multilevelGraph;
     }
 }
