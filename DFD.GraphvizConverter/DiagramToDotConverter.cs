@@ -1,5 +1,7 @@
-﻿using DataStructure.NamedTree;
+﻿using System.Collections;
+using DataStructure.NamedTree;
 using DFD.Model.Interfaces;
+using DFD.ModelImplementations;
 using DFD.ViewModel.Interfaces;
 
 namespace DFD.GraphvizConverter
@@ -41,17 +43,72 @@ namespace DFD.GraphvizConverter
             return code;
         }
 
+        private void CheckIfSubtreeHasCollapsedChildren(ITreeNode<ICollapsableGraphNode> node,
+            ICollection<string> currentList)
+        {
+            if (node.Data.ChildrenCollapsed)
+            {
+                currentList.Add(node.FullNodeName);
+            }
+            else
+            {
+                foreach (var childNode in node.Children)
+                {
+                    CheckIfSubtreeHasCollapsedChildren(childNode, currentList);
+                }
+            }
+        }
+
+        private ICollection<string> GetAllNodeNamesWithCollapsedChildren(ITreeNode<ICollapsableGraphNode> node)
+        {
+            ICollection<string> collapsedList = new List<string>();
+            CheckIfSubtreeHasCollapsedChildren(node, collapsedList);
+            return collapsedList;
+        }
+
         public string ToDot(IGraph<ICollapsableGraphNode> graph)
         {
+            ICollection<string> collapsedNodesList = GetAllNodeNamesWithCollapsedChildren(graph.Root);
+
+            var flowsInVisualGraph = CreateRedirectedFlowsIfNodesAreCollapsed(graph.Flows, collapsedNodesList);
+
             string code = "digraph { ";
             code = RepresentNode(graph.Root, code);
-            foreach (var flow in graph.Flows)
+            foreach (var flow in flowsInVisualGraph)
             {
-                //code += $"{flow.SourceNodeName.Replace('.', '_')} -> {flow.TargetNodeName.Replace('.', '_')} [label=\"{flow.FlowName}\"]; \n";
+                code += $"{flow.SourceNodeName.Replace('.', '_')} -> {flow.TargetNodeName.Replace('.', '_')} [label=\"{flow.FlowName}\"]; \n";
             }
 
             code += " } \n";
             return code;
+        }
+
+        private static ICollection<INodeFlow> CreateRedirectedFlowsIfNodesAreCollapsed(IReadOnlyCollection<INodeFlow> logicalFlows, ICollection<string> collapsedNodesList)
+        {
+            ICollection<INodeFlow> flowsInVisualGraph = new List<INodeFlow>();
+
+            foreach (var logicalGraphFlow in logicalFlows)
+            {
+                var newFlow = new NodeFlow()
+                {
+                    BiDirectional = logicalGraphFlow.BiDirectional,
+                    FlowName = logicalGraphFlow.FlowName,
+                    SourceNodeName = logicalGraphFlow.SourceNodeName,
+                    TargetNodeName = logicalGraphFlow.TargetNodeName
+                };
+
+                foreach (var nodeName in collapsedNodesList)
+                {
+                    if (newFlow.SourceNodeName.StartsWith(nodeName))
+                        newFlow.SourceNodeName = nodeName;
+                    if (newFlow.TargetNodeName.StartsWith(nodeName))
+                        newFlow.TargetNodeName = nodeName;
+                }
+
+                flowsInVisualGraph.Add(newFlow);
+            }
+
+            return flowsInVisualGraph;
         }
     }
 }

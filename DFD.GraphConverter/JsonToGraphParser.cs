@@ -29,9 +29,17 @@ public class JsonToGraphParser
         {
 
             IList<Vector2> points = new List<Vector2>();
-            foreach (var tuple in jsonNode["_draw_"][1]["points"])
+            
+
+            foreach (var drawDefinition in jsonNode["_draw_"])
             {
-                points.Add(new Vector2((float)tuple[0], (float)tuple[1]));
+                if (drawDefinition["points"] is not null && drawDefinition["op"]?.Value<string>() == "p")
+                {
+                    foreach (var pointDefinition in drawDefinition["points"])
+                    {
+                        points.Add(new Vector2((float)pointDefinition[0], (float)pointDefinition[1]));
+                    }
+                }
             }
 
             for (int i = 0; i < points.Count; i++)
