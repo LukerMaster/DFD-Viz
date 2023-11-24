@@ -7,5 +7,7 @@ namespace DFD.ViewModel.Interfaces
     {
         Vector2 Size { get; }
         IReadOnlyCollection<IVisualGraphNode> Nodes { get; }
+        IReadOnlyCollection<IVisualObject> Flows { get; }
+        IReadOnlyCollection<IVisualObject> ArrowHeads { get; }
     }
 }

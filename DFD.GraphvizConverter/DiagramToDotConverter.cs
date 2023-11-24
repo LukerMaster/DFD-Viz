@@ -8,6 +8,7 @@ namespace DFD.GraphvizConverter
 {
     public class DiagramToDotConverter
     {
+        private readonly string BiDirectionalAttribute = "[dir=both]";
         private string RepresentNode(ITreeNode<ICollapsableGraphNode> node, string code, bool useDisplayNames = false)
         {
             if (node.Children.Count > 0 && !node.Data.ChildrenCollapsed)
@@ -76,7 +77,9 @@ namespace DFD.GraphvizConverter
             code = RepresentNode(graph.Root, code);
             foreach (var flow in flowsInVisualGraph)
             {
-                code += $"{flow.SourceNodeName.Replace('.', '_')} -> {flow.TargetNodeName.Replace('.', '_')} [label=\"{flow.FlowName}\"]; \n";
+                var attribute = flow.BiDirectional ? BiDirectionalAttribute : String.Empty;
+
+                code += $"{flow.SourceNodeName.Replace('.', '_')} -> {flow.TargetNodeName.Replace('.', '_')} [label=\"{flow.FlowName}\"] {attribute}; \n";
             }
 
             code += " } \n";
