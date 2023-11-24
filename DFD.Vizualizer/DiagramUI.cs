@@ -28,7 +28,7 @@ public class DiagramUI
             foreach (var node in _provider.VisualGraph.Nodes.Reverse())
             {
                 var inWorldCoords = _window.MapPixelToCoords(new Vector2i(args.X, args.Y));
-                if (HitboxChecker.IsPointInPolygon4(node.DrawPoints, new Vector2(inWorldCoords.X, inWorldCoords.Y)))
+                if (HitboxChecker.IsPointInPolygon4(node.VisualObject.Points, new Vector2(inWorldCoords.X, inWorldCoords.Y)))
                 {
                     node.Node.ChildrenCollapsed = !node.Node.ChildrenCollapsed;
                     Console.WriteLine($"{node.Node.Data.Name} : Collapesed: {node.Node.ChildrenCollapsed}");

@@ -42,13 +42,13 @@ public class GraphToShapeConverter
         ICollection<Drawable> drawables = new List<Drawable>();
         foreach (var node in graph.Nodes)
         {
-            SFML.Graphics.ConvexShape shape = new ConvexShape((uint)node.DrawPoints.Count);
+            SFML.Graphics.ConvexShape shape = new ConvexShape((uint)node.VisualObject.Points.Count);
 
-            for (int i = 0; i < node.DrawPoints.Count; i++)
+            for (int i = 0; i < node.VisualObject.Points.Count; i++)
             {
-                shape.SetPoint((uint)i, new Vector2f(node.DrawPoints[i].X, node.DrawPoints[i].Y));
+                shape.SetPoint((uint)i, new Vector2f(node.VisualObject.Points[i].X, node.VisualObject.Points[i].Y));
             }
-            shape.FillColor = new Color(50, (byte)(node.DrawOrder * 50), (byte)(node.DrawOrder * 30), 82);
+            shape.FillColor = new Color(50, (byte)(node.VisualObject.DrawOrder * 50), (byte)(node.VisualObject.DrawOrder * 30), 82);
             drawables.Add(shape);
         }
 

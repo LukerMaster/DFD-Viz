@@ -115,15 +115,22 @@ public class JsonToGraphParser
 
             var graphNode = graph.Root.FindMatchingNode(jsonNode["name"].ToString().Replace("_", "."), false);
 
+            IVisualObject vo = new VisualObject()
+            {
+                Points = (IReadOnlyList<Vector2>)points,
+                DrawOrder = graphNode.FullNodeName.ToCharArray().Count(x => x == '.'),
+                DrawTechnique = DrawTechnique.Straight,
+                IsClosed = true,
+            };
+
             visualNodes.Add(new VisualGraphNode()
             {
                 Node = graphNode.Data,
-                DrawPoints = points,
-                DrawOrder = graphNode.FullNodeName.ToCharArray().Count(x => x == '.')
+                VisualObject = vo
             });
         }
 
-        visualNodes.Sort((a, b) => a.DrawOrder.CompareTo(b.DrawOrder));
+        visualNodes.Sort((a, b) => a.VisualObject.DrawOrder.CompareTo(b.VisualObject.DrawOrder));
         return visualNodes;
     }
 }

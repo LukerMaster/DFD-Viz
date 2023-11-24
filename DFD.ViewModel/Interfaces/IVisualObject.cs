@@ -10,6 +10,11 @@ public interface IVisualObject
     /// If true - points forms a loop, effectively creating a shape, if false - it's a line.
     /// </summary>
     bool IsClosed { get; }
+
+    /// <summary>
+    /// Defines the order at which things should be drawn onto the screen. The higher, the later to draw.
+    /// </summary>
+    int DrawOrder { get; }
 }
 
 public enum DrawTechnique

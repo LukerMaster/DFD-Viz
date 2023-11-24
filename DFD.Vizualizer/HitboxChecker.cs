@@ -4,7 +4,7 @@ namespace DFD.Vizualizer;
 
 public class HitboxChecker
 {
-    public static bool IsPointInPolygon4(IList<Vector2> polygon, Vector2 testPoint)
+    public static bool IsPointInPolygon4(IReadOnlyList<Vector2> polygon, Vector2 testPoint)
     {
         bool result = false;
         int j = polygon.Count - 1;
