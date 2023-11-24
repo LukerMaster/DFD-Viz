@@ -37,41 +37,64 @@ public class GraphToShapeConverter
         return curvePoints;
     }
 
-    public ICollection<Drawable> ConvertToDrawables(IVisualGraph graph)
+
+    private Drawable GetLineFrom(IReadOnlyList<Vector2> Points, Color color)
+    {
+        VertexArray va = new VertexArray(PrimitiveType.LineStrip, (uint)Points.Count);
+        for (int i = 0; i < Points.Count; i++)
+        {
+            va[(uint)i] = new Vertex(new Vector2f(Points[i].X, Points[i].Y), color);
+        }
+        return va;
+    }
+
+    private Drawable GetShapeFrom(IReadOnlyList<Vector2> Points, Color color)
+    {
+        ConvexShape shape = new ConvexShape((uint)Points.Count);
+        for (int i = 0; i < Points.Count; i++)
+        {
+            shape.SetPoint((uint)i, new Vector2f(Points[i].X, Points[i].Y));
+            shape.FillColor = color;
+        }
+        return shape;
+    }
+    private ICollection<Drawable> GetDrawablesFrom(IVisualObject vo, Color outLineColor, Color fillColor)
     {
         ICollection<Drawable> drawables = new List<Drawable>();
+        if (vo.IsClosed)
+        {
+            
+            drawables.Add(GetShapeFrom(vo.Points, Color.White));
+
+            var enclosedPoints = new List<Vector2>(vo.Points);
+            enclosedPoints.Add(vo.Points[0]); // loop back to beginning
+            drawables.Add(GetLineFrom(enclosedPoints, Color.Black));
+        }
+        else
+        {
+            drawables.Add(GetLineFrom(vo.Points, Color.Black));
+        }
+        return drawables;
+    }
+
+    public ICollection<Drawable> ConvertToDrawables(IVisualGraph graph)
+    {
+        List<Drawable> drawables = new List<Drawable>();
         foreach (var node in graph.Nodes)
         {
-            SFML.Graphics.ConvexShape shape = new ConvexShape((uint)node.VisualObject.Points.Count);
-
-            for (int i = 0; i < node.VisualObject.Points.Count; i++)
-            {
-                shape.SetPoint((uint)i, new Vector2f(node.VisualObject.Points[i].X, node.VisualObject.Points[i].Y));
-            }
-            shape.FillColor = new Color(50, (byte)(node.VisualObject.DrawOrder * 50), (byte)(node.VisualObject.DrawOrder * 30), 82);
-            drawables.Add(shape);
+            drawables.AddRange(GetDrawablesFrom(node.VisualObject, Color.Black, Color.White));
         }
 
         foreach (var arrowHead in graph.ArrowHeads)
         {
-            ConvexShape shape = new ConvexShape((uint)arrowHead.Points.Count);
-            for (int i = 0; i < arrowHead.Points.Count; i++)
-            {
-                shape.SetPoint((uint)i, new Vector2f(arrowHead.Points[i].X, arrowHead.Points[i].Y));
-                shape.FillColor = new Color(30, 90, 90, 120);
-            }
-            drawables.Add(shape);
+            drawables.Add(GetShapeFrom(arrowHead.Points, Color.Black));
         }
 
         foreach (var flow in graph.Flows)
         {
             var curvePoints = GetBezierCurve(flow.Points);
-            VertexArray array = new VertexArray(PrimitiveType.LineStrip, (uint)curvePoints.Count);
-            for (int i = 0; i < curvePoints.Count; i++)
-            {
-                array[(uint)i] = new Vertex(new Vector2f(curvePoints[i].X, curvePoints[i].Y), new Color(20, 200, 20, 150));
-            }
-            drawables.Add(array);
+            
+            drawables.Add(GetLineFrom(curvePoints, Color.Black));
         }
 
         return drawables;

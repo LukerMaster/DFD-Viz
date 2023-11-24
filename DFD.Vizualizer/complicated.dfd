@@ -35,7 +35,10 @@ Process E "E":
 	Process C2 "C2":
 		Process C1 "C1":
 			Process D1 "D1"
-	A1 --> X.C1.D1
+	A1 --> X.C1.D1 "Flow A"
+	A1 --> X.C1.D1 "Flow B"
+	A1 --> X.C1.D1 "Flow C"
+	A1 --> X.C1.D1 "Flow D"
 
 Process A "A":
 	Process A1 "A1"
