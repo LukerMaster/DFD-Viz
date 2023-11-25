@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using DataStructure.NamedTree;
@@ -10,7 +11,7 @@ using DFD.ViewModel.Interfaces;
 
 namespace DFD.Vizualizer
 {
-    public class VisualGraphProvider
+    public class VisualGraphProvider : IViewDataProvider
     {
         private IVisualGraph _visualGraph;
         private IGraph<ICollapsableGraphNode> _logicalGraph;
@@ -62,5 +63,8 @@ namespace DFD.Vizualizer
                 return _visualGraph;
             }
         }
+
+        public Vector2 Center { get => VisualGraph.Size / 2; }
+        public Vector2 Size { get => VisualGraph.Size; }
     }
 }

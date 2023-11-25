@@ -8,7 +8,7 @@ namespace DFD.Vizualizer;
 public class WindowViewManipulator
 {
     protected RenderWindow _window;
-    protected VisualGraphProvider _provider;
+    protected IViewDataProvider _viewCenterProvider;
 
     protected View _currentView = new View();
     protected float _currentScale = 1.0f;
@@ -18,7 +18,7 @@ public class WindowViewManipulator
 
     public void ResetView()
     {
-        _currentView.Center = new Vector2f(_provider.VisualGraph.Size.X / 2, _provider.VisualGraph.Size.Y / 2);
+        _currentView.Center = new Vector2f(_viewCenterProvider.Center.X, _viewCenterProvider.Center.Y);
         _currentScale = 1.0f;
         UpdateView();
     }
@@ -27,10 +27,9 @@ public class WindowViewManipulator
     {
         _currentView.Size = new Vector2f(_window.Size.X * _currentScale, _window.Size.Y * _currentScale);
     }
-    public WindowViewManipulator(RenderWindow w, VisualGraphProvider provider)
+    public WindowViewManipulator(RenderWindow w, IViewDataProvider viewCenterProvider)
     {
         _window = w;
-        _provider = provider;
 
         _currentView.Center = new Vector2f(0, 0);
 
