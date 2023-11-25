@@ -5,7 +5,7 @@ using SFML.Window;
 
 namespace DFD.Vizualizer;
 
-public class WindowManipulationHandler
+public class WindowViewManipulator
 {
     protected RenderWindow _window;
 
@@ -19,7 +19,7 @@ public class WindowManipulationHandler
     {
         _currentView.Size = new Vector2f(_window.Size.X * _currentScale, _window.Size.Y * _currentScale);
     }
-    public WindowManipulationHandler(RenderWindow w)
+    public WindowViewManipulator(RenderWindow w)
     {
         _window = w;
 

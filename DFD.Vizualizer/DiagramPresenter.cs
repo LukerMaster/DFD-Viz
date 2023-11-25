@@ -12,20 +12,20 @@ public class DiagramPresenter
 
     private GraphToShapeConverter shapeConverter = new GraphToShapeConverter();
 
-    private WindowManipulationHandler _windowManipulationHandler;
+    private WindowViewManipulator _windowViewManipulator;
 
-    public DiagramPresenter(VisualGraphProvider graphProvider, RenderWindow window, WindowManipulationHandler manipulationHandler)
+    public DiagramPresenter(VisualGraphProvider graphProvider, RenderWindow window, WindowViewManipulator viewManipulator)
     {
         _graphProvider = graphProvider;
         _window = window;
 
-        _windowManipulationHandler = manipulationHandler;
-        _windowManipulationHandler.CenterViewTo(_graphProvider.VisualGraph.Size / 2);
+        _windowViewManipulator = viewManipulator;
+        _windowViewManipulator.CenterViewTo(_graphProvider.VisualGraph.Size / 2);
 
     }
     public void Display()
     {
-        _window.SetView(_windowManipulationHandler.CurrentView);
+        _window.SetView(_windowViewManipulator.CurrentView);
         _window.Clear(new Color(10, 10, 30));
         
         foreach (var drawable in shapeConverter.ConvertToDrawables(_graphProvider.VisualGraph))

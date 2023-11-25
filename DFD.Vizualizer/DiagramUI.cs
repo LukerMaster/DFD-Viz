@@ -11,6 +11,7 @@ public class DiagramUI
     protected DiagramPresenter _presenter;
     protected VisualGraphProvider _provider;
     protected RenderWindow _window;
+
     public DiagramUI(RenderWindow window,
         VisualGraphProvider provider,
         DiagramPresenter presenter)
