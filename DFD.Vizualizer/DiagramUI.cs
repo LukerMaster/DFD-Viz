@@ -12,6 +12,8 @@ public class DiagramUI
     protected VisualGraphProvider _provider;
     protected RenderWindow _window;
 
+    private Vector2 _mousePressPosition;
+
     public DiagramUI(RenderWindow window,
         VisualGraphProvider provider,
         DiagramPresenter presenter)
@@ -24,17 +26,26 @@ public class DiagramUI
         {
         };
 
-        _window.MouseButtonPressed += (sender, args) =>
+        _window.MouseButtonReleased += (sender, args) =>
         {
-            foreach (var node in _provider.VisualGraph.Nodes.Reverse())
+            if (args.Button == Mouse.Button.Left && new Vector2(args.X, args.Y) == _mousePressPosition)
             {
-                var inWorldCoords = _window.MapPixelToCoords(new Vector2i(args.X, args.Y));
-                if (HitboxChecker.IsPointInPolygon4(node.VisualObject.Points, new Vector2(inWorldCoords.X, inWorldCoords.Y)))
+                foreach (var node in _provider.VisualGraph.Nodes.Reverse())
                 {
-                    node.Node.ChildrenCollapsed = !node.Node.ChildrenCollapsed;
-                    break;
+                    var inWorldCoords = _window.MapPixelToCoords(new Vector2i(args.X, args.Y));
+                    if (HitboxChecker.IsPointInPolygon4(node.VisualObject.Points, new Vector2(inWorldCoords.X, inWorldCoords.Y)))
+                    {
+                        node.Node.ChildrenCollapsed = !node.Node.ChildrenCollapsed;
+                        break;
+                    }
                 }
             }
+        };
+
+        _window.MouseButtonPressed += (sender, args) =>
+        {
+            if (args.Button == Mouse.Button.Left)
+                _mousePressPosition = new Vector2(args.X, args.Y);
         };
     }
 
