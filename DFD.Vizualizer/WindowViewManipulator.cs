@@ -19,7 +19,10 @@ public class WindowViewManipulator
     public void ResetView()
     {
         _currentView.Center = new Vector2f(_viewCenterProvider.Center.X, _viewCenterProvider.Center.Y);
-        _currentScale = 1.0f;
+        if (_window.Size.Y < _window.Size.X)
+            _currentScale =  _viewCenterProvider.Size.Y / _window.Size.Y;
+        else
+            _currentScale = _viewCenterProvider.Size.X / _window.Size.X;
         UpdateView();
     }
 
@@ -30,6 +33,7 @@ public class WindowViewManipulator
     public WindowViewManipulator(RenderWindow w, IViewDataProvider viewCenterProvider)
     {
         _window = w;
+        _viewCenterProvider = viewCenterProvider;
 
         _currentView.Center = new Vector2f(0, 0);
 
