@@ -80,7 +80,7 @@ namespace DFD.Parsing
                 }
                 catch (Exception e)
                 {
-                    throw new AggregateException($"Error while parsing statement: {statement}", e);
+                    throw new AggregateException($"Error while parsing statement: {statement}\n", e);
                 }
                 // Setting a correct scope for the statement (correct Parent).
                 

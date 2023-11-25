@@ -16,7 +16,7 @@ internal class ErrorViewData : IViewDataProvider
 
         _text = new Text();
         _text.Font = _font;
-        _text.DisplayedString = e.Message + "\n" + e.InnerException.Message;
+        _text.DisplayedString = e.Message;
         _text.FillColor = new Color(255, 40, 40);
         _text.CharacterSize = 60;
         _text.Scale = new Vector2f(1, 1);
