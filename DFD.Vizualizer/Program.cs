@@ -25,7 +25,7 @@ namespace DFD.Vizualizer
             SFML.Graphics.RenderWindow window = new RenderWindow(new VideoMode(640, 480), "DFD-Viz", Styles.Default);
             window.SetVerticalSyncEnabled(true);
 
-            WindowViewManipulator windowViewManipulator = new WindowViewManipulator(window);
+            WindowViewManipulator windowViewManipulator = new WindowViewManipulator(window, provider);
 
             DiagramPresenter presenter = new DiagramPresenter(provider, window, windowViewManipulator);
 

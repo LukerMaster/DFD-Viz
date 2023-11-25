@@ -8,6 +8,7 @@ namespace DFD.Vizualizer;
 public class WindowViewManipulator
 {
     protected RenderWindow _window;
+    protected VisualGraphProvider _provider;
 
     protected View _currentView = new View();
     protected float _currentScale = 1.0f;
@@ -15,13 +16,21 @@ public class WindowViewManipulator
     protected bool _moving = false;
     protected Vector2f _previousMousePos = new(0, 0);
 
+    public void ResetView()
+    {
+        _currentView.Center = new Vector2f(_provider.VisualGraph.Size.X / 2, _provider.VisualGraph.Size.Y / 2);
+        _currentScale = 1.0f;
+        UpdateView();
+    }
+
     private void UpdateView()
     {
         _currentView.Size = new Vector2f(_window.Size.X * _currentScale, _window.Size.Y * _currentScale);
     }
-    public WindowViewManipulator(RenderWindow w)
+    public WindowViewManipulator(RenderWindow w, VisualGraphProvider provider)
     {
         _window = w;
+        _provider = provider;
 
         _currentView.Center = new Vector2f(0, 0);
 
@@ -57,15 +66,18 @@ public class WindowViewManipulator
             }
             _previousMousePos = new Vector2f(args.X, args.Y);
         };
+
+        _window.KeyPressed += (sender, args) =>
+        {
+            if (args.Code == Keyboard.Key.Space)
+            {
+                ResetView();
+            }
+        };
     }
 
     public View CurrentView
     {
         get => _currentView;
-    }
-
-    public void CenterViewTo(Vector2 position)
-    {
-        _currentView.Center = new Vector2f(position.X, position.Y);
     }
 }

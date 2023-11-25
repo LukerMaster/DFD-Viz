@@ -20,7 +20,7 @@ public class DiagramPresenter
         _window = window;
 
         _windowViewManipulator = viewManipulator;
-        _windowViewManipulator.CenterViewTo(_graphProvider.VisualGraph.Size / 2);
+        _windowViewManipulator.ResetView();
 
     }
     public void Display()
