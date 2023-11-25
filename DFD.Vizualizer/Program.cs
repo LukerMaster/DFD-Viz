@@ -1,7 +1,7 @@
 ﻿using DFD.GraphConverter;
 using DFD.Model.Interfaces;
+using DFD.ViewModel.Interfaces;
 using SFML.Graphics;
-using SFML.System;
 using SFML.Window;
 
 namespace DFD.Vizualizer
@@ -10,30 +10,46 @@ namespace DFD.Vizualizer
     {
         static void Main(string[] args)
         {
+            SFML.Graphics.RenderWindow window = new RenderWindow(new VideoMode(640, 480), "DFD-Viz", Styles.Default);
+            window.SetVerticalSyncEnabled(true);
+            bool shouldRun = true;
+            window.Closed += (sender, eventArgs) => shouldRun = false;
+
             Parsing.Interpreter interpreter = new Parsing.Interpreter();
             MultilevelGraphConverter converter = new MultilevelGraphConverter();
-
             LogicalGraphLoader loader = new LogicalGraphLoader(interpreter, converter);
 
-            var logicalGraph = loader.GetLogicalGraph(args[0]);
+            IGraph<ICollapsableGraphNode> logicalGraph = null;
+            IProgramUI ui = null;
+
+            try
+            {
+                logicalGraph = loader.GetLogicalGraph(args[0]);
+            }
+            catch (AggregateException e)
+            {
+                var errorData = new ErrorViewData(e);
+                var viewManipulator = new WindowViewManipulator(window, errorData);
+                ui = new ErrorUI(window, errorData, viewManipulator);
+
+                while (shouldRun)
+                {
+                    window.DispatchEvents();
+                    ui.Process();
+                }
+
+                return;
+            }
 
             VisualGraphCreator creator = new VisualGraphCreator();
 
             VisualGraphProvider provider = new VisualGraphProvider(logicalGraph, creator);
 
-
-            SFML.Graphics.RenderWindow window = new RenderWindow(new VideoMode(640, 480), "DFD-Viz", Styles.Default);
-            window.SetVerticalSyncEnabled(true);
-
             WindowViewManipulator windowViewManipulator = new WindowViewManipulator(window, provider);
 
             DiagramPresenter presenter = new DiagramPresenter(provider, window, windowViewManipulator);
 
-            bool shouldRun = true;
-
-            window.Closed += (sender, eventArgs) => shouldRun = false;
-            
-            DiagramUI ui = new DiagramUI(window, provider, presenter);
+            ui = new ProgramUI(window, provider, presenter);
 
             while (shouldRun)
             {

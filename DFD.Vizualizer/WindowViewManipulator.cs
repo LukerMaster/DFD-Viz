@@ -19,7 +19,7 @@ public class WindowViewManipulator
     public void ResetView()
     {
         _currentView.Center = new Vector2f(_viewCenterProvider.Center.X, _viewCenterProvider.Center.Y);
-        if (_window.Size.Y < _window.Size.X)
+        if (_viewCenterProvider.Size.Y > _viewCenterProvider.Size.X)
             _currentScale =  _viewCenterProvider.Size.Y / _window.Size.Y;
         else
             _currentScale = _viewCenterProvider.Size.X / _window.Size.X;

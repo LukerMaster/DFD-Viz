@@ -45,37 +45,45 @@ namespace DFD.Parsing
 
             foreach (var statement in lines)
             {
+                try
+                {
+                    SetCorrectScopeLevel(runData, statement);
+
+                    ITreeNode<IGraphNodeData>? newNode = null;
+
+                    // Creation of basic nodes.
+                    if (_regexes[StatementType.SimpleNodeDeclaration].Match(statement).Success)
+                    {
+                        newNode = _objectParser.TryParseNode(statement, (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
+                        nodes.Add(newNode);
+                        continue;
+                    }
+
+                    // Creation of nested nodes.
+                    if (_regexes[StatementType.NestedProcessDeclaration].Match(statement).Success)
+                    {
+                        newNode = _objectParser.TryParseNode(statement.TrimEnd(':'), (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
+                        runData.RaiseScope(newNode);
+                        nodes.Add(newNode);
+                        continue;
+                    }
+
+                    // Creation of flows.
+                    if (_regexes[StatementType.FlowDeclaration].Match(statement).Success)
+                    {
+                        flows.Add(_objectParser.TryParseFlow(statement, runData.CurrentScopeNode));
+                        continue;
+                    }
+
+                    // Error if line does not match any valid statements.
+                    throw new InvalidStatementException(statement);
+                }
+                catch (Exception e)
+                {
+                    throw new AggregateException($"Error while parsing statement: {statement}", e);
+                }
                 // Setting a correct scope for the statement (correct Parent).
-                SetCorrectScopeLevel(runData, statement);
-
-                ITreeNode<IGraphNodeData>? newNode = null;
-
-                // Creation of basic nodes.
-                if (_regexes[StatementType.SimpleNodeDeclaration].Match(statement).Success)
-                {
-                    newNode = _objectParser.TryParseNode(statement, (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
-                    nodes.Add(newNode);
-                    continue;
-                }
-
-                // Creation of nested nodes.
-                if (_regexes[StatementType.NestedProcessDeclaration].Match(statement).Success)
-                {
-                    newNode = _objectParser.TryParseNode(statement.TrimEnd(':'), (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
-                    runData.RaiseScope(newNode);
-                    nodes.Add(newNode);
-                    continue;
-                }
-
-                // Creation of flows.
-                if (_regexes[StatementType.FlowDeclaration].Match(statement).Success)
-                {
-                    flows.Add(_objectParser.TryParseFlow(statement, runData.CurrentScopeNode));
-                    continue;
-                }
-
-                // Error if line does not match any valid statements.
-                throw new InvalidStatementException(statement);
+                
             }
 
             return new Graph<IGraphNodeData>(nodes.First().Root, flows);

@@ -6,7 +6,7 @@ using SFML.Window;
 
 namespace DFD.Vizualizer;
 
-public class DiagramUI
+public class ProgramUI : IProgramUI
 {
     protected DiagramPresenter _presenter;
     protected VisualGraphProvider _provider;
@@ -14,7 +14,7 @@ public class DiagramUI
 
     private Vector2 _mousePressPosition;
 
-    public DiagramUI(RenderWindow window,
+    public ProgramUI(RenderWindow window,
         VisualGraphProvider provider,
         DiagramPresenter presenter)
     {
@@ -53,4 +53,9 @@ public class DiagramUI
     {
         _presenter.Display();
     }
+}
+
+public interface IProgramUI
+{
+    void Process();
 }
