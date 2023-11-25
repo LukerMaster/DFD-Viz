@@ -18,6 +18,12 @@ Process CreatePage "Create page":
 	Process SaveFiles "Save files"
 	AddData --> SaveFiles
 
+Storage MainDb "Database"
+
+IO User "User"
+
+User --> MainDb "Interaction"
+
 CreateDb.SaveFiles --> CreateUser.AddData
 CreateUser.SaveFiles --> CreateLogin.AddData
 CreateLogin.SaveFiles --> CreatePage.AddData

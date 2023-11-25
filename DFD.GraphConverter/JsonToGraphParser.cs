@@ -89,7 +89,7 @@ public class JsonToGraphParser
 
         foreach (var edge in rootJsonObject["edges"])
         {
-            arrowHeads.Add(ParseDrawDefinition(edge, "_hdraw_"));
+            arrowHeads.Add(GetVisualObjectFrom(edge, "_hdraw_"));
         }
 
         return arrowHeads;
@@ -101,28 +101,28 @@ public class JsonToGraphParser
 
         foreach (var edge in rootJsonObject["edges"])
         {
-            visualFlows.Add(ParseDrawDefinition(edge, "_draw_"));
+            visualFlows.Add(GetVisualObjectFrom(edge, "_draw_"));
         }
 
         return visualFlows;
     }
 
-    private IVisualObject ParseDrawDefinition(JToken edge, string definitionName)
+    private VisualObject GetVisualObjectFrom(JToken graphObj, string definitionName, bool isClosed = false)
     {
-        foreach (var drawDefinition in edge[definitionName])
+        foreach (var drawDefinition in graphObj[definitionName])
         {
             if (drawDefinition["points"] is not null)
             {
-               return GetDrawDefinition(drawDefinition);
+               return ParseDrawDefinition(drawDefinition, isClosed);
             }
         }
         throw new Exception("Unsupported shape type.");
     }
 
-    private IVisualObject GetDrawDefinition(JToken drawDefinition)
+    private VisualObject ParseDrawDefinition(JToken drawDefinition, bool isClosed = false)
     {
-        VisualObject flow = new VisualObject();
-        flow.DrawTechnique = drawDefinition["op"].ToString() == "b"
+        VisualObject visualObject = new VisualObject();
+        visualObject.DrawTechnique = drawDefinition["op"].ToString() == "b"
             ? DrawTechnique.Bezier
             : DrawTechnique.Straight;
 
@@ -133,9 +133,9 @@ public class JsonToGraphParser
             pointList.Add(new Vector2((float)point[0], (float)point[1]));
         }
 
-        flow.Points = pointList;
-        flow.IsClosed = char.IsUpper(drawDefinition["op"].ToString()[0]); // I'm not quite sure if letter being uppercase actually makes it closed.
-        return flow;
+        visualObject.Points = pointList;
+        visualObject.IsClosed = isClosed;
+        return visualObject;
     }
 
     private IReadOnlyList<IVisualGraphNode> GetNodes(IGraph<ICollapsableGraphNode> graph, JObject rootJsonObject)
@@ -144,29 +144,10 @@ public class JsonToGraphParser
 
         foreach (JObject jsonNode in rootJsonObject["objects"])
         {
-            IList<Vector2> points = new List<Vector2>();
-
-
-            foreach (var drawDefinition in jsonNode["_draw_"])
-            {
-                if (drawDefinition["points"] is not null && drawDefinition["op"]?.Value<string>() == "p")
-                {
-                    foreach (var pointDefinition in drawDefinition["points"])
-                    {
-                        points.Add(new Vector2((float)pointDefinition[0], (float)pointDefinition[1]));
-                    }
-                }
-            }
-
+            VisualObject vo = GetVisualObjectFrom(jsonNode, "_draw_", true);
+            
             var graphNode = graph.Root.FindMatchingNode(jsonNode["name"].ToString().Replace("_", "."), false);
-
-            IVisualObject vo = new VisualObject()
-            {
-                Points = (IReadOnlyList<Vector2>)points,
-                DrawOrder = graphNode.FullNodeName.ToCharArray().Count(x => x == '.'),
-                DrawTechnique = DrawTechnique.Straight,
-                IsClosed = true,
-            };
+            vo.DrawOrder = graphNode.FullNodeName.ToCharArray().Count(x => x == '.');
 
             visualNodes.Add(new VisualGraphNode()
             {

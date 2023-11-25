@@ -63,7 +63,6 @@ public class GraphToShapeConverter
         ICollection<Drawable> drawables = new List<Drawable>();
         if (vo.IsClosed)
         {
-            
             drawables.Add(GetShapeFrom(vo.Points, Color.White));
 
             var enclosedPoints = new List<Vector2>(vo.Points);
