@@ -53,6 +53,15 @@ internal class FlowWithAmbiguousNodeException<T> : DfdException
     }
 }
 
+internal class UndefinedNodeReferencedException : DfdException
+{
+    public UndefinedNodeReferencedException(string nodeName, string parentNodeName)
+        : base($"Could not find '{nodeName}' anywhere inside of '{parentNodeName}' or its children.")
+    {
+
+    }
+}
+
 internal class IndentationWrongException : DfdException
 {
     public IndentationWrongException(int indentations) 

@@ -92,6 +92,10 @@ internal class GraphObjectParser
         {
             throw new FlowWithAmbiguousNodeException<T>(e.NodeName, e.Candidates);
         }
+        catch (NodeNotFoundException e)
+        {
+            throw new UndefinedNodeReferencedException(e.NodeName, e.ParentNodeName);
+        }
 
         
 

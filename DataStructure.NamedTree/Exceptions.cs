@@ -3,9 +3,11 @@
 public class NodeNotFoundException : Exception
 {
     public string NodeName { get; }
-    public NodeNotFoundException(string nodeName)
+    public string ParentNodeName { get; }
+    public NodeNotFoundException(string nodeName, string parentNodeName)
     {
         NodeName = nodeName;
+        ParentNodeName = parentNodeName;
     }
 }
 

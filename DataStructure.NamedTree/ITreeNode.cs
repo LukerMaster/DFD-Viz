@@ -104,7 +104,7 @@ public interface ITreeNode<T>
         if (candidates.Count > 1)
             throw new AmbiguousNodeMatchException<T>(fullOrPartialNodeName, candidates.ToArray());
         // Target value not found in the tree
-        throw new NodeNotFoundException(fullOrPartialNodeName);
+        throw new NodeNotFoundException(fullOrPartialNodeName, this.FullNodeName);
     }
 
     public bool CanNameBeThisNode(string nodeName)
