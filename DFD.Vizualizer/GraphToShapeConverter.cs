@@ -77,6 +77,20 @@ public class GraphToShapeConverter
         return drawables;
     }
 
+    private Drawable GetLabelFrom(IVisualText textDefinition, Font font, Color color)
+    {
+        // Original font size is making the text extremely low-res, so we artificially scale it up.
+        float scaleFactor = 8;
+
+        Text text = new Text(textDefinition.Text, font);
+        text.Position = new Vector2f(textDefinition.Position.X, textDefinition.Position.Y);
+        text.CharacterSize = (uint)(textDefinition.FontSize * scaleFactor);
+        text.Scale = new Vector2f(1 / scaleFactor, 1 / scaleFactor);
+        text.FillColor = color;
+        text.Origin = new Vector2f(textDefinition.Origin.X * text.GetLocalBounds().Width, textDefinition.Origin.Y * text.GetLocalBounds().Height);
+        return text;
+    }
+
     public ICollection<Drawable> ConvertToDrawables(IVisualGraph graph)
     {
         List<Drawable> drawables = new List<Drawable>();
@@ -95,6 +109,12 @@ public class GraphToShapeConverter
             var curvePoints = GetBezierCurve(flow.Points);
             
             drawables.Add(GetLineFrom(curvePoints, Color.Black));
+        }
+
+        Font font = new Font(Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "times.ttf"));
+        foreach (var text in graph.TextLabels)
+        {
+            drawables.Add(GetLabelFrom(text, font, Color.Black));
         }
 
         return drawables;

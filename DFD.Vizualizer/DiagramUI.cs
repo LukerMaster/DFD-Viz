@@ -31,7 +31,6 @@ public class DiagramUI
                 if (HitboxChecker.IsPointInPolygon4(node.VisualObject.Points, new Vector2(inWorldCoords.X, inWorldCoords.Y)))
                 {
                     node.Node.ChildrenCollapsed = !node.Node.ChildrenCollapsed;
-                    Console.WriteLine($"{node.Node.Data.Name} : Collapesed: {node.Node.ChildrenCollapsed}");
                     break;
                 }
             }

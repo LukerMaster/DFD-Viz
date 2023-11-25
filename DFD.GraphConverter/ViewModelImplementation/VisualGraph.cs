@@ -11,4 +11,5 @@ public class VisualGraph : IVisualGraph
     public IReadOnlyCollection<IVisualGraphNode> Nodes { get; set; }
     public IReadOnlyCollection<IVisualObject> Flows { get; set; }
     public IReadOnlyCollection<IVisualObject> ArrowHeads { get; set; }
+    public IReadOnlyCollection<IVisualText> TextLabels { get; set; }
 }

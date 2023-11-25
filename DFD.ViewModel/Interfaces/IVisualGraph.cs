@@ -9,5 +9,6 @@ namespace DFD.ViewModel.Interfaces
         IReadOnlyCollection<IVisualGraphNode> Nodes { get; }
         IReadOnlyCollection<IVisualObject> Flows { get; }
         IReadOnlyCollection<IVisualObject> ArrowHeads { get; }
+        IReadOnlyCollection<IVisualText> TextLabels { get; }
     }
 }

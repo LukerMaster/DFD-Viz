@@ -26,6 +26,7 @@ public class JsonToGraphParser
         var visualNodes = GetNodes(graph, rootJsonObject);
         var visualFlows = GetFlows(rootJsonObject);
         var arrowHeads = GetArrowHeads(rootJsonObject);
+        var visualTexts = GetAllTexts(rootJsonObject);
 
 
         return new VisualGraph()
@@ -34,11 +35,55 @@ public class JsonToGraphParser
             Nodes = visualNodes,
             LogicalGraph = graph,
             Flows = visualFlows,
-            ArrowHeads = arrowHeads
+            ArrowHeads = arrowHeads,
+            TextLabels = visualTexts
         };
     }
 
-    private List<IVisualObject> GetArrowHeads(JObject rootJsonObject)
+    private IReadOnlyList<IVisualText> GetAllTexts(JObject rootJsonObject)
+    {
+        List<IVisualText> visualTexts = new List<IVisualText>();
+        foreach (var graphObj in rootJsonObject["objects"])
+        {
+            if(graphObj["_ldraw_"] is not null)
+            {
+                visualTexts.Add(GetText(graphObj["_ldraw_"]));
+            }
+        }
+        foreach (var graphObj in rootJsonObject["edges"])
+        {
+            if (graphObj["_ldraw_"] is not null)
+            {
+                visualTexts.Add(GetText(graphObj["_ldraw_"]));
+            }
+        }
+
+        return visualTexts;
+    }
+
+    private IVisualText GetText(JToken textDrawDefinition)
+    {
+        VisualText text = new VisualText();
+
+        foreach (var operation in textDrawDefinition)
+        {
+            if (operation["op"]?.ToString() == "F")
+            {
+                text.FontSize = (float)operation["size"];
+            }
+
+            if (operation["op"]?.ToString() == "T")
+            {
+                text.Origin = operation["align"].ToString() == "c" ? new Vector2(0.5f, 0.5f) : Vector2.Zero;
+                text.Position = new Vector2((float)operation["pt"][0], (float)operation["pt"][1]);
+                text.Text = operation["text"].ToString();
+            }
+        }
+
+        return text;
+    }
+
+    private IReadOnlyList<IVisualObject> GetArrowHeads(JObject rootJsonObject)
     {
         var arrowHeads = new List<IVisualObject>();
 
@@ -50,7 +95,7 @@ public class JsonToGraphParser
         return arrowHeads;
     }
 
-    private List<IVisualObject> GetFlows(JObject rootJsonObject)
+    private IReadOnlyList<IVisualObject> GetFlows(JObject rootJsonObject)
     {
         var visualFlows = new List<IVisualObject>();
 
@@ -93,7 +138,7 @@ public class JsonToGraphParser
         return flow;
     }
 
-    private static List<IVisualGraphNode> GetNodes(IGraph<ICollapsableGraphNode> graph, JObject rootJsonObject)
+    private IReadOnlyList<IVisualGraphNode> GetNodes(IGraph<ICollapsableGraphNode> graph, JObject rootJsonObject)
     {
         var visualNodes = new List<IVisualGraphNode>();
 
