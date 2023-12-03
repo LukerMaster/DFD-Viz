@@ -16,9 +16,9 @@ namespace DFD.Vizualizer
     {
         private IVisualGraph _visualGraph;
         private IGraph<ICollapsableGraphNode> _logicalGraph;
-        private readonly VisualGraphCreator _creator;
+        private readonly IVisualGraphCreator _creator;
         private Dictionary<ICollapsableGraphNode, bool> _previousCollapsedStates = new Dictionary<ICollapsableGraphNode, bool>();
-        public VisualGraphProvider(IGraph<ICollapsableGraphNode> logicalGraph, VisualGraphCreator creator)
+        public VisualGraphProvider(IGraph<ICollapsableGraphNode> logicalGraph, IVisualGraphCreator creator)
         {
             _logicalGraph = logicalGraph;
             _creator = creator;

@@ -42,7 +42,7 @@ namespace DFD.Vizualizer
                 return;
             }
 
-            VisualGraphCreator creator = new VisualGraphCreator();
+            IVisualGraphCreator creator = new VisualGraphCreator();
 
             VisualGraphProvider provider = new VisualGraphProvider(logicalGraph, creator);
 

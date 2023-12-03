@@ -4,7 +4,7 @@ using DFD.ViewModel.Interfaces;
 
 namespace DFD.GraphConverter
 {
-    public class VisualGraphCreator
+    public class VisualGraphCreator : IVisualGraphCreator
     {
         private DiagramToDotConverter dotConverter = new DiagramToDotConverter();
 
@@ -20,12 +20,6 @@ namespace DFD.GraphConverter
             string json = runner.GetGraphAsJson(dotCode);
             IVisualGraph visualGraph = jsonToGraphParser.CreateGraphFrom(json, logicalGraph);
             return visualGraph;
-        }
-
-        public byte[] GetPngGraph(IGraph<ICollapsableGraphNode> logicalGraph)
-        {
-            string dotCode = dotConverter.ToDot(logicalGraph);
-            return runner.GetGraphAsPng(dotCode);
         }
     }
 }
