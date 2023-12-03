@@ -8,10 +8,11 @@ using DataStructure.NamedTree;
 using DFD.GraphConverter;
 using DFD.Model.Interfaces;
 using DFD.ViewModel.Interfaces;
+using DFD.Vizualizer.Interfaces;
 
 namespace DFD.Vizualizer
 {
-    public class VisualGraphProvider : IViewDataProvider
+    public class VisualGraphProvider : IViewDataProvider, IVisualGraphProvider
     {
         private IVisualGraph _visualGraph;
         private IGraph<ICollapsableGraphNode> _logicalGraph;
@@ -66,5 +67,10 @@ namespace DFD.Vizualizer
 
         public Vector2 Center { get => VisualGraph.Size / 2; }
         public Vector2 Size { get => VisualGraph.Size; }
+    }
+
+    public interface IVisualGraphProvider
+    {
+        public IVisualGraph VisualGraph { get; }
     }
 }

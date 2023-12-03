@@ -1,4 +1,4 @@
-﻿namespace DFD.Vizualizer;
+﻿namespace DFD.Vizualizer.Interfaces;
 
 public interface IProgramUI
 {

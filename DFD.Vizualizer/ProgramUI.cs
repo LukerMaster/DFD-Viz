@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using DFD.GraphConverter;
+using DFD.Vizualizer.Interfaces;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;

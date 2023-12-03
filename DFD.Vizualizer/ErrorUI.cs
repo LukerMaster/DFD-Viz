@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using DFD.Vizualizer.Interfaces;
+using SFML.Graphics;
 
 namespace DFD.Vizualizer;
 

@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DFD.Vizualizer
+namespace DFD.Vizualizer.Interfaces
 {
     public interface IViewDataProvider
     {

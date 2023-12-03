@@ -1,6 +1,7 @@
 ﻿using DFD.GraphConverter;
 using DFD.Model.Interfaces;
 using DFD.ViewModel.Interfaces;
+using DFD.Vizualizer.Interfaces;
 using SFML.Graphics;
 using SFML.Window;
 
