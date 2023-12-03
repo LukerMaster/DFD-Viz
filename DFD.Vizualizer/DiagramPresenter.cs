@@ -4,9 +4,9 @@ using SFML.System;
 
 namespace DFD.Vizualizer;
 
-public class DiagramPresenter
+public class DiagramPresenter : IDiagramPresenter
 {
-    private readonly VisualGraphProvider _graphProvider;
+    private readonly IVisualGraphProvider _graphProvider;
     protected RenderWindow _window;
     
 
@@ -14,7 +14,7 @@ public class DiagramPresenter
 
     private WindowViewManipulator _windowViewManipulator;
 
-    public DiagramPresenter(VisualGraphProvider graphProvider, RenderWindow window, WindowViewManipulator viewManipulator)
+    public DiagramPresenter(IVisualGraphProvider graphProvider, RenderWindow window, WindowViewManipulator viewManipulator)
     {
         _graphProvider = graphProvider;
         _window = window;

@@ -68,9 +68,4 @@ namespace DFD.Vizualizer
         public Vector2 Center { get => VisualGraph.Size / 2; }
         public Vector2 Size { get => VisualGraph.Size; }
     }
-
-    public interface IVisualGraphProvider
-    {
-        public IVisualGraph VisualGraph { get; }
-    }
 }

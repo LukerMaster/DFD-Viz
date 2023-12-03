@@ -9,15 +9,15 @@ namespace DFD.Vizualizer;
 
 public class ProgramUI : IProgramUI
 {
-    protected DiagramPresenter _presenter;
-    protected VisualGraphProvider _provider;
+    protected IDiagramPresenter _presenter;
+    protected IVisualGraphProvider _provider;
     protected RenderWindow _window;
 
     private Vector2 _mousePressPosition;
 
     public ProgramUI(RenderWindow window,
-        VisualGraphProvider provider,
-        DiagramPresenter presenter)
+        IVisualGraphProvider provider,
+        IDiagramPresenter presenter)
     {
         _window = window;
         _provider = provider;

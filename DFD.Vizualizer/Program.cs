@@ -48,7 +48,7 @@ namespace DFD.Vizualizer
 
             WindowViewManipulator windowViewManipulator = new WindowViewManipulator(window, provider);
 
-            DiagramPresenter presenter = new DiagramPresenter(provider, window, windowViewManipulator);
+            IDiagramPresenter presenter = new DiagramPresenter(provider, window, windowViewManipulator);
 
             ui = new ProgramUI(window, provider, presenter);
 
