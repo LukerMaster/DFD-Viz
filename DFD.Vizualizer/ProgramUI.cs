@@ -54,8 +54,3 @@ public class ProgramUI : IProgramUI
         _presenter.Display();
     }
 }
-
-public interface IProgramUI
-{
-    void Process();
-}
