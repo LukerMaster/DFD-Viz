@@ -1,4 +1,6 @@
 ﻿using System.Numerics;
+using DFD.ViewModel.Interfaces;
+using DFD.Vizualizer.Interfaces;
 using SFML.Graphics;
 using SFML.System;
 
@@ -12,7 +14,10 @@ public class DiagramPresenter : IDiagramPresenter
 
     private GraphToShapeConverter shapeConverter = new GraphToShapeConverter();
 
-    private WindowViewManipulator _windowViewManipulator;
+    private readonly WindowViewManipulator _windowViewManipulator;
+
+    private ICollection<Drawable> _drawables;
+    private IVisualGraph _previousFrameGraph;
 
     public DiagramPresenter(IVisualGraphProvider graphProvider, RenderWindow window, WindowViewManipulator viewManipulator)
     {
@@ -22,13 +27,21 @@ public class DiagramPresenter : IDiagramPresenter
         _windowViewManipulator = viewManipulator;
         _windowViewManipulator.ResetView();
 
+        _drawables = shapeConverter.ConvertToDrawables(_graphProvider.VisualGraph);
+
     }
     public void Display()
     {
+        if (_graphProvider.VisualGraph != _previousFrameGraph)
+        {
+            _drawables = shapeConverter.ConvertToDrawables(_graphProvider.VisualGraph);
+            _previousFrameGraph = _graphProvider.VisualGraph;
+        }
+
         _window.SetView(_windowViewManipulator.CurrentView);
         _window.Clear(new Color(10, 10, 30));
         
-        foreach (var drawable in shapeConverter.ConvertToDrawables(_graphProvider.VisualGraph))
+        foreach (var drawable in _drawables)
         {
             _window.Draw(drawable);
         }

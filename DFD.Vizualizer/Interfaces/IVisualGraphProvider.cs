@@ -1,6 +1,6 @@
 ﻿using DFD.ViewModel.Interfaces;
 
-namespace DFD.Vizualizer;
+namespace DFD.Vizualizer.Interfaces;
 
 public interface IVisualGraphProvider
 {
