@@ -13,13 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.Vizualizer", "DFD.Vizua
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.GraphvizConverter", "DFD.GraphvizConverter\DFD.GraphvizConverter.csproj", "{8C571271-B20C-4F35-BF13-D4A2679727A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.DisplayModel", "DFD.ViewModel\DFD.DisplayModel.csproj", "{017768D7-D228-4EBF-8768-5D6313B7F181}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.ViewModel", "DFD.ViewModel\DFD.ViewModel.csproj", "{017768D7-D228-4EBF-8768-5D6313B7F181}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructure.NamedTree", "DataStructure.NamedTree\DataStructure.NamedTree.csproj", "{3E7D7464-F60D-4CD8-B4B0-31B4C2B1D950}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.ModelImplementations", "DFD.ModelImplementations\DFD.ModelImplementations.csproj", "{4F4198D2-26AA-4281-AC28-BEA4F32A4753}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFD.GraphConverter", "DFD.GraphConverter\DFD.GraphConverter.csproj", "{5571C7FB-0B14-4D2C-B5FE-9C979D390FD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.GraphConverter", "DFD.GraphConverter\DFD.GraphConverter.csproj", "{5571C7FB-0B14-4D2C-B5FE-9C979D390FD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
