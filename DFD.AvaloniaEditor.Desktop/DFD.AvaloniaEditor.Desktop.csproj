@@ -16,4 +16,10 @@
   <ItemGroup>
     <ProjectReference Include="..\DFD.AvaloniaEditor\DFD.AvaloniaEditor.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="complicated.dfd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

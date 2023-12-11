@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DFD.AvaloniaEditor.Desktop": {
+      "commandName": "Project",
+      "commandLineArgs": "complicated.dfd"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<!-- LineNumberTextBox.xaml -->
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DFD.AvaloniaEditor.Views.LineNumberTextBox">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        
+        <Border Grid.Column="0" Background="LightGray">
+            <TextBlock x:Name="LineNumberTextBlock" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="5"/>
+        </Border>
+
+        <TextBox x:Name="CodeTextBox" Grid.Column="1" TextChanged="CodeTextBox_OnTextChanged" AcceptsReturn="True" AcceptsTab="True"/>
+    </Grid>
+</UserControl>
