@@ -13,9 +13,7 @@
     <vm:MainViewModel />
   </Design.DataContext>
     <Grid ColumnDefinitions="*,4,3*">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                <views:LineNumberTextBox DockPanel.Dock="Left" FontFamily="Consolas"></views:LineNumberTextBox>
-            </ScrollViewer>
+        <views:LineNumberTextBox Watermark="Your DFD code preview." Text="{Binding DfdCode}" DockPanel.Dock="Left" FontFamily="Consolas"></views:LineNumberTextBox>
         <GridSplitter Grid.Column="1" Background="Black"></GridSplitter>
         <Rectangle Grid.Column="2" Fill="Gray"></Rectangle>
 	</Grid>

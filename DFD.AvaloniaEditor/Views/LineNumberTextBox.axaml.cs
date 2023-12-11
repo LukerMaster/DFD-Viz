@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -8,40 +9,64 @@ namespace DFD.AvaloniaEditor.Views
     public partial class LineNumberTextBox : UserControl
     {
         private TextBlock lineNrTextBlock;
-        
+        private string _Text;
+        public static readonly DirectProperty<LineNumberTextBox, string> TextProperty = AvaloniaProperty.RegisterDirect<LineNumberTextBox, string>("Text",
+            o => o.Text,
+            (o, v) => o.Text = v);
+
+        private string _Watermark;
+        public static readonly DirectProperty<LineNumberTextBox, string> WatermarkProperty = AvaloniaProperty.RegisterDirect<LineNumberTextBox, string>("Watermark",
+            o => o.Watermark,
+            (o, v) => o.Watermark = v);
+
         public LineNumberTextBox()
         {
             InitializeComponent();
+            UpdateLineNumbers();
         }
 
-        private void InitializeComponent()
+        public string Text
         {
-            AvaloniaXamlLoader.Load(this);
-            lineNrTextBlock = this.GetControl<TextBlock>(nameof(LineNumberTextBlock));
+            get { return _Text; }
+            set { 
+                SetAndRaise(TextProperty, ref _Text, value);
+                CodeTextBox.Text = value;
+                UpdateLineNumbers();
+            }
         }
-        private void UpdateLineNumber(TextBox textBox)
+
+        public string Watermark
+        {
+            get { return _Watermark; }
+            set
+            {
+                SetAndRaise(WatermarkProperty, ref _Watermark, value);
+                CodeTextBox.Watermark = value;
+            }
+        }
+
+        private void UpdateLineNumbers()
         {
             int lineNumber = 1;
-            int caretIndex = textBox.CaretIndex;
             
-            for (int i = 0; i < caretIndex; i++)
+            for (int i = 0; i < CodeTextBox.Text?.Length; i++)
             {
-                if (textBox.Text[i] == '\n')
+                if (CodeTextBox.Text[i] == '\n')
                 {
                     lineNumber++;
                 }
             }
 
-            lineNrTextBlock.Text = string.Empty;
+            LineNumberTextBlock.Text = string.Empty;
             for (int i = 1; i <= lineNumber; i++)
             {
-                lineNrTextBlock.Text += i + "\n";
+                LineNumberTextBlock.Text += i + "\n";
             }
         }
 
         private void CodeTextBox_OnTextChanged(object? sender, TextChangedEventArgs e)
         {
-            UpdateLineNumber(sender as TextBox);
+            UpdateLineNumbers();
         }
     }
 }
