@@ -13,10 +13,10 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
             
-        <Border Grid.Column="0" Background="LightGray">
-            <TextBlock x:Name="LineNumberTextBlock" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="6.5"/>
+        <Border Grid.Column="0" Background="{DynamicResource Primary}">
+            <TextBlock x:Name="LineNumberTextBlock" Background="{DynamicResource Primary}" Foreground="{DynamicResource Accent}" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="6.5"/>
         </Border>
-            <TextBox Grid.Column="1" x:Name="CodeTextBox"  TextChanged="CodeTextBox_OnTextChanged" AcceptsReturn="True" AcceptsTab="True"/>
+            <TextBox Grid.Column="1" x:Name="CodeTextBox"  TextChanged="CodeTextBox_OnTextChanged" AcceptsReturn="True" AcceptsTab="True" Background="{DynamicResource Primary}" Foreground="{DynamicResource Text}"/>
         </Grid>
     </ScrollViewer>
 </UserControl>

@@ -7,14 +7,17 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DFD.AvaloniaEditor.Views.MainView"
              x:DataType="vm:MainViewModel">
-  <Design.DataContext>
+    
+	<Design.DataContext>
     <!-- This only sets the DataContext for the previewer in an IDE,
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <vm:MainViewModel />
   </Design.DataContext>
+
     <Grid ColumnDefinitions="*,4,3*">
+
         <views:LineNumberTextBox Watermark="Your DFD code preview." Text="{Binding DfdCode}" DockPanel.Dock="Left" FontFamily="Consolas"></views:LineNumberTextBox>
-        <GridSplitter Grid.Column="1" Background="Black"></GridSplitter>
-        <Rectangle Grid.Column="2" Fill="Gray"></Rectangle>
+        <GridSplitter Grid.Column="1" Background="{DynamicResource Primary}"></GridSplitter>
+        <Rectangle Grid.Column="2" Fill="{DynamicResource Primary}"></Rectangle>
 	</Grid>
 </UserControl>
