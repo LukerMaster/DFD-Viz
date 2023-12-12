@@ -4,6 +4,7 @@
 	<ResourceDictionary.ThemeDictionaries>
 		<ResourceDictionary x:Key="Light">
 			<SolidColorBrush x:Key="PrimaryBackground">White</SolidColorBrush>
+			<SolidColorBrush x:Key="SecondaryBackground">#BBBBBB</SolidColorBrush>
 			<SolidColorBrush x:Key="PrimaryText">Black</SolidColorBrush>
 			<SolidColorBrush x:Key="SecondaryText">#161616</SolidColorBrush>
 			<SolidColorBrush x:Key="PrimaryAccent">DarkBlue</SolidColorBrush>
@@ -11,9 +12,10 @@
         </ResourceDictionary>
         <ResourceDictionary x:Key="Dark">
             <SolidColorBrush x:Key="PrimaryBackground">#12121A</SolidColorBrush>
+            <SolidColorBrush x:Key="SecondaryBackground">#16162A</SolidColorBrush>
             <SolidColorBrush x:Key="PrimaryText">#DDDDDD</SolidColorBrush>
             <SolidColorBrush x:Key="SecondaryText">#BBBBBB</SolidColorBrush>
-            <SolidColorBrush x:Key="PrimaryAccent">LightBlue</SolidColorBrush>
+            <SolidColorBrush x:Key="PrimaryAccent">DarkBlue</SolidColorBrush>
             <SolidColorBrush x:Key="SecondaryAccent">#3232DA</SolidColorBrush>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
