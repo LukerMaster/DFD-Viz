@@ -5,14 +5,14 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using DataStructure.NamedTree;
-using DFD.GraphConverter;
+using DFD.GraphConverter.Interfaces;
 using DFD.Model.Interfaces;
 using DFD.ViewModel.Interfaces;
 using DFD.Vizualizer.Interfaces;
 
 namespace DFD.Vizualizer
 {
-    public class VisualGraphProvider : IViewDataProvider, IVisualGraphProvider
+    public class VisualGraphProvider : IVisualGraphProvider, IViewDataProvider
     {
         private IVisualGraph _visualGraph;
         private IGraph<ICollapsableGraphNode> _logicalGraph;

@@ -27,7 +27,7 @@ public partial class App : Application
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainViewModel(desktop.Args[0])
+                    DataContext = new MainViewModel(null)
                 };
             }
             else

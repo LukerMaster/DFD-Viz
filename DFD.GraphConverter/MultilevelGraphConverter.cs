@@ -1,14 +1,15 @@
-﻿using DFD.Model.Interfaces;
+﻿using DFD.GraphConverter.Interfaces;
+using DFD.Model.Interfaces;
 using DFD.ViewModel.Interfaces;
 
 namespace DFD.GraphConverter;
 
-public class MultilevelGraphConverter
+public class MultilevelGraphConverter : IMultilevelGraphConverter
 {
-    public IGraph<ICollapsableGraphNode> CreateMultiLevelGraphOutOf(IGraph<IGraphNodeData> codeGraph)
+    public IGraph<ICollapsableGraphNode> ToMultilevelGraph(IGraph<IGraphNodeData> graph)
     {
         IGraph<ICollapsableGraphNode> multilevelGraph =
-            codeGraph.CopyGraphAs<ICollapsableGraphNode>(data => new CollapsableGraphNode()
+            graph.CopyGraphAs<ICollapsableGraphNode>(data => new CollapsableGraphNode()
             {
                 Data = data,
                 ChildrenCollapsed = false

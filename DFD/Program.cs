@@ -22,7 +22,7 @@ class Program
             Console.WriteLine($"Flow {flow.SourceNodeName} --> {flow.TargetNodeName}");
         }
 
-        var multilevelGraph = new MultilevelGraphConverter().CreateMultiLevelGraphOutOf(graph);
+        var multilevelGraph = new MultilevelGraphConverter().ToMultilevelGraph(graph);
         var visualGraph = new VisualGraphCreator().GetVisualGraph(multilevelGraph);
 
 

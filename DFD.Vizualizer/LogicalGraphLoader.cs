@@ -19,7 +19,7 @@ public class LogicalGraphLoader
     {
         var dfdCode = File.ReadAllText(filePath);
         var rawGraph = _interpreter.ToDiagram(dfdCode);
-        var collapsableGraph = _converter.CreateMultiLevelGraphOutOf(rawGraph);
+        var collapsableGraph = _converter.ToMultilevelGraph(rawGraph);
         return collapsableGraph;
     }
 }

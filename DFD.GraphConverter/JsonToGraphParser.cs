@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DFD.GraphConverter;
 
-public class JsonToGraphParser
+internal class JsonToGraphParser
 {
     public IVisualGraph CreateGraphFrom(string json, IGraph<ICollapsableGraphNode> graph)
     {

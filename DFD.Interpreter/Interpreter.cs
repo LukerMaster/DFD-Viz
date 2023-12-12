@@ -2,10 +2,11 @@
 using DataStructure.NamedTree;
 using DFD.Model.Interfaces;
 using DFD.ModelImplementations;
+using DFD.Parsing.Interfaces;
 
 namespace DFD.Parsing
 {
-    public class Interpreter
+    public class Interpreter : IInterpreter
     {
         private enum StatementType
         {

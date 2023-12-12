@@ -1,4 +1,5 @@
 ﻿using DFD.GraphConverter;
+using DFD.GraphConverter.Interfaces;
 using DFD.Model.Interfaces;
 using DFD.ViewModel.Interfaces;
 using DFD.Vizualizer.Interfaces;
