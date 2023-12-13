@@ -1,10 +1,16 @@
-﻿using Avalonia;
+﻿using System.IO;
+using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-
+using DFD.AvaloniaEditor.Interfaces;
+using DFD.AvaloniaEditor.Services;
 using DFD.AvaloniaEditor.ViewModels;
 using DFD.AvaloniaEditor.Views;
+using DFD.GraphConverter;
+using DFD.GraphConverter.Interfaces;
+using DFD.Parsing;
+using DFD.Parsing.Interfaces;
 
 namespace DFD.AvaloniaEditor;
 
@@ -21,29 +27,33 @@ public partial class App : Application
         // Without this line you will get duplicate validations from both Avalonia and CT
         BindingPlugins.DataValidators.RemoveAt(0);
 
+
+        IDfdCodeStringProvider codeProvider = new DfdCodeStringProvider();
+
+        IInterpreter interpreter = new Interpreter();
+
+        IMultilevelGraphConverter converter = new MultilevelGraphConverter();
+
+        IVisualGraphCreator creator = new VisualGraphCreator();
+
+        IVisualGraphProvider provider = new VisualGraphProvider(interpreter, converter, creator, codeProvider);
+
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            if (desktop.Args.Length == 1)
+            if (desktop.Args[0] is not null)
+                codeProvider.DfdCode = File.ReadAllText(desktop.Args[0]);
+
+            desktop.MainWindow = new MainWindow
             {
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = new MainViewModel(null)
-                };
-            }
-            else
-            {
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = new MainViewModel()
-                };
-            }
-            
+                DataContext = new MainViewModel(provider, codeProvider)
+            };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
             singleViewPlatform.MainView = new MainView
             {
-                DataContext = new MainViewModel()
+                DataContext = new MainViewModel(null, null)
             };
         }
 

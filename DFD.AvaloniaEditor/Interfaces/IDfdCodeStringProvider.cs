@@ -2,5 +2,5 @@
 
 public interface IDfdCodeStringProvider
 {
-    string DfdCode { get; }
+    string DfdCode { get; set; }
 }

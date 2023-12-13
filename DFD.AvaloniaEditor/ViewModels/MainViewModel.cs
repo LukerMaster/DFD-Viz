@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using DFD.AvaloniaEditor.Interfaces;
+using DFD.AvaloniaEditor.Services;
 using DFD.GraphConverter.Interfaces;
 using DFD.Parsing.Interfaces;
 using DFD.ViewModel.Interfaces;
@@ -8,26 +9,18 @@ namespace DFD.AvaloniaEditor.ViewModels;
 
 internal partial class MainViewModel : ViewModelBase
 {
-    private IVisualGraphProvider _graphProvider;
-    public MainViewModel(IVisualGraphProvider visualGraphProvider, string? inputFilePath = null)
+    public MainViewModel(IVisualGraphProvider visualGraphProvider, IDfdCodeStringProvider? dfdCode)
     {
-        _graphProvider = visualGraphProvider;
-
-        if (inputFilePath is not null)
+        if (dfdCode is not null)
         {
-            _dfdFileContents = File.ReadAllText(inputFilePath);
+            _dfdProvider = dfdCode;
         }
-            
+        GraphViewModel = new DiagramViewModel(visualGraphProvider);
     }
 
-    public MainViewModel()
-    {
-
-    }
-
-    string _dfdFileContents = string.Empty;
+    IDfdCodeStringProvider _dfdProvider = new DfdCodeStringProvider();
 
     public DiagramViewModel GraphViewModel;
     public string Greeting => "Welcome to Avalonia!";
-    public string DfdCode => _dfdFileContents;
+    public string DfdCode => _dfdProvider.DfdCode;
 }

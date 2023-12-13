@@ -32,7 +32,7 @@ public class VisualGraphProvider : IVisualGraphProvider
 
         if (!string.IsNullOrEmpty(dfdCodeProvider.DfdCode))
         {
-
+            RecompileEntireGraph();
         }
     }
 
