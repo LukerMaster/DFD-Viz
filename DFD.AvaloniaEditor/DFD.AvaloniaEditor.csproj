@@ -27,4 +27,10 @@
     <ProjectReference Include="..\DFD.Interpreter\DFD.Parsing.csproj" />
     <ProjectReference Include="..\DFD.ViewModel\DFD.ViewModel.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="complicated.dfd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

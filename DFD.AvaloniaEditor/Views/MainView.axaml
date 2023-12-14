@@ -18,6 +18,6 @@
 
         <views:LineNumberTextBox Watermark="Your DFD code preview." Text="{Binding DfdCode}" DockPanel.Dock="Left" FontFamily="Consolas"></views:LineNumberTextBox>
         <GridSplitter Grid.Column="1" Background="{DynamicResource PrimaryBackground}"></GridSplitter>
-        <Rectangle Grid.Column="2" Fill="{DynamicResource PrimaryBackground}"></Rectangle>
+        <views:DiagramDrawControl DataContext="{Binding GraphViewModel}" Grid.Column="2"></views:DiagramDrawControl>
     </Grid>
 </UserControl>

@@ -18,9 +18,14 @@ internal partial class MainViewModel : ViewModelBase
         GraphViewModel = new DiagramViewModel(visualGraphProvider);
     }
 
+    public MainViewModel()
+    {
+        // Design only
+    }
+
     IDfdCodeStringProvider _dfdProvider = new DfdCodeStringProvider();
 
-    public DiagramViewModel GraphViewModel;
+    public DiagramViewModel GraphViewModel { get; }
     public string Greeting => "Welcome to Avalonia!";
     public string DfdCode => _dfdProvider.DfdCode;
 }
