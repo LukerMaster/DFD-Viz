@@ -9,11 +9,11 @@ namespace DFD.AvaloniaEditor.ViewModels;
 
 internal partial class MainViewModel : ViewModelBase
 {
-    public MainViewModel(IVisualGraphProvider visualGraphProvider, IDfdCodeStringProvider? dfdCode)
+    public MainViewModel(IVisualGraphProvider visualGraphProvider, IDfdCodeStringProvider? dfdCodeCode)
     {
-        if (dfdCode is not null)
+        if (dfdCodeCode is not null)
         {
-            _dfdProvider = dfdCode;
+            _dfdCodeProvider = dfdCodeCode;
         }
         GraphViewModel = new DiagramViewModel(visualGraphProvider);
     }
@@ -23,9 +23,8 @@ internal partial class MainViewModel : ViewModelBase
         // Design only
     }
 
-    IDfdCodeStringProvider _dfdProvider = new DfdCodeStringProvider();
-
+    IDfdCodeStringProvider _dfdCodeProvider = new DfdCodeStringProvider();
     public DiagramViewModel GraphViewModel { get; }
     public string Greeting => "Welcome to Avalonia!";
-    public string DfdCode => _dfdProvider.DfdCode;
+    public string DfdCode => _dfdCodeProvider.DfdCode;
 }

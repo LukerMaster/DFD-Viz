@@ -25,4 +25,22 @@ internal class DiagramViewModel : ViewModelBase
 
     public IVisualGraphProvider Provider { get; }
 
+    public IList<Points> PointsForNodes
+    {
+        get
+        {
+            var listOfNodes = new List<Points>();
+            foreach (var node in Provider.VisualGraph.Nodes)
+            {
+                var points = new Points();
+                foreach (var pointAsVector in node.VisualObject.Points)
+                {
+                    var point = new Point(pointAsVector.X, pointAsVector.Y);
+                    points.Add(point);
+                }
+                listOfNodes.Add(points);
+            }
+            return listOfNodes;
+        }
+    }
 }

@@ -25,7 +25,6 @@
                      TextChanged="CodeTextBox_OnTextChanged" 
                      AcceptsReturn="True" 
                      AcceptsTab="True" 
-                     Background="{DynamicResource PrimaryBackground}" 
                      Foreground="{DynamicResource PrimaryText}"/>
         </Grid>
     </ScrollViewer>

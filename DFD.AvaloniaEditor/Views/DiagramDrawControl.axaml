@@ -6,19 +6,17 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DFD.AvaloniaEditor.Views.DiagramDrawControl"
              x:DataType="viewModels:DiagramViewModel">
-    <Panel>
-        <Polygon Points="0,20 20,20 20,0 0,0" Fill="BlueViolet"></Polygon>
-        <ItemsControl ItemsSource="{Binding Provider.VisualGraph.Nodes}">
-            <ItemsControl.ItemTemplate>
 
-                <DataTemplate>
-                    <Panel>
-                        <TextBox Text="{Binding Node.Data.Name}"></TextBox>
-                        
-                    </Panel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-	</Panel>
-
+        <ItemsControl ItemsSource="{Binding PointsForNodes}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas></Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate >
+                  <DataTemplate>
+                          <Polygon ZIndex="20" Points="{Binding}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polygon>
+                  </DataTemplate>
+              </ItemsControl.ItemTemplate>
+          </ItemsControl>
 </UserControl>
