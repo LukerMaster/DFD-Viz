@@ -7,6 +7,7 @@
              x:Class="DFD.AvaloniaEditor.Views.DiagramDrawControl"
              x:DataType="viewModels:DiagramViewModel">
 
+    <Panel>
         <ItemsControl ItemsSource="{Binding PointsForNodes}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -14,9 +15,48 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate >
-                  <DataTemplate>
-                          <Polygon ZIndex="20" Points="{Binding}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polygon>
-                  </DataTemplate>
-              </ItemsControl.ItemTemplate>
-          </ItemsControl>
-</UserControl>
+                <DataTemplate>
+                    <Polygon ZIndex="20" Points="{Binding}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polygon>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl ItemsSource="{Binding PointsForFlows}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas></Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate >
+                <DataTemplate>
+                    <Polyline ZIndex="20" Points="{Binding}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polyline>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl ItemsSource="{Binding PointsForArrowHeads}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas></Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate >
+                <DataTemplate>
+                    <Polygon ZIndex="20" Points="{Binding}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polygon>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl ItemsSource="{Binding Provider.VisualGraph.TextLabels}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas></Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate >
+                <DataTemplate>
+                    <TextBlock Text="{Binding Text}" Canvas.Top="{Binding Position.Y}" Canvas.Left="{Binding Position.X}"></TextBlock>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Panel>
+
+  </UserControl>
