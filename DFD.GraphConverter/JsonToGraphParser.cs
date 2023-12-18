@@ -77,6 +77,7 @@ internal class JsonToGraphParser
                 text.Origin = operation["align"].ToString() == "c" ? new Vector2(0.5f, 0.5f) : Vector2.Zero;
                 text.Position = new Vector2((float)operation["pt"][0], (float)operation["pt"][1]);
                 text.Text = operation["text"].ToString();
+                text.Width = float.Parse(operation["width"].ToString());
             }
         }
 

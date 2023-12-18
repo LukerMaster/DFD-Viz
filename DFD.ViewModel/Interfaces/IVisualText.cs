@@ -11,4 +11,5 @@ public interface IVisualText
     /// </summary>
     public Vector2 Origin { get; }
     public float FontSize { get; }
+    public float Width { get; }
 }

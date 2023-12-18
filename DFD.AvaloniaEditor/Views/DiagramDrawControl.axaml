@@ -45,22 +45,28 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <ItemsControl ItemsSource="{Binding VisualGraph.TextLabels}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas></Canvas>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.Styles>
-                <Style Selector="ItemsControl" >
-                    <Setter Property="Canvas.Left" Value="450"/>
-                    <Setter Property="Canvas.Top" Value="659"/>
-                </Style>
-            </ItemsControl.Styles>
+
             <ItemsControl.ItemTemplate >
-                <DataTemplate>
-                    <SelectableTextBlock Text="{Binding Text}"></SelectableTextBlock>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Canvas x:Name="textCanvas">
+                            <TextBlock x:Name="textBlock" 
+                                       Margin="0" 
+                                       Padding="0"
+                                       FontSize="{Binding FontSize}" 
+                                       TextAlignment="Center" 
+                                       VerticalAlignment="Center" 
+                                       Text="{Binding Text}">
+								<Canvas.Left>
+									<Binding Path="TopLeft.X"></Binding>
+                                </Canvas.Left>
+                                <Canvas.Top>
+									<Binding Path="TopLeft.Y"></Binding>
+                                </Canvas.Top>
+                            </TextBlock>
+						</Canvas>
+                        
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
         </ItemsControl>
     </Panel>
 
