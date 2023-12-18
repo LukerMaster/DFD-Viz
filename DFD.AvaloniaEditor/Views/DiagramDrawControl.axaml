@@ -16,7 +16,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate >
                 <DataTemplate>
-                    <Polygon ZIndex="20" Points="{Binding VisualObject.Points}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polygon>
+                    <Polygon Points="{Binding VisualObject.Points}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polygon>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
@@ -28,7 +28,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate >
                 <DataTemplate>
-                    <Polyline ZIndex="20" Points="{Binding Points}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polyline>
+                    <Polyline Points="{Binding Points}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polyline>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
@@ -40,7 +40,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate >
                 <DataTemplate>
-                    <Polygon ZIndex="20" Points="{Binding Points}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polygon>
+                    <Polygon Points="{Binding Points}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polygon>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
