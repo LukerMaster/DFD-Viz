@@ -19,6 +19,17 @@
 
         <Grid Grid.Column="0" RowDefinitions="5*,*">
             <views:LineNumberTextBox Grid.Row="0" Watermark="Your DFD code preview." Text="{Binding DfdCode}" DockPanel.Dock="Left" FontFamily="Consolas"></views:LineNumberTextBox>
+            <StackPanel Grid.Row="1">
+                <Button>
+                    <TextBlock Text="Regenerate Graph"></TextBlock>
+                </Button>
+                <Button>
+                    <TextBlock Text="Save as image"></TextBlock>
+                </Button>
+                <Button>
+                    <TextBlock Text="Collapse all"></TextBlock>
+                </Button>
+            </StackPanel>
         </Grid>
 		<GridSplitter Grid.Column="1" Background="{DynamicResource SecondaryBackground}"></GridSplitter>
         <paz:ZoomBorder Grid.Column="2" Stretch="None" ZoomSpeed="1.2"
