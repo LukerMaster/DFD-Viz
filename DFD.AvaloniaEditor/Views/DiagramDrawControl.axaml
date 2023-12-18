@@ -8,7 +8,7 @@
              x:DataType="viewModels:DiagramViewModel">
 
     <Panel>
-        <ItemsControl ItemsSource="{Binding PointsForNodes}">
+        <ItemsControl ItemsSource="{Binding VisualGraph.Nodes}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas></Canvas>
@@ -16,11 +16,11 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate >
                 <DataTemplate>
-                    <Polygon ZIndex="20" Points="{Binding}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polygon>
+                    <Polygon ZIndex="20" Points="{Binding VisualObject.Points}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polygon>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ItemsControl ItemsSource="{Binding PointsForFlows}">
+        <ItemsControl ItemsSource="{Binding VisualGraph.Flows}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas></Canvas>
@@ -28,11 +28,11 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate >
                 <DataTemplate>
-                    <Polyline ZIndex="20" Points="{Binding}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polyline>
+                    <Polyline ZIndex="20" Points="{Binding Points}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polyline>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ItemsControl ItemsSource="{Binding PointsForArrowHeads}">
+        <ItemsControl ItemsSource="{Binding VisualGraph.ArrowHeads}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas></Canvas>
@@ -40,20 +40,25 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate >
                 <DataTemplate>
-                    <Polygon ZIndex="20" Points="{Binding}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polygon>
+                    <Polygon ZIndex="20" Points="{Binding Points}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polygon>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ItemsControl ItemsSource="{Binding Provider.VisualGraph.TextLabels}">
+        <ItemsControl ItemsSource="{Binding VisualGraph.TextLabels}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas></Canvas>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
+            <ItemsControl.Styles>
+                <Style Selector="ItemsControl" >
+                    <Setter Property="Canvas.Left" Value="450"/>
+                    <Setter Property="Canvas.Top" Value="659"/>
+                </Style>
+            </ItemsControl.Styles>
             <ItemsControl.ItemTemplate >
                 <DataTemplate>
-                    <TextBlock Text="{Binding Text}" Canvas.Top="{Binding Position.Y}" Canvas.Left="{Binding Position.X}"></TextBlock>
-
+                    <SelectableTextBlock Text="{Binding Text}"></SelectableTextBlock>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
