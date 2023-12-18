@@ -17,8 +17,10 @@
 
     <Grid ColumnDefinitions="*,4,3*">
 
-        <views:LineNumberTextBox Watermark="Your DFD code preview." Text="{Binding DfdCode}" DockPanel.Dock="Left" FontFamily="Consolas"></views:LineNumberTextBox>
-        <GridSplitter Grid.Column="1" Background="{DynamicResource SecondaryBackground}"></GridSplitter>
+        <Grid Grid.Column="0" RowDefinitions="5*,*">
+            <views:LineNumberTextBox Grid.Row="0" Watermark="Your DFD code preview." Text="{Binding DfdCode}" DockPanel.Dock="Left" FontFamily="Consolas"></views:LineNumberTextBox>
+        </Grid>
+		<GridSplitter Grid.Column="1" Background="{DynamicResource SecondaryBackground}"></GridSplitter>
         <paz:ZoomBorder Grid.Column="2" Stretch="None" ZoomSpeed="1.2"
                         Background="{DynamicResource TertiaryBackground}" ClipToBounds="True" Focusable="True"
                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
