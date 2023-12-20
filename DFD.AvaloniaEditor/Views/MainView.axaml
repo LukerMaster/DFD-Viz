@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:DFD.AvaloniaEditor.ViewModels"
              xmlns:views="clr-namespace:DFD.AvaloniaEditor.Views"
              xmlns:paz="using:Avalonia.Controls.PanAndZoom"
+             xmlns:controls="clr-namespace:DFD.AvaloniaEditor.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DFD.AvaloniaEditor.Views.MainView"
              x:DataType="vm:MainViewModel">
@@ -18,7 +19,7 @@
     <Grid ColumnDefinitions="*,4,3*">
 
         <Grid Grid.Column="0" RowDefinitions="5*,*">
-            <views:LineNumberTextBox Grid.Row="0" Watermark="Your DFD code preview." Text="{Binding DfdCode}" DockPanel.Dock="Left" FontFamily="Consolas"></views:LineNumberTextBox>
+            <controls:CodeTextBox Grid.Row="0" Watermark="Your DFD code preview." Code="{Binding DfdCode}" DockPanel.Dock="Left"></controls:CodeTextBox>
             <StackPanel Grid.Row="1">
                 <Button>
                     <TextBlock Text="Regenerate Graph"></TextBlock>

@@ -1,0 +1,41 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:DFD.AvaloniaEditor.Views">
+  <Design.PreviewWith>
+    <controls:CodeTextBox Code="Process X"/>
+  </Design.PreviewWith>
+
+  <Style Selector="controls|CodeTextBox">
+    <!-- Set Defaults -->
+    <Setter Property="Template">
+      <ControlTemplate>
+		  <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+              <Grid>
+                  <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="Auto"/>
+                      <ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
+
+                  <Border Grid.Column="0" Background="{DynamicResource PrimaryAccent}">
+                      <TextBlock x:Name="LineNumberTextBlock"
+                                 Background="{DynamicResource PrimaryBackground}"
+                                 Foreground="{DynamicResource SecondaryText}"
+                                 VerticalAlignment="Top"
+                                 Text="{TemplateBinding LineNumbersText}"
+                                 HorizontalAlignment="Right"
+                                 Padding="6.5"
+                                 FontFamily="Consolas"/>
+                  </Border>
+                  <TextBox Grid.Column="1" x:Name="CodeInputTextBox"
+                           AcceptsReturn="True"
+                           AcceptsTab="True"
+                           Watermark="{TemplateBinding Watermark}"
+                           Text="{TemplateBinding Code}"
+                           Foreground="{DynamicResource PrimaryText}"
+                           FontFamily="Consolas"/>
+              </Grid>
+          </ScrollViewer>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+</Styles>
