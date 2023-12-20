@@ -17,7 +17,7 @@ internal class CodeSanitizer
                 statememnts.Add(new DfdCodeLine()
                 {
                     Statement = lines[i].TrimEnd(),
-                    LineNumber = i
+                    LineNumber = i+1 // Lines are enumerated from 1
                 });
             }
         }

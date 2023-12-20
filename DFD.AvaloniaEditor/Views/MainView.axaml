@@ -18,9 +18,9 @@
 
     <Grid ColumnDefinitions="*,4,3*">
 
-        <Grid Grid.Column="0" RowDefinitions="5*,*">
+        <Grid Grid.Column="0" RowDefinitions="6*,*,*">
             <controls:CodeTextBox Grid.Row="0" Watermark="Your DFD code preview." Code="{Binding DfdCode, Mode=TwoWay}" DockPanel.Dock="Left"></controls:CodeTextBox>
-            <StackPanel Grid.Row="1">
+            <ProportionalStackPanel Orientation="Horizontal" Grid.Row="1">
                 <Button Click="RecompileGraph_Clicked">
                     <TextBlock Text="Regenerate Graph"></TextBlock>
                 </Button>
@@ -30,7 +30,8 @@
                 <Button>
                     <TextBlock Text="Collapse all"></TextBlock>
                 </Button>
-            </StackPanel>
+            </ProportionalStackPanel>
+            <TextBlock Grid.Row="2" x:Name="ErrorTextBlock" Foreground="Red"></TextBlock>
         </Grid>
 		<GridSplitter Grid.Column="1" Background="{DynamicResource SecondaryBackground}"></GridSplitter>
         <paz:ZoomBorder Grid.Column="2" Stretch="None" ZoomSpeed="1.2"

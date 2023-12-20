@@ -36,51 +36,57 @@ namespace DFD.Parsing
 
         public IGraph<IGraphNodeData> ToDiagram(string dfdString)
         {
-            var statemants = _codeSanitizer.PrepareAsCode(dfdString);
+            var statements = _codeSanitizer.PrepareAsCode(dfdString);
             var nodes = new List<ITreeNode<IGraphNodeData>>();
             var flows = new List<INodeFlow>();
 
             ParserRunData runData = new ParserRunData();
             
 
-            foreach (var statement in statemants)
+            foreach (var codeLine in statements)
             {
                 try
                 {
-                    SetCorrectScopeLevel(runData, statement.Statement);
+                    SetCorrectScopeLevel(runData, codeLine.Statement);
 
                     ITreeNode<IGraphNodeData>? newNode = null;
 
                     // Creation of basic nodes.
-                    if (_regexes[StatementType.SimpleNodeDeclaration].Match(statement.Statement).Success)
+                    if (_regexes[StatementType.SimpleNodeDeclaration].Match(codeLine.Statement).Success)
                     {
-                        newNode = _objectParser.TryParseNode(statement.Statement, (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
+                        newNode = _objectParser.TryParseNode(codeLine.Statement,
+                            (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
                         nodes.Add(newNode);
                         continue;
                     }
 
                     // Creation of nested nodes.
-                    if (_regexes[StatementType.NestedProcessDeclaration].Match(statement.Statement).Success)
+                    if (_regexes[StatementType.NestedProcessDeclaration].Match(codeLine.Statement).Success)
                     {
-                        newNode = _objectParser.TryParseNode(statement.Statement.TrimEnd(':'), (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
+                        newNode = _objectParser.TryParseNode(codeLine.Statement.TrimEnd(':'),
+                            (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
                         runData.RaiseScope(newNode);
                         nodes.Add(newNode);
                         continue;
                     }
 
                     // Creation of flows.
-                    if (_regexes[StatementType.FlowDeclaration].Match(statement.Statement).Success)
+                    if (_regexes[StatementType.FlowDeclaration].Match(codeLine.Statement).Success)
                     {
-                        flows.Add(_objectParser.TryParseFlow(statement.Statement, runData.CurrentScopeNode));
+                        flows.Add(_objectParser.TryParseFlow(codeLine.Statement, runData.CurrentScopeNode));
                         continue;
                     }
 
                     // Error if line does not match any valid statements.
-                    throw new InvalidStatementException(statement.Statement);
+                    throw new InvalidStatementException(codeLine.Statement);
+                }
+                catch (DfdException e)
+                {
+                    throw new DfdInterpreterException(codeLine.Statement, codeLine.LineNumber, e);
                 }
                 catch (Exception e)
                 {
-                    throw new AggregateException($"Error while parsing statement: {statement}\n", e);
+                    throw new DfdInterpreterException(codeLine.Statement, codeLine.LineNumber, new Exception($"Unknown error occured. Inner exception:\n{e.Message}"));
                 }
                 // Setting a correct scope for the statement (correct Parent).
                 

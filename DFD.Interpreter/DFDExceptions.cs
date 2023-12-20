@@ -2,6 +2,20 @@
 
 namespace DFD.Parsing;
 
+
+public class DfdInterpreterException : Exception
+{
+    public string Statement { get; init; }
+    public int Line { get; init; }
+    public Exception Inner { get; init; }
+    public DfdInterpreterException(string statement, int line, Exception inner)
+    {
+        Statement = statement;
+        Line = line;
+        Inner = inner;
+    }
+}
+
 internal class DfdException : Exception
 {
     public DfdException(string message) : base(message)
