@@ -26,5 +26,9 @@ internal partial class MainViewModel : ViewModelBase
     IDfdCodeStringProvider _dfdCodeProvider = new DfdCodeStringProvider();
     public DiagramViewModel GraphViewModel { get; }
     public string Greeting => "Welcome to Avalonia!";
-    public string DfdCode => _dfdCodeProvider.DfdCode;
+    public string DfdCode
+    {
+        get => _dfdCodeProvider.DfdCode;
+        set => _dfdCodeProvider.DfdCode = value;
+    }
 }
