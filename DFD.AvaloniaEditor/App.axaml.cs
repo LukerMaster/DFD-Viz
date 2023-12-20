@@ -36,7 +36,7 @@ public partial class App : Application
 
         IVisualGraphCreator creator = new VisualGraphCreator();
 
-        IVisualGraphProvider provider = new VisualGraphProvider(interpreter, converter, creator, codeProvider);
+        IVisualGraphGenerationPipeline generationPipeline = new VisualGraphGenerationPipeline(interpreter, converter, creator, codeProvider);
 
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
@@ -46,7 +46,7 @@ public partial class App : Application
 
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainViewModel(provider, codeProvider)
+                DataContext = new MainViewModel(generationPipeline, codeProvider)
             };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)

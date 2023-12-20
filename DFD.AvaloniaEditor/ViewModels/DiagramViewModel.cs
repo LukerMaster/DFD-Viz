@@ -20,7 +20,7 @@ namespace DFD.AvaloniaEditor.ViewModels;
 
 internal class DiagramViewModel : ViewModelBase
 {
-    private readonly IVisualGraphProvider _diagramProvider;
+    private readonly IVisualGraphGenerationPipeline _diagramGenerationPipeline;
 
     private AvaloniaVisualGraph _visualGraph;
     public AvaloniaVisualGraph VisualGraph {
@@ -34,16 +34,18 @@ internal class DiagramViewModel : ViewModelBase
             }
         }
     }
-    public DiagramViewModel(IVisualGraphProvider diagramProvider)
+    public DiagramViewModel(IVisualGraphGenerationPipeline diagramGenerationPipeline)
     {
-        _diagramProvider = diagramProvider;
-        VisualGraph = new AvaloniaVisualGraph(diagramProvider.VisualGraph);
+        _diagramGenerationPipeline = diagramGenerationPipeline;
+        VisualGraph = new AvaloniaVisualGraph(diagramGenerationPipeline.RecompiledGraph);
     }
 
-    public void RegenerateGraph()
+    public void RefreshGraph()
     {
-        VisualGraph = new AvaloniaVisualGraph(_diagramProvider.VisualGraph);
+        VisualGraph = new AvaloniaVisualGraph(_diagramGenerationPipeline.RefreshedGraph);
     }
-
-
+    public void RecompileGraph()
+    {
+        VisualGraph = new AvaloniaVisualGraph(_diagramGenerationPipeline.RecompiledGraph);
+    }
 }

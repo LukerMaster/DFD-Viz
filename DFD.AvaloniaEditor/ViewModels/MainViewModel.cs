@@ -9,13 +9,13 @@ namespace DFD.AvaloniaEditor.ViewModels;
 
 internal partial class MainViewModel : ViewModelBase
 {
-    public MainViewModel(IVisualGraphProvider visualGraphProvider, IDfdCodeStringProvider? dfdCodeCode)
+    public MainViewModel(IVisualGraphGenerationPipeline visualGraphGenerationPipeline, IDfdCodeStringProvider? dfdCodeCode)
     {
         if (dfdCodeCode is not null)
         {
             _dfdCodeProvider = dfdCodeCode;
         }
-        GraphViewModel = new DiagramViewModel(visualGraphProvider);
+        GraphViewModel = new DiagramViewModel(visualGraphGenerationPipeline);
     }
 
     public MainViewModel()

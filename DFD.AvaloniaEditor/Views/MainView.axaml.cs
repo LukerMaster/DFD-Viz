@@ -14,6 +14,6 @@ public partial class MainView : UserControl
 
     private void RecompileGraph_Clicked(object? sender, RoutedEventArgs e)
     {
-        ViewModel.GraphViewModel.RegenerateGraph();
+        ViewModel.GraphViewModel.RecompileGraph();
     }
 }

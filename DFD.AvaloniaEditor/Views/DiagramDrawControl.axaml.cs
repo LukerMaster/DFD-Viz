@@ -26,7 +26,7 @@ namespace DFD.AvaloniaEditor.Views
             if (point.Properties.IsLeftButtonPressed)
             {
                 node.ChildrenCollapsed = !node.ChildrenCollapsed;
-                diagramViewModel.RegenerateGraph();
+                diagramViewModel.RefreshGraph();
             }
         }
     }
