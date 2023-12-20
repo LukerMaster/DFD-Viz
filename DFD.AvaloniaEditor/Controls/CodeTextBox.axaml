@@ -1,6 +1,6 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:DFD.AvaloniaEditor.Views">
+        xmlns:controls="using:DFD.AvaloniaEditor.Controls">
   <Design.PreviewWith>
     <controls:CodeTextBox Code="Process X"/>
   </Design.PreviewWith>
