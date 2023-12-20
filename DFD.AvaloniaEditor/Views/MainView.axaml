@@ -21,7 +21,7 @@
         <Grid Grid.Column="0" RowDefinitions="6*,*,*">
             <controls:CodeTextBox Grid.Row="0" Watermark="Your DFD code preview." Code="{Binding DfdCode, Mode=TwoWay}" DockPanel.Dock="Left"></controls:CodeTextBox>
             <ProportionalStackPanel Orientation="Horizontal" Grid.Row="1">
-                <Button Click="RecompileGraph_Clicked">
+                <Button HotKey="F5" Click="RecompileGraph_Clicked">
                     <TextBlock Text="Regenerate Graph"></TextBlock>
                 </Button>
                 <Button>
