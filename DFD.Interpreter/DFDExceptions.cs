@@ -32,6 +32,15 @@ internal class InvalidNodeTypeException : DfdException
     }
 }
 
+internal class NodeWithoutDisplayNameException : DfdException
+{
+    public NodeWithoutDisplayNameException(string nodeName)
+        : base($"Node {nodeName} does not have a display name.")
+    {
+
+    }
+}
+
 internal class ProcessWithChildrenConnectedException<T> : DfdException
 {
     public ProcessWithChildrenConnectedException(ITreeNode<T> process) 
