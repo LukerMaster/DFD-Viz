@@ -4,28 +4,25 @@ namespace DFD.Parsing;
 
 internal class CodeSanitizer
 {
-    public string StripCommentsAndBlankLines(string code)
+    public DfdCodeLine[] PrepareAsCode(string code)
     {
-        // Use a regular expression to match and remove comments marked by "#" and entirely blank lines
-        string commentlessCode = Regex.Replace(code, "^\\s*#.*", "", RegexOptions.Multiline);
-
-        // Remove leading and trailing whitespaces from each line
-        var strippedCode = StripEmptyLines(commentlessCode);
-        return strippedCode;
-    }
-
-    string StripEmptyLines(string code)
-    {
-        var lines = code.Replace("\r\n", "\n").Split('\n');
-        var newString = String.Empty;
-        foreach (var line in lines)
+        code = code.Replace("\r\n", "\n");
+        var lines = code.Split('\n');
+        List<DfdCodeLine> statememnts = new List<DfdCodeLine>();
+        for (int i = 0; i < lines.Length; i++)
         {
-            if (!Regex.Match(line, "^\\s*$", RegexOptions.Singleline).Success)
+            if (!Regex.Match(lines[i], "^\\s*#.*").Success // If not a comment
+                && !Regex.Match(lines[i], "^\\s*$").Success) // If not blank line
             {
-                newString = newString + line.TrimEnd() + '\n';
+                statememnts.Add(new DfdCodeLine()
+                {
+                    Statement = lines[i].TrimEnd(),
+                    LineNumber = i
+                });
             }
         }
 
-        return newString.TrimEnd();
+        return statememnts.ToArray();
     }
+
 }
