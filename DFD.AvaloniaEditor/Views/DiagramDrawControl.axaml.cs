@@ -21,11 +21,12 @@ namespace DFD.AvaloniaEditor.Views
             var polygon = sender as Polygon;
             var node = polygon.Tag as ICollapsableGraphNode;
 
-            if (e.Pointer.IsPrimary)
+
+            var point = e.GetCurrentPoint(this);
+            if (point.Properties.IsLeftButtonPressed)
             {
                 node.ChildrenCollapsed = !node.ChildrenCollapsed;
                 diagramViewModel.RegenerateGraph();
-                Debug.WriteLine(node.ChildrenCollapsed + " on node " + node.Data.Name);
             }
         }
     }
