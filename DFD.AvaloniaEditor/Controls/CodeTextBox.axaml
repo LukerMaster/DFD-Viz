@@ -21,7 +21,7 @@
                                  Background="{DynamicResource PrimaryBackground}"
                                  Foreground="{DynamicResource SecondaryText}"
                                  VerticalAlignment="Top"
-                                 Text="{TemplateBinding LineNumbersText}"
+                                 Text="{TemplateBinding LineNumbersText, Mode=TwoWay}"
                                  HorizontalAlignment="Right"
                                  Padding="6.5"
                                  FontFamily="Consolas"/>
@@ -30,7 +30,7 @@
                            AcceptsReturn="True"
                            AcceptsTab="True"
                            Watermark="{TemplateBinding Watermark}"
-                           Text="{TemplateBinding Code}"
+                           Text="{TemplateBinding Code, Mode=TwoWay}"
                            Foreground="{DynamicResource PrimaryText}"
                            FontFamily="Consolas"/>
               </Grid>

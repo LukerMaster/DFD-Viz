@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Shapes;
 
 namespace DFD.AvaloniaEditor.Controls
 {
@@ -16,13 +17,19 @@ namespace DFD.AvaloniaEditor.Controls
             o => o.Watermark,
             (o, v) => o.Watermark = v);
 
+        private string _LineNumbersString;
         public static readonly DirectProperty<CodeTextBox, string> LineNumbersTextProperty = AvaloniaProperty.RegisterDirect<CodeTextBox, string>("LineNumbersText",
-            o => o.LineNumbersText);
+            o => o.LineNumbersText,
+            (o, v) => o.LineNumbersText = v);
 
         public string Code
         {
             get => _Code;
-            set => SetAndRaise(CodeProperty, ref _Code, value);
+            set
+            {
+                SetAndRaise(CodeProperty, ref _Code, value);
+                SetAndRaise(LineNumbersTextProperty, ref _LineNumbersString, GetLineNumbersText());
+            }
         }
 
         public string Watermark
@@ -31,9 +38,10 @@ namespace DFD.AvaloniaEditor.Controls
             set => SetAndRaise(WatermarkProperty, ref _Watermark, value);
         }
 
-        public string LineNumbersText
+        protected string LineNumbersText
         {
-            get => GetLineNumbersText();
+            get => _LineNumbersString;
+            set => SetAndRaise(LineNumbersTextProperty, ref _LineNumbersString, value);
         }
 
         private string GetLineNumbersText()
