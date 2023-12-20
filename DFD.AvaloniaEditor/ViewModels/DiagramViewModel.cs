@@ -20,11 +20,30 @@ namespace DFD.AvaloniaEditor.ViewModels;
 
 internal class DiagramViewModel : ViewModelBase
 {
+    private readonly IVisualGraphProvider _diagramProvider;
+
+    private AvaloniaVisualGraph _visualGraph;
+    public AvaloniaVisualGraph VisualGraph {
+        get => _visualGraph;
+        set
+        {
+            if (_visualGraph != value)
+            {
+                _visualGraph = value;
+                OnPropertyChanged();
+            }
+        }
+    }
     public DiagramViewModel(IVisualGraphProvider diagramProvider)
     {
+        _diagramProvider = diagramProvider;
         VisualGraph = new AvaloniaVisualGraph(diagramProvider.VisualGraph);
     }
 
-    public AvaloniaVisualGraph VisualGraph { get; }
+    public void RegenerateGraph()
+    {
+        VisualGraph = new AvaloniaVisualGraph(_diagramProvider.VisualGraph);
+    }
+
 
 }

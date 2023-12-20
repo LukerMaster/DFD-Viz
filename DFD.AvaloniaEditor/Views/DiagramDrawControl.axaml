@@ -16,7 +16,12 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate >
                 <DataTemplate>
-                    <Polygon Points="{Binding VisualObject.Points}" Fill="Transparent" Stroke="{DynamicResource PrimaryText}" StrokeThickness="1"></Polygon>
+                    <Polygon Points="{Binding VisualObject.Points}" 
+                             Fill="Transparent" 
+                             Stroke="{DynamicResource PrimaryText}" 
+                             StrokeThickness="1"
+                             PointerPressed="Node_PointerPressed"
+                             Tag="{Binding Node}"></Polygon>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
