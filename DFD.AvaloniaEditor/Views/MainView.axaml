@@ -15,22 +15,26 @@
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <vm:MainViewModel />
   </Design.DataContext>
-
-    <Grid ColumnDefinitions="*,4,3*">
-
-        <Grid Grid.Column="0" RowDefinitions="6*,*,*">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open..."></MenuItem>
+                <MenuItem Header="_Save"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="_Export as..."></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Graph">
+                <MenuItem Header="_Refresh"></MenuItem>
+                <MenuItem Header="_Recompile"></MenuItem>
+                <MenuItem Header="_Collapse All Nodes"></MenuItem>
+            </MenuItem>
+        </Menu>
+		<Grid ColumnDefinitions="*,4,3*">
+            <Grid Grid.Column="0" RowDefinitions="6*,*,*">
             <controls:CodeTextBox Grid.Row="0" Watermark="Your DFD code preview." Code="{Binding DfdCode, Mode=TwoWay}" DockPanel.Dock="Left"></controls:CodeTextBox>
-            <ProportionalStackPanel Orientation="Horizontal" Grid.Row="1">
-                <Button HotKey="F5" Click="RecompileGraph_Clicked">
-                    <TextBlock Text="Regenerate Graph"></TextBlock>
-                </Button>
-                <Button>
-                    <TextBlock Text="Save as image"></TextBlock>
-                </Button>
-                <Button>
-                    <TextBlock Text="Collapse all"></TextBlock>
-                </Button>
-            </ProportionalStackPanel>
+            <Button Grid.Row="1" HotKey="F5" Click="RecompileGraph_Clicked">
+                <TextBlock Text="Regenerate Graph"></TextBlock>
+            </Button>
             <TextBlock Grid.Row="2" x:Name="ErrorTextBlock" Foreground="Red"></TextBlock>
         </Grid>
 		<GridSplitter Grid.Column="1" Background="{DynamicResource SecondaryBackground}"></GridSplitter>
@@ -43,4 +47,5 @@
 		</paz:ZoomBorder>
 
     </Grid>
+    </DockPanel>
 </UserControl>
