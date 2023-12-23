@@ -18,24 +18,22 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open..."></MenuItem>
-                <MenuItem Header="_Save"></MenuItem>
+                <MenuItem Click="OpenFile_Clicked" Header="_Open..."></MenuItem>
+                <MenuItem Click="Save_Clicked" Header="_Save"></MenuItem>
+                <MenuItem Header="_Save as..."></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="_Export as..."></MenuItem>
             </MenuItem>
             <MenuItem Header="Graph">
-                <MenuItem Header="_Refresh"></MenuItem>
-                <MenuItem Header="_Recompile"></MenuItem>
-                <MenuItem Header="_Collapse All Nodes"></MenuItem>
+                <MenuItem Click="RefreshGraph_Clicked" HotKey="Ctrl+F5" Header="_Refresh"></MenuItem>
+                <MenuItem Click="RecompileGraph_Clicked" HotKey="F5" Header="_Recompile"></MenuItem>
+                <MenuItem Click="CollapseAllNodes_Clicked" Header="_Collapse All Nodes"></MenuItem>
             </MenuItem>
         </Menu>
 		<Grid ColumnDefinitions="*,4,3*">
             <Grid Grid.Column="0" RowDefinitions="6*,*,*">
             <controls:CodeTextBox Grid.Row="0" Watermark="Your DFD code preview." Code="{Binding DfdCode, Mode=TwoWay}" DockPanel.Dock="Left"></controls:CodeTextBox>
-            <Button Grid.Row="1" HotKey="F5" Click="RecompileGraph_Clicked">
-                <TextBlock Text="Regenerate Graph"></TextBlock>
-            </Button>
-            <TextBlock Grid.Row="2" x:Name="ErrorTextBlock" Foreground="Red"></TextBlock>
+                <TextBlock Grid.Row="2" x:Name="ErrorTextBlock" Foreground="Red"></TextBlock>
         </Grid>
 		<GridSplitter Grid.Column="1" Background="{DynamicResource SecondaryBackground}"></GridSplitter>
         <paz:ZoomBorder Grid.Column="2" Stretch="None" ZoomSpeed="1.2"

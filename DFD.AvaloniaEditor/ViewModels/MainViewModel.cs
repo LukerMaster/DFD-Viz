@@ -9,11 +9,11 @@ namespace DFD.AvaloniaEditor.ViewModels;
 
 internal partial class MainViewModel : ViewModelBase
 {
-    public MainViewModel(IVisualGraphGenerationPipeline visualGraphGenerationPipeline, IDfdCodeStringProvider? dfdCodeCode)
+    public MainViewModel(IVisualGraphGenerationPipeline visualGraphGenerationPipeline, IDfdCodeStringProvider? dfdCode)
     {
-        if (dfdCodeCode is not null)
+        if (dfdCode is not null)
         {
-            _dfdCodeProvider = dfdCodeCode;
+            _dfdCodeProvider = dfdCode;
         }
         GraphViewModel = new DiagramViewModel(visualGraphGenerationPipeline);
     }
@@ -29,6 +29,21 @@ internal partial class MainViewModel : ViewModelBase
     public string DfdCode
     {
         get => _dfdCodeProvider.DfdCode;
-        set => _dfdCodeProvider.DfdCode = value;
+        set
+        {
+            _dfdCodeProvider.DfdCode = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string? CurrentlyOpenFilePath
+    {
+        get => _dfdCodeProvider.FilePath;
+        set
+        {
+            if (value == _dfdCodeProvider.FilePath) return;
+            _dfdCodeProvider.FilePath = value;
+            OnPropertyChanged();
+        }
     }
 }
