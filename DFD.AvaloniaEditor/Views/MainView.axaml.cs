@@ -23,9 +23,26 @@ public partial class MainView : UserControl
         RecompileGraph();
     }
 
-    private void OpenFile(string FilePath)
-    {
 
+    private async void SaveFile(string filePath)
+    {
+        var storage = TopLevel.GetTopLevel(this).StorageProvider;
+        var file = await storage.TryGetFileFromPathAsync(filePath);
+        var stream = await file.OpenWriteAsync();
+        var streamReader = new StreamWriter(stream);
+        streamReader.WriteAsync(ViewModel.DfdCode);
+    }
+    private async void OpenFile(string filePath)
+    {
+        var storage = TopLevel.GetTopLevel(this).StorageProvider;
+        var file = await storage.TryGetFileFromPathAsync(filePath);
+        var stream = await file.OpenReadAsync();
+        var streamReader = new StreamReader(stream);
+        var fileContent = await streamReader.ReadToEndAsync();
+        streamReader.Close();
+        ViewModel.CurrentlyOpenFilePath = filePath;
+        ViewModel.DfdCode = fileContent;
+        RecompileGraph();
     }
 
     private void RecompileGraph()
@@ -73,17 +90,37 @@ public partial class MainView : UserControl
             },
             Title = "Open DFD File"
         });
-
-        await using var stream = await files[0].OpenReadAsync();
-        using var streamReader = new StreamReader(stream);
-        var fileContent = await streamReader.ReadToEndAsync();
-
-        ViewModel.DfdCode = fileContent;
-        RecompileGraph();
+        
+        OpenFile(files[0].TryGetLocalPath());
     }
 
-    private void Save_Clicked(object? sender, RoutedEventArgs e)
+    private async void Save_Clicked(object? sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(ViewModel.CurrentlyOpenFilePath))
+        {
+            SaveAs_Clicked(this, e);
+        }
+        else
+        {
+            SaveFile(ViewModel.CurrentlyOpenFilePath);
+        }
+    }
+
+    private async void SaveAs_Clicked(object? sender, RoutedEventArgs e)
+    {
+        var topLevel = TopLevel.GetTopLevel(this);
+
+        var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions()
+        {
+            DefaultExtension = "dfd",
+            ShowOverwritePrompt = true,
+            SuggestedFileName = "Graph-" + DateTime.Now.ToLongDateString(),
+            Title = "Save Graph as..."
+        });
+
+        if (file is not null)
+        {
+            SaveFile(file.TryGetLocalPath() ?? throw new FileNotFoundException());
+        }
     }
 }

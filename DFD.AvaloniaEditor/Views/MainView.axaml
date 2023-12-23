@@ -19,8 +19,8 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Click="OpenFile_Clicked" Header="_Open..."></MenuItem>
-                <MenuItem Click="Save_Clicked" Header="_Save"></MenuItem>
-                <MenuItem Header="_Save as..."></MenuItem>
+                <MenuItem HotKey="Ctrl+S" Click="Save_Clicked" Header="_Save"></MenuItem>
+                <MenuItem Click="SaveAs_Clicked" Header="_Save as..."></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="_Export as..."></MenuItem>
             </MenuItem>
