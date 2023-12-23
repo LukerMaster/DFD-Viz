@@ -28,18 +28,18 @@ public partial class MainView : UserControl
     {
         var storage = TopLevel.GetTopLevel(this).StorageProvider;
         var file = await storage.TryGetFileFromPathAsync(filePath);
-        var stream = await file.OpenWriteAsync();
-        var streamReader = new StreamWriter(stream);
-        streamReader.WriteAsync(ViewModel.DfdCode);
+        await using var stream = await file.OpenWriteAsync();
+        await using var streamReader = new StreamWriter(stream);
+        await streamReader.WriteAsync(ViewModel.DfdCode);
     }
     private async void OpenFile(string filePath)
     {
         var storage = TopLevel.GetTopLevel(this).StorageProvider;
         var file = await storage.TryGetFileFromPathAsync(filePath);
-        var stream = await file.OpenReadAsync();
-        var streamReader = new StreamReader(stream);
+        await using var stream = await file.OpenReadAsync();
+        using var streamReader = new StreamReader(stream);
         var fileContent = await streamReader.ReadToEndAsync();
-        streamReader.Close();
+        
         ViewModel.CurrentlyOpenFilePath = filePath;
         ViewModel.DfdCode = fileContent;
         RecompileGraph();
