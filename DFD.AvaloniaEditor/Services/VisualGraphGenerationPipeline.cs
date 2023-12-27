@@ -35,7 +35,10 @@ public class VisualGraphGenerationPipeline : IVisualGraphGenerationPipeline
 
     private void RegenerateVisualGraph()
     {
-        _visualGraph = _graphCreator.GetVisualGraph(_logicalGraph);
+        if (_logicalGraph is not null)
+        {
+            _visualGraph = _graphCreator.GetVisualGraph(_logicalGraph);
+        }
     }
 
     private void RecompileEntireGraph()

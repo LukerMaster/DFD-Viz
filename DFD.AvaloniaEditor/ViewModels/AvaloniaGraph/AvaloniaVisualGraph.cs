@@ -7,10 +7,10 @@ namespace DFD.AvaloniaEditor.ViewModels.AvaloniaGraph;
 
 internal class AvaloniaVisualGraph : IAvaloniaVisualGraph
 {
-    public IReadOnlyCollection<AvaloniaVisualNode> Nodes { get; set; }
-    public IReadOnlyCollection<AvaloniaVisualObject> Flows { get; set; }
-    public IReadOnlyCollection<AvaloniaVisualObject> ArrowHeads { get; set; }
-    public IReadOnlyCollection<AvaloniaCanvasText> TextLabels { get; set; }
+    public IReadOnlyCollection<AvaloniaVisualNode> Nodes { get; set; } = new List<AvaloniaVisualNode>();
+    public IReadOnlyCollection<AvaloniaVisualObject> Flows { get; set; } = new List<AvaloniaVisualObject>();
+    public IReadOnlyCollection<AvaloniaVisualObject> ArrowHeads { get; set; } = new List<AvaloniaVisualObject>(); 
+    public IReadOnlyCollection<AvaloniaCanvasText> TextLabels { get; set; } = new List<AvaloniaCanvasText>(); 
 
 
     private Point DeCasteljau(float t, Points controlPoints)
