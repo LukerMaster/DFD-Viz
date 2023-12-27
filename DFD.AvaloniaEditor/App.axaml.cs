@@ -38,6 +38,7 @@ public partial class App : Application
 
         IVisualGraphGenerationPipeline generationPipeline = new VisualGraphGenerationPipeline(interpreter, converter, creator, codeProvider);
 
+        
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
@@ -47,16 +48,21 @@ public partial class App : Application
                 codeProvider.DfdCode = File.ReadAllText(desktop.Args[0]);
             }
 
+            // Classic way of doing IoC results in circular dependency so creation of this object needs to be broken up
+            GraphFileStorageService storageService = new GraphFileStorageService();
+
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainViewModel(generationPipeline, codeProvider)
+                DataContext = new MainViewModel(generationPipeline, codeProvider, storageService)
             };
+
+            storageService.SetStorageProvider(desktop.MainWindow.StorageProvider);
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
             singleViewPlatform.MainView = new MainView
             {
-                DataContext = new MainViewModel(null, null)
+                DataContext = new MainViewModel(null, null, null)
             };
         }
 

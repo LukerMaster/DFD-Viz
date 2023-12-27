@@ -5,6 +5,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
+using DFD.AvaloniaEditor.Services;
 using DFD.AvaloniaEditor.ViewModels;
 using DFD.Parsing;
 
@@ -13,6 +14,7 @@ namespace DFD.AvaloniaEditor.Views;
 public partial class MainView : UserControl
 {
     private MainViewModel ViewModel => DataContext as MainViewModel;
+
     public MainView()
     {
         InitializeComponent();
@@ -20,26 +22,6 @@ public partial class MainView : UserControl
 
     private void RecompileGraph_Clicked(object? sender, RoutedEventArgs e)
     {
-        RecompileGraph();
-    }
-
-
-    private async void SaveFile(IStorageFile file)
-    {
-        await using var stream = await file.OpenWriteAsync();
-        await using var streamReader = new StreamWriter(stream);
-        await streamReader.WriteAsync(ViewModel.DfdCode);
-    }
-    private async void OpenFile(string filePath)
-    {
-        var storage = TopLevel.GetTopLevel(this).StorageProvider;
-        var file = await storage.TryGetFileFromPathAsync(filePath);
-        await using var stream = await file.OpenReadAsync();
-        using var streamReader = new StreamReader(stream);
-        var fileContent = await streamReader.ReadToEndAsync();
-        
-        ViewModel.CurrentlyOpenFilePath = filePath;
-        ViewModel.DfdCode = fileContent;
         RecompileGraph();
     }
 
@@ -74,27 +56,10 @@ public partial class MainView : UserControl
 
     private async void OpenFile_Clicked(object? sender, RoutedEventArgs e)
     {
-        var topLevel = TopLevel.GetTopLevel(this);
-
-        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
-        {
-            AllowMultiple = false,
-            FileTypeFilter = new[]
-            {
-                new FilePickerFileType("DFD Graph Files")
-                {
-                    Patterns = new [] {"*.dfd"}
-                }
-            },
-            Title = "Open DFD File"
-        });
-        if (files.Count > 0)
-        {
-            OpenFile(files[0].TryGetLocalPath());
-        }
+        await ViewModel.OpenGraphFileAsync();
     }
 
-    private async void Save_Clicked(object? sender, RoutedEventArgs e)
+    private void Save_Clicked(object? sender, RoutedEventArgs e)
     {
         if (string.IsNullOrEmpty(ViewModel.CurrentlyOpenFilePath))
         {
@@ -102,28 +67,12 @@ public partial class MainView : UserControl
         }
         else
         {
-            var storage = TopLevel.GetTopLevel(this).StorageProvider;
-            var file = await storage.TryGetFileFromPathAsync(ViewModel.CurrentlyOpenFilePath);
-            SaveFile(file);
+            ViewModel.SaveGraphFileAsync();
         }
     }
 
-    private async void SaveAs_Clicked(object? sender, RoutedEventArgs e)
+    private void SaveAs_Clicked(object? sender, RoutedEventArgs e)
     {
-        var topLevel = TopLevel.GetTopLevel(this);
-
-        var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions()
-        {
-            DefaultExtension = "dfd",
-            ShowOverwritePrompt = true,
-            SuggestedFileName = "Graph-" + DateTime.Now.ToFileTimeUtc(),
-            Title = "Save Graph as..."
-        });
-
-        if (file is not null)
-        {
-            SaveFile(file);
-            ViewModel.CurrentlyOpenFilePath = file.TryGetLocalPath();
-        }
+        ViewModel.SaveGraphFileAsAsync();
     }
 }
