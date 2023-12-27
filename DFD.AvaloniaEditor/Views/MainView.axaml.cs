@@ -24,10 +24,8 @@ public partial class MainView : UserControl
     }
 
 
-    private async void SaveFile(string filePath)
+    private async void SaveFile(IStorageFile file)
     {
-        var storage = TopLevel.GetTopLevel(this).StorageProvider;
-        var file = await storage.TryGetFileFromPathAsync(filePath);
         await using var stream = await file.OpenWriteAsync();
         await using var streamReader = new StreamWriter(stream);
         await streamReader.WriteAsync(ViewModel.DfdCode);
@@ -104,7 +102,9 @@ public partial class MainView : UserControl
         }
         else
         {
-            SaveFile(ViewModel.CurrentlyOpenFilePath);
+            var storage = TopLevel.GetTopLevel(this).StorageProvider;
+            var file = await storage.TryGetFileFromPathAsync(ViewModel.CurrentlyOpenFilePath);
+            SaveFile(file);
         }
     }
 
@@ -116,13 +116,14 @@ public partial class MainView : UserControl
         {
             DefaultExtension = "dfd",
             ShowOverwritePrompt = true,
-            SuggestedFileName = "Graph-" + DateTime.Now.ToLongDateString(),
+            SuggestedFileName = "Graph-" + DateTime.Now.ToFileTimeUtc(),
             Title = "Save Graph as..."
         });
 
         if (file is not null)
         {
-            SaveFile(file.TryGetLocalPath() ?? throw new FileNotFoundException());
+            SaveFile(file);
+            ViewModel.CurrentlyOpenFilePath = file.TryGetLocalPath();
         }
     }
 }
