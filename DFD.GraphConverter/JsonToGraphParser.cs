@@ -26,7 +26,7 @@ internal class JsonToGraphParser
         var visualNodes = GetNodes(graph, rootJsonObject);
         var visualFlows = GetFlows(rootJsonObject);
         var arrowHeads = GetArrowHeads(rootJsonObject);
-        var visualTexts = GetAllTexts(rootJsonObject);
+        var visualTexts = GetTexts(rootJsonObject);
 
 
         return new VisualGraph()
@@ -40,21 +40,29 @@ internal class JsonToGraphParser
         };
     }
 
-    private IReadOnlyList<IVisualText> GetAllTexts(JObject rootJsonObject)
+    private IReadOnlyList<IVisualText> GetTexts(JObject rootJsonObject)
     {
         List<IVisualText> visualTexts = new List<IVisualText>();
-        foreach (var graphObj in rootJsonObject["objects"])
+
+        if (rootJsonObject["objects"] is not null)
         {
-            if(graphObj["_ldraw_"] is not null)
+            foreach (var graphObj in rootJsonObject["objects"])
             {
-                visualTexts.Add(GetText(graphObj["_ldraw_"]));
+                if (graphObj["_ldraw_"] is not null)
+                {
+                    visualTexts.Add(GetText(graphObj["_ldraw_"]));
+                }
             }
         }
-        foreach (var graphObj in rootJsonObject["edges"])
+
+        if (rootJsonObject["edges"] is not null)
         {
-            if (graphObj["_ldraw_"] is not null)
+            foreach (var graphObj in rootJsonObject["edges"])
             {
-                visualTexts.Add(GetText(graphObj["_ldraw_"]));
+                if (graphObj["_ldraw_"] is not null)
+                {
+                    visualTexts.Add(GetText(graphObj["_ldraw_"]));
+                }
             }
         }
 
@@ -88,6 +96,8 @@ internal class JsonToGraphParser
     {
         var arrowHeads = new List<IVisualObject>();
 
+        if (rootJsonObject["edges"] is null) return arrowHeads;
+
         foreach (var edge in rootJsonObject["edges"])
         {
             arrowHeads.Add(GetVisualObjectFrom(edge, "_hdraw_"));
@@ -99,6 +109,8 @@ internal class JsonToGraphParser
     private IReadOnlyList<IVisualObject> GetFlows(JObject rootJsonObject)
     {
         var visualFlows = new List<IVisualObject>();
+
+        if (rootJsonObject["edges"] is null) return visualFlows;
 
         foreach (var edge in rootJsonObject["edges"])
         {
