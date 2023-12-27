@@ -90,8 +90,10 @@ public partial class MainView : UserControl
             },
             Title = "Open DFD File"
         });
-        
-        OpenFile(files[0].TryGetLocalPath());
+        if (files.Count > 0)
+        {
+            OpenFile(files[0].TryGetLocalPath());
+        }
     }
 
     private async void Save_Clicked(object? sender, RoutedEventArgs e)
