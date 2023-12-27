@@ -41,7 +41,7 @@ public partial class App : Application
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            if (desktop.Args[0] is not null)
+            if (desktop.Args.Length == 1)
             {
                 codeProvider.FilePath = desktop.Args[0];
                 codeProvider.DfdCode = File.ReadAllText(desktop.Args[0]);

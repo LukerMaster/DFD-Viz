@@ -55,6 +55,8 @@ internal class AvaloniaVisualGraph : IAvaloniaVisualGraph
 
     public AvaloniaVisualGraph(IVisualGraph? visualGraph)
     {
+        if (visualGraph is null) return;
+
         Flows = visualGraph.Flows.Select(flow =>
         {
             var avaloniaObject = ToAvaloniaObject(flow);

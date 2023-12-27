@@ -40,9 +40,12 @@ public class VisualGraphGenerationPipeline : IVisualGraphGenerationPipeline
 
     private void RecompileEntireGraph()
     {
-        var logicalGraph = _interpreter.ToDiagram(_dfdCodeProvider.DfdCode);
-        _logicalGraph = _converter.ToMultilevelGraph(logicalGraph);
-        RegenerateVisualGraph();
+        if (!string.IsNullOrEmpty(_dfdCodeProvider.DfdCode))
+        {
+            var logicalGraph = _interpreter.ToDiagram(_dfdCodeProvider.DfdCode);
+            _logicalGraph = _converter.ToMultilevelGraph(logicalGraph);
+            RegenerateVisualGraph();
+        }
     }
 
     public IVisualGraph? VisualGraph {
