@@ -9,13 +9,24 @@ namespace DFD.GraphvizConverter
     public class DiagramToDotConverter
     {
         private readonly string BiDirectionalAttribute = "[dir=both]";
-        private string RepresentNode(ITreeNode<ICollapsableGraphNode> node, string code, bool useDisplayNames = false)
+        private string RepresentNode(ITreeNode<IEditableGraphNode> node, string code, bool useDisplayNames = false)
         {
             if (node.Children.Count > 0 && !node.Data.ChildrenCollapsed)
             {
-                code += $"subgraph {node.FullNodeName.Replace('.', '_')} \n" +
-                        $"{{ label=\"{node.Data.Data.Name}\" \n " +
-                        $"cluster=True \n";
+                if (node.Data.IsHidden)
+                {
+                    code += $"subgraph {node.FullNodeName.Replace('.', '_')} \n" +
+                            $"{{ peripheries=0 \n " +
+                            $"cluster=True \n";
+                }
+                else
+                {
+                    code += $"subgraph {node.FullNodeName.Replace('.', '_')} \n" +
+                            $"{{ label=\"{node.Data.Data.Name}\" \n " +
+                            $"peripheries=1 \n" +
+                            $"cluster=True \n";
+                }
+
                 foreach (var child in node.Children)
                 {
                     code = RepresentNode(child, code);
@@ -44,7 +55,7 @@ namespace DFD.GraphvizConverter
             return code;
         }
 
-        private void CheckIfSubtreeHasCollapsedChildren(ITreeNode<ICollapsableGraphNode> node,
+        private void CheckIfSubtreeHasCollapsedChildren(ITreeNode<IEditableGraphNode> node,
             ICollection<string> currentList)
         {
             if (node.Data.ChildrenCollapsed)
@@ -60,14 +71,14 @@ namespace DFD.GraphvizConverter
             }
         }
 
-        private ICollection<string> GetAllNodeNamesWithCollapsedChildren(ITreeNode<ICollapsableGraphNode> node)
+        private ICollection<string> GetAllNodeNamesWithCollapsedChildren(ITreeNode<IEditableGraphNode> node)
         {
             ICollection<string> collapsedList = new List<string>();
             CheckIfSubtreeHasCollapsedChildren(node, collapsedList);
             return collapsedList;
         }
 
-        public string ToDot(IGraph<ICollapsableGraphNode> graph)
+        public string ToDot(IGraph<IEditableGraphNode> graph)
         {
             ICollection<string> collapsedNodesList = GetAllNodeNamesWithCollapsedChildren(graph.Root);
 

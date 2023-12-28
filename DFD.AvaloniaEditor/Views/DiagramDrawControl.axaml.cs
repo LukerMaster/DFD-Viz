@@ -19,7 +19,7 @@ namespace DFD.AvaloniaEditor.Views
             var diagramViewModel = DataContext as DiagramViewModel;
 
             var polygon = sender as Polygon;
-            var node = polygon.Tag as ICollapsableGraphNode;
+            var node = polygon.Tag as IEditableGraphNode;
 
 
             var point = e.GetCurrentPoint(this);

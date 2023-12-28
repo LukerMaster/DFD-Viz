@@ -5,6 +5,6 @@ namespace DFD.ViewModel.Interfaces;
 
 public interface IVisualGraphNode
 {
-    ICollapsableGraphNode Node { get; }
+    IEditableGraphNode Node { get; }
     IVisualObject VisualObject { get; }
 }

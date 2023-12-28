@@ -15,10 +15,10 @@ namespace DFD.Vizualizer
     public class VisualGraphProvider : IVisualGraphProvider, IViewDataProvider
     {
         private IVisualGraph _visualGraph;
-        private IGraph<ICollapsableGraphNode> _logicalGraph;
+        private IGraph<IEditableGraphNode> _logicalGraph;
         private readonly IVisualGraphCreator _creator;
-        private Dictionary<ICollapsableGraphNode, bool> _previousCollapsedStates = new Dictionary<ICollapsableGraphNode, bool>();
-        public VisualGraphProvider(IGraph<ICollapsableGraphNode> logicalGraph, IVisualGraphCreator creator)
+        private Dictionary<IEditableGraphNode, bool> _previousCollapsedStates = new Dictionary<IEditableGraphNode, bool>();
+        public VisualGraphProvider(IGraph<IEditableGraphNode> logicalGraph, IVisualGraphCreator creator)
         {
             _logicalGraph = logicalGraph;
             _creator = creator;
@@ -27,7 +27,7 @@ namespace DFD.Vizualizer
             UpdatePreviousCollapsedStates(logicalGraph.Root);
         }
 
-        private void UpdatePreviousCollapsedStates(ITreeNode<ICollapsableGraphNode> node)
+        private void UpdatePreviousCollapsedStates(ITreeNode<IEditableGraphNode> node)
         {
             _previousCollapsedStates[node.Data] = node.Data.ChildrenCollapsed;
             foreach (var child in node.Children)

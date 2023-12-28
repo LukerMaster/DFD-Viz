@@ -15,7 +15,7 @@ public class LogicalGraphLoader
         _converter = converter;
     }
 
-    public IGraph<ICollapsableGraphNode> GetLogicalGraph(string filePath)
+    public IGraph<IEditableGraphNode> GetLogicalGraph(string filePath)
     {
         var dfdCode = File.ReadAllText(filePath);
         var rawGraph = _interpreter.ToDiagram(dfdCode);

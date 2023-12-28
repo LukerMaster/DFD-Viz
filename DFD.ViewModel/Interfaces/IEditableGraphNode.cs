@@ -2,8 +2,9 @@
 
 namespace DFD.ViewModel.Interfaces;
 
-public interface ICollapsableGraphNode
+public interface IEditableGraphNode
 {
     IGraphNodeData Data { get; }
     bool ChildrenCollapsed { get; set; }
+    bool IsHiddenAsParent { get; set; }
 }

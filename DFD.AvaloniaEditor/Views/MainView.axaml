@@ -28,6 +28,7 @@
                 <MenuItem Click="RefreshGraph_Clicked" HotKey="Ctrl+F5" Header="_Refresh"></MenuItem>
                 <MenuItem Click="RecompileGraph_Clicked" HotKey="F5" Header="_Recompile"></MenuItem>
                 <MenuItem Click="CollapseAllNodes_Clicked" Header="_Collapse All Nodes"></MenuItem>
+                <MenuItem Click="ToggleTopNodeVisibility_Clicked" Header="_Toggle Top Node Visibility"></MenuItem>
             </MenuItem>
         </Menu>
 		<Grid ColumnDefinitions="*,4,3*">

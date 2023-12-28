@@ -3,8 +3,9 @@ using DFD.ViewModel.Interfaces;
 
 namespace DFD.GraphConverter;
 
-public class CollapsableGraphNode : ICollapsableGraphNode
+public class EditableGraphNode : IEditableGraphNode
 {
+    public bool IsHidden { get; set; }
     public bool CanBeCollapsed { get; set; } = true;
     public IGraphNodeData Data { get; set; }
 

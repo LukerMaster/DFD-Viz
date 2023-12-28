@@ -10,7 +10,7 @@ namespace DFD.GraphConverter;
 
 internal class JsonToGraphParser
 {
-    public IVisualGraph CreateGraphFrom(string json, IGraph<ICollapsableGraphNode> graph)
+    public IVisualGraph CreateGraphFrom(string json, IGraph<IEditableGraphNode> graph)
     {
         JObject rootJsonObject = JsonConvert.DeserializeObject<JObject>(json);
 
@@ -100,13 +100,15 @@ internal class JsonToGraphParser
 
         foreach (var edge in rootJsonObject["edges"])
         {
-            if (edge["_hdraw_"] is not null)
-                arrowHeads.Add(GetVisualObjectFrom(edge, "_hdraw_"));
+            var vo = TryGetVisualObjectFrom(edge, "_hdraw_");
+            if (vo is not null)
+                arrowHeads.Add(vo);
         }
         foreach (var edge in rootJsonObject["edges"])
         {
-            if (edge["_tdraw_"] is not null)
-                arrowHeads.Add(GetVisualObjectFrom(edge, "_tdraw_"));
+            var vo = TryGetVisualObjectFrom(edge, "_tdraw_");
+            if (vo is not null)
+                arrowHeads.Add(vo);
         }
 
         return arrowHeads;
@@ -120,14 +122,18 @@ internal class JsonToGraphParser
 
         foreach (var edge in rootJsonObject["edges"])
         {
-            visualFlows.Add(GetVisualObjectFrom(edge, "_draw_"));
+            var vo = TryGetVisualObjectFrom(edge, "_draw_");
+            if (vo is not null)
+                visualFlows.Add(vo);
         }
 
         return visualFlows;
     }
 
-    private VisualObject GetVisualObjectFrom(JToken graphObj, string definitionName, bool isClosed = false)
+    private VisualObject? TryGetVisualObjectFrom(JToken graphObj, string definitionName, bool isClosed = false)
     {
+        if (graphObj[definitionName] is null) return null;
+
         foreach (var drawDefinition in graphObj[definitionName])
         {
             if (drawDefinition["points"] is not null)
@@ -157,22 +163,25 @@ internal class JsonToGraphParser
         return visualObject;
     }
 
-    private IReadOnlyList<IVisualGraphNode> GetNodes(IGraph<ICollapsableGraphNode> graph, JObject rootJsonObject)
+    private IReadOnlyList<IVisualGraphNode> GetNodes(IGraph<IEditableGraphNode> graph, JObject rootJsonObject)
     {
         var visualNodes = new List<IVisualGraphNode>();
 
         foreach (JObject jsonNode in rootJsonObject["objects"])
         {
-            VisualObject vo = GetVisualObjectFrom(jsonNode, "_draw_", true);
-            
-            var graphNode = graph.Root.FindMatchingNode(jsonNode["name"].ToString().Replace("_", "."), false);
-            vo.DrawOrder = graphNode.FullNodeName.ToCharArray().Count(x => x == '.');
+            VisualObject vo = TryGetVisualObjectFrom(jsonNode, "_draw_", true);
 
-            visualNodes.Add(new VisualGraphNode()
+            if (vo is not null)
             {
-                Node = graphNode.Data,
-                VisualObject = vo
-            });
+                var graphNode = graph.Root.FindMatchingNode(jsonNode["name"].ToString().Replace("_", "."), false);
+                vo.DrawOrder = graphNode.FullNodeName.ToCharArray().Count(x => x == '.');
+
+                visualNodes.Add(new VisualGraphNode()
+                {
+                    Node = graphNode.Data,
+                    VisualObject = vo
+                });
+            }
         }
 
         visualNodes.Sort((a, b) => a.VisualObject.DrawOrder.CompareTo(b.VisualObject.DrawOrder));

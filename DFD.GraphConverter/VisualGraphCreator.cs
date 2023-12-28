@@ -15,7 +15,7 @@ namespace DFD.GraphConverter
 
         private MultilevelGraphConverter _multilevelGraphConverter = new MultilevelGraphConverter();
 
-        public IVisualGraph GetVisualGraph(IGraph<ICollapsableGraphNode> logicalGraph)
+        public IVisualGraph GetVisualGraph(IGraph<IEditableGraphNode> logicalGraph)
         {
             string dotCode = dotConverter.ToDot(logicalGraph);
             string json = runner.GetGraphAsJson(dotCode);

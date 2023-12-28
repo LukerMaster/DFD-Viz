@@ -75,4 +75,9 @@ public partial class MainView : UserControl
     {
         ViewModel.SaveGraphFileAsAsync();
     }
+
+    private void ToggleTopNodeVisibility_Clicked(object? sender, RoutedEventArgs e)
+    {
+        ViewModel.GraphViewModel.ToggleVisibility("top");
+    }
 }

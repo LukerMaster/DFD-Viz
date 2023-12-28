@@ -48,4 +48,11 @@ internal class DiagramViewModel : ViewModelBase
     {
         VisualGraph = new AvaloniaVisualGraph(_diagramGenerationPipeline.RecompiledGraph);
     }
+
+    public void ToggleVisibility(string nodeName)
+    {
+        if (VisualGraph.Nodes.Count > 0)
+            _diagramGenerationPipeline.ExecuteOnNode(nodeName, node => node.IsHidden = !node.IsHidden);
+        RefreshGraph();
+    }
 }

@@ -1,4 +1,5 @@
-﻿using Avalonia;
+﻿using System;
+using Avalonia;
 using DataStructure.NamedTree;
 using DFD.AvaloniaEditor.Interfaces;
 using DFD.GraphConverter.Interfaces;
@@ -17,7 +18,7 @@ public class VisualGraphGenerationPipeline : IVisualGraphGenerationPipeline
     private readonly IDfdCodeStringProvider _dfdCodeProvider;
 
 
-    private IGraph<ICollapsableGraphNode> _logicalGraph;
+    private IGraph<IEditableGraphNode> _logicalGraph;
     private IVisualGraph _visualGraph;
     
     public VisualGraphGenerationPipeline(IInterpreter interpreter, IMultilevelGraphConverter converter, IVisualGraphCreator graphCreator, IDfdCodeStringProvider dfdCodeProvider)
@@ -75,4 +76,26 @@ public class VisualGraphGenerationPipeline : IVisualGraphGenerationPipeline
             return VisualGraph;
         }
     }
+
+    public void ExecuteOnNode(string nodeName, Action<IEditableGraphNode> command)
+    {
+        Queue<ITreeNode<IEditableGraphNode>> nodes = new Queue<ITreeNode<IEditableGraphNode>>();
+        
+        nodes.Enqueue(_logicalGraph.Root);
+        while (nodes.Count > 0)
+        {
+            var node = nodes.Dequeue();
+            if (node.FullNodeName == nodeName)
+            {
+                command(node.Data);
+                break;
+            }
+
+            foreach (var nodeChild in node.Children)
+            {
+                nodes.Enqueue(nodeChild);
+            }
+        }
+    }
+
 }

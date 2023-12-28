@@ -16,7 +16,8 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate >
                 <DataTemplate>
-                    <Polygon Points="{Binding VisualObject.Points}" 
+                    <Polygon IsEnabled="{Binding Node.IsHidden}"
+						     Points="{Binding VisualObject.Points}" 
                              Fill="Transparent" 
                              Stroke="{DynamicResource PrimaryText}" 
                              StrokeThickness="1"

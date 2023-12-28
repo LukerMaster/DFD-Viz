@@ -5,5 +5,5 @@ namespace DFD.AvaloniaEditor.ViewModels.AvaloniaGraph;
 internal class AvaloniaVisualNode
 {
     internal AvaloniaVisualObject VisualObject { get; set; } = new();
-    internal ICollapsableGraphNode Node { get; set; }
+    internal IEditableGraphNode Node { get; set; }
 }

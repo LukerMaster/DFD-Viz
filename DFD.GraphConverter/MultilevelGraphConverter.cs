@@ -6,16 +6,16 @@ namespace DFD.GraphConverter;
 
 public class MultilevelGraphConverter : IMultilevelGraphConverter
 {
-    public IGraph<ICollapsableGraphNode> ToMultilevelGraph(IGraph<IGraphNodeData> graph)
+    public IGraph<IEditableGraphNode> ToMultilevelGraph(IGraph<IGraphNodeData> graph)
     {
-        IGraph<ICollapsableGraphNode> multilevelGraph =
-            graph.CopyGraphAs<ICollapsableGraphNode>(data => new CollapsableGraphNode()
+        IGraph<IEditableGraphNode> multilevelGraph =
+            graph.CopyGraphAs<IEditableGraphNode>(data => new EditableGraphNode()
             {
                 Data = data,
                 ChildrenCollapsed = false
             });
 
-        (multilevelGraph.Root.Data as CollapsableGraphNode).CanBeCollapsed = false;
+        (multilevelGraph.Root.Data as EditableGraphNode).CanBeCollapsed = false;
 
         return multilevelGraph;
     }

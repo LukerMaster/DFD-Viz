@@ -5,5 +5,5 @@ namespace DFD.GraphConverter.Interfaces;
 
 public interface IVisualGraphCreator
 {
-    IVisualGraph GetVisualGraph(IGraph<ICollapsableGraphNode> logicalGraph);
+    IVisualGraph GetVisualGraph(IGraph<IEditableGraphNode> logicalGraph);
 }

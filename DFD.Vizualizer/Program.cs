@@ -21,7 +21,7 @@ namespace DFD.Vizualizer
             MultilevelGraphConverter converter = new MultilevelGraphConverter();
             LogicalGraphLoader loader = new LogicalGraphLoader(interpreter, converter);
 
-            IGraph<ICollapsableGraphNode> logicalGraph = null;
+            IGraph<IEditableGraphNode> logicalGraph = null;
             IProgramUI ui = null;
 
             try
