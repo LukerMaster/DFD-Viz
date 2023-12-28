@@ -52,7 +52,7 @@ internal class DiagramViewModel : ViewModelBase
     public void ToggleVisibility(string nodeName)
     {
         if (VisualGraph.Nodes.Count > 0)
-            _diagramGenerationPipeline.ExecuteOnNode(nodeName, node => node.IsHidden = !node.IsHidden);
+            _diagramGenerationPipeline.ExecuteOnNode(nodeName, node => node.IsHiddenAsParent = !node.IsHiddenAsParent);
         RefreshGraph();
     }
 }
