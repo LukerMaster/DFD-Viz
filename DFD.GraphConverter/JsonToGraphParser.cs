@@ -100,7 +100,13 @@ internal class JsonToGraphParser
 
         foreach (var edge in rootJsonObject["edges"])
         {
-            arrowHeads.Add(GetVisualObjectFrom(edge, "_hdraw_"));
+            if (edge["_hdraw_"] is not null)
+                arrowHeads.Add(GetVisualObjectFrom(edge, "_hdraw_"));
+        }
+        foreach (var edge in rootJsonObject["edges"])
+        {
+            if (edge["_tdraw_"] is not null)
+                arrowHeads.Add(GetVisualObjectFrom(edge, "_tdraw_"));
         }
 
         return arrowHeads;

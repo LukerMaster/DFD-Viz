@@ -23,11 +23,11 @@ internal class GraphObjectParser
 
         var typeName = definition[0];
         var nodeName = definition[1];
-        if (definition.Count < 3)
+        var displayedName = definition[1];
+        if (definition.Count == 3)
         {
-            throw new NodeWithoutDisplayNameException(nodeName);
+            displayedName = definition[2];
         }
-        var displayedName = definition[2];
 
         if (_validDefinitions.TryGetValue(typeName, out var type))
         {
