@@ -15,7 +15,7 @@ internal class AvaloniaCanvasText
     {
         Text = visualText.Text;
         Center = new Point(visualText.Position.X, visualText.Position.Y);
-        FontSize = visualText.FontSize;
+        FontSize = visualText.FontSize * 0.9f;
         Width = visualText.Width;
     }
 }
