@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.AvaloniaEditor", "DFD.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.AvaloniaEditor.Desktop", "DFD.AvaloniaEditor.Desktop\DFD.AvaloniaEditor.Desktop.csproj", "{097D531E-BEDF-45A8-B804-2509A9FC4908}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.AvaloniaEditor.Browser", "DFD.AvaloniaEditor.Browser\DFD.AvaloniaEditor.Browser.csproj", "{83A82F3C-678D-4F7E-913E-9E53AAA86229}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFD.AvaloniaEditor.Browser", "DFD.AvaloniaEditor.Browser\DFD.AvaloniaEditor.Browser.csproj", "{E7318A7E-867D-414F-A763-1B6EA7BA133A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,10 +77,10 @@ Global
 		{097D531E-BEDF-45A8-B804-2509A9FC4908}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{097D531E-BEDF-45A8-B804-2509A9FC4908}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{097D531E-BEDF-45A8-B804-2509A9FC4908}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83A82F3C-678D-4F7E-913E-9E53AAA86229}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83A82F3C-678D-4F7E-913E-9E53AAA86229}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83A82F3C-678D-4F7E-913E-9E53AAA86229}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83A82F3C-678D-4F7E-913E-9E53AAA86229}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7318A7E-867D-414F-A763-1B6EA7BA133A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7318A7E-867D-414F-A763-1B6EA7BA133A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7318A7E-867D-414F-A763-1B6EA7BA133A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7318A7E-867D-414F-A763-1B6EA7BA133A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
