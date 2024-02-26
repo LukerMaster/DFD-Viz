@@ -2,7 +2,7 @@
 using DFD.Parsing;
 using DFD.Model.Interfaces;
 
-class Program
+class TestCliProgram
 {
     static void Main()
     {

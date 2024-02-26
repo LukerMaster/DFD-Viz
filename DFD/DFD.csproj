@@ -23,7 +23,7 @@
     <None Update="documentation.dfd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="example-stripped.dfd">
+    <None Update="wrong-comment.dfd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
