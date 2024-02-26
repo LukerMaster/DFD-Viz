@@ -21,8 +21,6 @@
                 <MenuItem Click="OpenFile_Clicked" Header="_Open..."></MenuItem>
                 <MenuItem HotKey="Ctrl+S" Click="Save_Clicked" Header="_Save"></MenuItem>
                 <MenuItem Click="SaveAs_Clicked" Header="_Save as..."></MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="_Export as..."></MenuItem>
             </MenuItem>
             <MenuItem Header="Graph">
                 <MenuItem Click="RefreshGraph_Clicked" HotKey="Ctrl+F5" Header="_Refresh"></MenuItem>

@@ -13,7 +13,7 @@ namespace DFD.GraphvizConverter
         {
             if (node.Children.Count > 0 && !node.Data.ChildrenCollapsed)
             {
-                if (node.Data.IsHidden)
+                if (node.Data.IsHiddenAsParent)
                 {
                     code += $"subgraph {node.FullNodeName.Replace('.', '_')} \n" +
                             $"{{ peripheries=0 \n " +

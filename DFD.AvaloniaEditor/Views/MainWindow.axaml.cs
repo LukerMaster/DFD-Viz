@@ -8,4 +8,9 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
+
+    protected override void OnClosing(WindowClosingEventArgs e)
+    {
+
+    }
 }
