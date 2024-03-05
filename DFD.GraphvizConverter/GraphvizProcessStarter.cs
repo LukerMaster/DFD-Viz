@@ -22,7 +22,7 @@ public class GraphvizProcessStarter
                 StartInfo = new ProcessStartInfo
                 {
                     CreateNoWindow = true,
-                    FileName = Path.Combine(exePath, "graphviz", "ubuntu", "dot"),
+                    FileName = Path.Combine(exePath, "graphviz", "win64", "dot"),
                     Arguments = arguments,
                     WorkingDirectory = Path.Combine(exePath, "graphviz", "ubuntu"),
                     RedirectStandardError = true,
