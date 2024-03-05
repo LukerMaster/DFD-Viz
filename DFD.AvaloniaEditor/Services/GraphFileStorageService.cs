@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Avalonia.Platform.Storage;
 using System;
+using DFD.AvaloniaEditor.Assets;
 
 namespace DFD.AvaloniaEditor.Services;
 
@@ -41,12 +42,12 @@ public class GraphFileStorageService : IFileStorageService
             AllowMultiple = false,
             FileTypeFilter = new[]
             {
-                new FilePickerFileType("DFD Graph Files")
+                new FilePickerFileType(Lang.DFD_Graph_Files)
                 {
                     Patterns = new [] {"*.dfd"}
                 }
             },
-            Title = "Open DFD File"
+            Title = Lang.Open_DFD_File
         });
         if (files.Count > 0)
         {
@@ -70,7 +71,7 @@ public class GraphFileStorageService : IFileStorageService
             DefaultExtension = "dfd",
             ShowOverwritePrompt = true,
             SuggestedFileName = "Graph-" + DateTime.Now.ToFileTimeUtc(),
-            Title = "Save Graph as..."
+            Title = Lang.Save_Graph_As
         });
 
         if (file is not null)

@@ -6,6 +6,7 @@
              xmlns:views="clr-namespace:DFD.AvaloniaEditor.Views"
              xmlns:paz="using:Avalonia.Controls.PanAndZoom"
              xmlns:controls="clr-namespace:DFD.AvaloniaEditor.Controls"
+             xmlns:lang="clr-namespace:DFD.AvaloniaEditor.Assets"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DFD.AvaloniaEditor.Views.MainView"
              x:DataType="vm:MainViewModel">
@@ -17,16 +18,16 @@
   </Design.DataContext>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File">
-                <MenuItem Click="OpenFile_Clicked" Header="_Open..."></MenuItem>
-                <MenuItem HotKey="Ctrl+S" Click="Save_Clicked" Header="_Save"></MenuItem>
-                <MenuItem Click="SaveAs_Clicked" Header="_Save as..."></MenuItem>
+            <MenuItem Header="{x:Static lang:Lang.File}">
+                <MenuItem Click="OpenFile_Clicked" Header="{x:Static lang:Lang.Open}"></MenuItem>
+                <MenuItem HotKey="Ctrl+S" Click="Save_Clicked" Header="{x:Static lang:Lang.Save}"></MenuItem>
+                <MenuItem Click="SaveAs_Clicked" Header="{x:Static lang:Lang.Save_As}"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Graph">
-                <MenuItem Click="RefreshGraph_Clicked" HotKey="Ctrl+F5" Header="_Refresh"></MenuItem>
-                <MenuItem Click="RecompileGraph_Clicked" HotKey="F5" Header="_Recompile"></MenuItem>
-                <MenuItem Click="CollapseAllNodes_Clicked" Header="_Collapse All Nodes"></MenuItem>
-                <MenuItem Click="ToggleTopNodeVisibility_Clicked" Header="_Toggle Top Node Visibility"></MenuItem>
+            <MenuItem Header="{x:Static lang:Lang.Graph}">
+                <MenuItem Click="RefreshGraph_Clicked" HotKey="Ctrl+F5" Header="{x:Static lang:Lang.Refresh}"></MenuItem>
+                <MenuItem Click="RecompileGraph_Clicked" HotKey="F5" Header="{x:Static lang:Lang.Recompile}"></MenuItem>
+                <MenuItem Click="CollapseAllNodes_Clicked" Header="{x:Static lang:Lang.Collapse_all_nodes}"></MenuItem>
+                <MenuItem Click="ToggleTopNodeVisibility_Clicked" Header="{x:Static lang:Lang.Toggle_top_node_visibility}"></MenuItem>
             </MenuItem>
         </Menu>
 		<Grid ColumnDefinitions="*,4,3*">
