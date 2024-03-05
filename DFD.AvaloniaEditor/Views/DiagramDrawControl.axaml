@@ -7,7 +7,7 @@
              x:Class="DFD.AvaloniaEditor.Views.DiagramDrawControl"
              x:DataType="viewModels:DiagramViewModel">
 
-    <Panel>
+    <Panel Name="panel">
         <ItemsControl ItemsSource="{Binding VisualGraph.Nodes}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
