@@ -4,6 +4,7 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using DFD.AvaloniaEditor.Services;
@@ -88,5 +89,17 @@ public partial class MainView : UserControl
         var panel = this.Find<DiagramDrawControl>("DrawControl").Find<Panel>("MainPanel");
         var bitmap = new RenderTargetBitmap(new PixelSize((int)panel.Bounds.Width, (int)panel.Bounds.Height));
         //ViewModel.ExportGraphAsAsync();
+        using (var context = bitmap.CreateDrawingContext())
+        {
+ 
+            bitmap.Render(panel);
+        }
+
+        // Save the RenderTargetBitmap to a file.
+        using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+        {
+            // Encode the RenderTargetBitmap to a PNG image.
+             bitmap.Save(fileStream);
+        }
     }
 }
