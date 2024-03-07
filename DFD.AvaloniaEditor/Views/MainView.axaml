@@ -22,7 +22,8 @@
                 <MenuItem Click="OpenFile_Clicked" Header="{x:Static lang:Lang.Open}"></MenuItem>
                 <MenuItem HotKey="Ctrl+S" Click="Save_Clicked" Header="{x:Static lang:Lang.Save}"></MenuItem>
                 <MenuItem Click="SaveAs_Clicked" Header="{x:Static lang:Lang.Save_As}"></MenuItem>
-            </MenuItem>
+				<MenuItem Click="ExportAs_Clicked" Header="{x:Static lang:Lang.Export_As}"></MenuItem>
+			</MenuItem>
             <MenuItem Header="{x:Static lang:Lang.Graph}">
                 <MenuItem Click="RefreshGraph_Clicked" HotKey="Ctrl+F5" Header="{x:Static lang:Lang.Refresh}"></MenuItem>
                 <MenuItem Click="RecompileGraph_Clicked" HotKey="F5" Header="{x:Static lang:Lang.Recompile}"></MenuItem>
@@ -40,7 +41,7 @@
                         Background="{DynamicResource TertiaryBackground}" ClipToBounds="True" Focusable="True"
                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Canvas>
-                <views:DiagramDrawControl Width="400000" Height="400000" Background="{DynamicResource PrimaryBackground}" DataContext="{Binding GraphViewModel}"></views:DiagramDrawControl>
+                <views:DiagramDrawControl Name="DrawControl" Width="4000" Height="4000" Background="{DynamicResource PrimaryBackground}" DataContext="{Binding GraphViewModel}"></views:DiagramDrawControl>
             </Canvas>
 		</paz:ZoomBorder>
 

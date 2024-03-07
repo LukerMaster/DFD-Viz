@@ -4,6 +4,7 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using DFD.AvaloniaEditor.Services;
 using DFD.AvaloniaEditor.ViewModels;
@@ -79,5 +80,13 @@ public partial class MainView : UserControl
     private void ToggleTopNodeVisibility_Clicked(object? sender, RoutedEventArgs e)
     {
         ViewModel.GraphViewModel.ToggleVisibility("top");
+    }
+
+    private void ExportAs_Clicked(object? sender, RoutedEventArgs e)
+    {
+        var filePath = "C:\\Users\\lacho\\Documents\\diagramxd.png";
+        var panel = this.Find<DiagramDrawControl>("DrawControl").Find<Panel>("MainPanel");
+        var bitmap = new RenderTargetBitmap(new PixelSize((int)panel.Bounds.Width, (int)panel.Bounds.Height));
+        //ViewModel.ExportGraphAsAsync();
     }
 }

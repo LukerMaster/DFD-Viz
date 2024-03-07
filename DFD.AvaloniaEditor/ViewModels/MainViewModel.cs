@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using DFD.AvaloniaEditor.Interfaces;
 using DFD.AvaloniaEditor.Services;
@@ -81,5 +82,10 @@ internal partial class MainViewModel : ViewModelBase
     public async void SaveGraphFileAsAsync()
     {
         CurrentlyOpenFilePath = await _storageService.SaveFileAsync(DfdCode);
+    }
+
+    public async void ExportGraphAsAsync(Bitmap bitmap)
+    {
+        
     }
 }

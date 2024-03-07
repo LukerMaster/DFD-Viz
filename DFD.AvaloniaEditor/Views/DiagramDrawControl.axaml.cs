@@ -35,18 +35,7 @@ namespace DFD.AvaloniaEditor.Views
 
         private void SaveAsPng()
         {
-            var filePath = "?";
-            var panel = this.Find<Panel>("panel");
-            var bitmap = new RenderTargetBitmap(new PixelSize((int)panel.Bounds.Width, (int)panel.Bounds.Height));
-            using (var context = bitmap.CreateDrawingContext())
-            {
-               panel.Render(context);
-            }
-
-            using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-            {
-                bitmap.Save(fileStream);
-            }
+            
         }
     }
 }

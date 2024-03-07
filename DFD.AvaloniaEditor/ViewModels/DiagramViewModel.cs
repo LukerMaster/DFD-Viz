@@ -34,6 +34,9 @@ internal class DiagramViewModel : ViewModelBase
             }
         }
     }
+
+    public Panel MainPanel { get; set; }
+
     public DiagramViewModel(IVisualGraphGenerationPipeline diagramGenerationPipeline)
     {
         _diagramGenerationPipeline = diagramGenerationPipeline;
