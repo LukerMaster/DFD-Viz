@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using Avalonia;
 using DFD.ViewModel.Interfaces;
+using Vector = Avalonia.Vector;
 
 namespace DFD.AvaloniaEditor.ViewModels.AvaloniaGraph;
 
@@ -10,7 +12,8 @@ internal class AvaloniaVisualGraph : IAvaloniaVisualGraph
     public IReadOnlyCollection<AvaloniaVisualNode> Nodes { get; set; } = new List<AvaloniaVisualNode>();
     public IReadOnlyCollection<AvaloniaVisualObject> Flows { get; set; } = new List<AvaloniaVisualObject>();
     public IReadOnlyCollection<AvaloniaVisualObject> ArrowHeads { get; set; } = new List<AvaloniaVisualObject>(); 
-    public IReadOnlyCollection<AvaloniaCanvasText> TextLabels { get; set; } = new List<AvaloniaCanvasText>(); 
+    public IReadOnlyCollection<AvaloniaCanvasText> TextLabels { get; set; } = new List<AvaloniaCanvasText>();
+    public Vector Size { get; }
 
 
     private Point DeCasteljau(float t, Points controlPoints)
@@ -56,6 +59,8 @@ internal class AvaloniaVisualGraph : IAvaloniaVisualGraph
     public AvaloniaVisualGraph(IVisualGraph? visualGraph)
     {
         if (visualGraph is null) return;
+
+        Size = visualGraph.Size;
 
         Flows = visualGraph.Flows.Select(flow =>
         {

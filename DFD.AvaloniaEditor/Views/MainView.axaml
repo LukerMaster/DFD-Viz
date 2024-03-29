@@ -41,7 +41,7 @@
                         Background="{DynamicResource TertiaryBackground}" ClipToBounds="True" Focusable="True"
                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Canvas>
-                <views:DiagramDrawControl Name="DrawControl" Width="4000" Height="4000" Background="{DynamicResource PrimaryBackground}" DataContext="{Binding GraphViewModel}"></views:DiagramDrawControl>
+                <views:DiagramDrawControl Name="DrawControl" Background="{DynamicResource PrimaryBackground}" DataContext="{Binding GraphViewModel}"></views:DiagramDrawControl>
             </Canvas>
 		</paz:ZoomBorder>
 

@@ -5,7 +5,9 @@
              xmlns:viewModels="clr-namespace:DFD.AvaloniaEditor.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DFD.AvaloniaEditor.Views.DiagramDrawControl"
-             x:DataType="viewModels:DiagramViewModel">
+             x:DataType="viewModels:DiagramViewModel"
+             Width="{Binding VisualGraph.Size.X}" 
+             Height="{Binding VisualGraph.Size.Y}">
 
     <Panel Name="MainPanel">
         <ItemsControl ItemsSource="{Binding VisualGraph.Nodes}">
