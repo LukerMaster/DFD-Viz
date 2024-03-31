@@ -88,13 +88,28 @@ public partial class MainView : UserControl
     {
         if (ViewModel.GraphViewModel.VisualGraph.Size.SquaredLength > 0)
         {
-            var imageScale = 8;
-            var imageDPI = 600;
+            var imageScale = 14;
+            var imageDPI = 1200;
+
+            float maxSizeCapPx = 96000;
 
             var panel = this.Find<DiagramDrawControl>("DrawControl").Find<Panel>("MainPanel");
-            var bitmap = new RenderTargetBitmap(
-                new PixelSize((int)panel.Bounds.Width * imageScale, (int)panel.Bounds.Height * imageScale),
-                Vector.One * imageDPI);
+
+            var finalSize = new PixelSize((int)panel.Bounds.Width * imageScale, (int)panel.Bounds.Height * imageScale);
+            var finalDPI = Vector.One * imageDPI;
+
+            if (finalSize.Width > maxSizeCapPx)
+            {
+                finalDPI *= maxSizeCapPx / finalSize.Width;
+                finalSize = new PixelSize((int)maxSizeCapPx, (int)(finalSize.Height * (maxSizeCapPx / finalSize.Width)));
+            }
+            if (finalSize.Height > maxSizeCapPx)
+            {
+                finalDPI *= maxSizeCapPx / finalSize.Height;
+                finalSize = new PixelSize((int)(finalSize.Width * (maxSizeCapPx / finalSize.Height)), (int)maxSizeCapPx);
+            }
+
+            var bitmap = new RenderTargetBitmap(finalSize, finalDPI);
             using (bitmap.CreateDrawingContext())
             {
                 bitmap.Render(panel);
