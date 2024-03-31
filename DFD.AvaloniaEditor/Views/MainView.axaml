@@ -16,35 +16,39 @@
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <vm:MainViewModel />
   </Design.DataContext>
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="{x:Static lang:Lang.File}">
-                <MenuItem Click="OpenFile_Clicked" Header="{x:Static lang:Lang.Open}"></MenuItem>
-                <MenuItem HotKey="Ctrl+S" Click="Save_Clicked" Header="{x:Static lang:Lang.Save}"></MenuItem>
-                <MenuItem Click="SaveAs_Clicked" Header="{x:Static lang:Lang.Save_As}"></MenuItem>
-				<MenuItem Click="ExportAs_Clicked" Header="{x:Static lang:Lang.Export_As}"></MenuItem>
-			</MenuItem>
-            <MenuItem Header="{x:Static lang:Lang.Graph}">
-                <MenuItem Click="RefreshGraph_Clicked" HotKey="Ctrl+F5" Header="{x:Static lang:Lang.Refresh}"></MenuItem>
-                <MenuItem Click="RecompileGraph_Clicked" HotKey="F5" Header="{x:Static lang:Lang.Recompile}"></MenuItem>
-                <MenuItem Click="CollapseAllNodes_Clicked" Header="{x:Static lang:Lang.Collapse_all_nodes}"></MenuItem>
-                <MenuItem Click="ToggleTopNodeVisibility_Clicked" Header="{x:Static lang:Lang.Toggle_top_node_visibility}"></MenuItem>
-            </MenuItem>
-        </Menu>
-		<Grid ColumnDefinitions="*,4,3*">
-            <Grid Grid.Column="0" RowDefinitions="6*,*,*">
-            <controls:CodeTextBox Grid.Row="0" Watermark="Your DFD code preview." Code="{Binding DfdCode, Mode=TwoWay}" DockPanel.Dock="Left"></controls:CodeTextBox>
-                <TextBlock Grid.Row="2" x:Name="ErrorTextBlock" Foreground="Red"></TextBlock>
-        </Grid>
-		<GridSplitter Grid.Column="1" Background="{DynamicResource SecondaryBackground}"></GridSplitter>
-        <paz:ZoomBorder Grid.Column="2" Stretch="None" ZoomSpeed="1.2"
-                        Background="{DynamicResource TertiaryBackground}" ClipToBounds="True" Focusable="True"
-                        VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <Canvas>
-                <views:DiagramDrawControl Name="DrawControl" Background="{DynamicResource PrimaryBackground}" DataContext="{Binding GraphViewModel}"></views:DiagramDrawControl>
-            </Canvas>
-		</paz:ZoomBorder>
-
-    </Grid>
-    </DockPanel>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="{x:Static lang:Lang.File}">
+                    <MenuItem Click="OpenFile_Clicked" Header="{x:Static lang:Lang.Open}"></MenuItem>
+                    <MenuItem HotKey="Ctrl+S" Click="Save_Clicked" Header="{x:Static lang:Lang.Save}"></MenuItem>
+                    <MenuItem Click="SaveAs_Clicked" Header="{x:Static lang:Lang.Save_As}"></MenuItem>
+				    <MenuItem Click="ExportAs_Clicked" Header="{x:Static lang:Lang.Export_As}"></MenuItem>
+			    </MenuItem>
+                <MenuItem Header="{x:Static lang:Lang.Graph}">
+                    <MenuItem Click="RefreshGraph_Clicked" HotKey="Ctrl+F5" Header="{x:Static lang:Lang.Refresh}"></MenuItem>
+                    <MenuItem Click="RecompileGraph_Clicked" HotKey="F5" Header="{x:Static lang:Lang.Recompile}"></MenuItem>
+                    <MenuItem Click="CollapseAllNodes_Clicked" Header="{x:Static lang:Lang.Collapse_all_nodes}"></MenuItem>
+                    <MenuItem Click="ToggleTopNodeVisibility_Clicked" Header="{x:Static lang:Lang.Toggle_top_node_visibility}"></MenuItem>
+                </MenuItem>
+                <MenuItem Header="{x:Static lang:Lang.Theme}">
+                    <MenuItem Click="ToLightTheme_Clicked" Header="{x:Static lang:Lang.Light}"></MenuItem>
+                    <MenuItem Click="ToDarkTheme_Clicked" Header="{x:Static lang:Lang.Dark}"></MenuItem>
+                    <MenuItem Click="ToSystemTheme_Clicked" Header="{x:Static lang:Lang.System}"></MenuItem>
+                </MenuItem>
+            </Menu>
+		    <Grid ColumnDefinitions="*,4,3*">
+                <Grid Grid.Column="0" RowDefinitions="6*,*,*">
+                <controls:CodeTextBox Grid.Row="0" Watermark="{x:Static lang:Lang.Your_DFD_code_preview}" Code="{Binding DfdCode, Mode=TwoWay}" DockPanel.Dock="Left"></controls:CodeTextBox>
+                    <TextBlock Grid.Row="2" x:Name="ErrorTextBlock" Foreground="Red"></TextBlock>
+            </Grid>
+		    <GridSplitter Grid.Column="1" Background="{DynamicResource SecondaryBackground}"></GridSplitter>
+            <paz:ZoomBorder Grid.Column="2" Stretch="None" ZoomSpeed="1.2"
+                            Background="{DynamicResource TertiaryBackground}" ClipToBounds="True" Focusable="True"
+                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Canvas>
+                    <views:DiagramDrawControl Name="DrawControl" Background="{DynamicResource PrimaryBackground}" DataContext="{Binding GraphViewModel}"></views:DiagramDrawControl>
+                </Canvas>
+		    </paz:ZoomBorder>
+            </Grid>
+        </DockPanel>
 </UserControl>

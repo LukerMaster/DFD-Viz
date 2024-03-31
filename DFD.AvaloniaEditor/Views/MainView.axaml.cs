@@ -7,6 +7,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
+using Avalonia.Styling;
 using DFD.AvaloniaEditor.Services;
 using DFD.AvaloniaEditor.ViewModels;
 using DFD.Parsing;
@@ -101,5 +102,20 @@ public partial class MainView : UserControl
             // Encode the RenderTargetBitmap to a PNG image.
              bitmap.Save(fileStream);
         }
+    }
+
+    private void ToLightTheme_Clicked(object? sender, RoutedEventArgs e)
+    {
+        TopLevel.GetTopLevel(this).RequestedThemeVariant = ThemeVariant.Light;
+    }
+
+    private void ToDarkTheme_Clicked(object? sender, RoutedEventArgs e)
+    {
+        TopLevel.GetTopLevel(this).RequestedThemeVariant = ThemeVariant.Dark;
+    }
+
+    private void ToSystemTheme_Clicked(object? sender, RoutedEventArgs e)
+    {
+        TopLevel.GetTopLevel(this).RequestedThemeVariant = ThemeVariant.Default;
     }
 }

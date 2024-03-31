@@ -120,6 +120,9 @@
   <data name="Collapse_all_nodes" xml:space="preserve">
     <value>Zwiń wszystkie węzły</value>
   </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Ciemny</value>
+  </data>
   <data name="DFD_Graph_Files" xml:space="preserve">
     <value>Pliki grafów DFD</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="Graph" xml:space="preserve">
     <value>Graf</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Jasny</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Otwórz</value>
@@ -153,7 +159,17 @@
   <data name="Save_Graph_As" xml:space="preserve">
     <value>Zapisz graf jako</value>
   </data>
+  <data name="System" xml:space="preserve">
+    <value>Systemowy</value>
+    <comment>System theme setting</comment>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Motyw</value>
+  </data>
   <data name="Toggle_top_node_visibility" xml:space="preserve">
     <value>Przełącz widoczność najwyższego węzła</value>
+  </data>
+  <data name="Your_DFD_code_preview" xml:space="preserve">
+    <value>Twój podgląd kodu DFD</value>
   </data>
 </root>
