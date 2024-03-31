@@ -88,10 +88,13 @@ public partial class MainView : UserControl
     {
         if (ViewModel.GraphViewModel.VisualGraph.Size.SquaredLength > 0)
         {
+            var imageScale = 8;
+            var imageDPI = 600;
+
             var panel = this.Find<DiagramDrawControl>("DrawControl").Find<Panel>("MainPanel");
             var bitmap = new RenderTargetBitmap(
-                new PixelSize((int)panel.Bounds.Width * 5, (int)panel.Bounds.Height * 5),
-                Vector.One * 400);
+                new PixelSize((int)panel.Bounds.Width * imageScale, (int)panel.Bounds.Height * imageScale),
+                Vector.One * imageDPI);
             using (bitmap.CreateDrawingContext())
             {
                 bitmap.Render(panel);
