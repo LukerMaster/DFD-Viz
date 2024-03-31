@@ -10,15 +10,15 @@
 			<SolidColorBrush x:Key="SecondaryText">#161616</SolidColorBrush>
 			<SolidColorBrush x:Key="PrimaryAccent">DarkBlue</SolidColorBrush>
 			<SolidColorBrush x:Key="SecondaryAccent">#3232DA</SolidColorBrush>
-        </ResourceDictionary>
-        <ResourceDictionary x:Key="Dark">
-            <SolidColorBrush x:Key="PrimaryBackground">#12121A</SolidColorBrush>
-            <SolidColorBrush x:Key="SecondaryBackground">#16162A</SolidColorBrush>
+    </ResourceDictionary>
+    <ResourceDictionary x:Key="Dark">
+      <SolidColorBrush x:Key="PrimaryBackground">#12121A</SolidColorBrush>
+      <SolidColorBrush x:Key="SecondaryBackground">#16162A</SolidColorBrush>
 			<SolidColorBrush x:Key="TertiaryBackground">#666666</SolidColorBrush>
 			<SolidColorBrush x:Key="PrimaryText">#DDDDDD</SolidColorBrush>
-            <SolidColorBrush x:Key="SecondaryText">#BBBBBB</SolidColorBrush>
-            <SolidColorBrush x:Key="PrimaryAccent">DarkBlue</SolidColorBrush>
-            <SolidColorBrush x:Key="SecondaryAccent">#3232DA</SolidColorBrush>
-        </ResourceDictionary>
-    </ResourceDictionary.ThemeDictionaries>
+      <SolidColorBrush x:Key="SecondaryText">#BBBBBB</SolidColorBrush>
+      <SolidColorBrush x:Key="PrimaryAccent">DarkBlue</SolidColorBrush>
+      <SolidColorBrush x:Key="SecondaryAccent">#3232DA</SolidColorBrush>
+    </ResourceDictionary>
+  </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

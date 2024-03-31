@@ -120,6 +120,9 @@
   <data name="Collapse_all_nodes" xml:space="preserve">
     <value>Collapse all nodes</value>
   </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
   <data name="DFD_Graph_Files" xml:space="preserve">
     <value>DFD Graph Files</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="Graph" xml:space="preserve">
     <value>Graph</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Light</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Open</value>
@@ -153,7 +159,17 @@
   <data name="Save_Graph_As" xml:space="preserve">
     <value>Save graph as</value>
   </data>
+  <data name="System" xml:space="preserve">
+    <value>System</value>
+    <comment>System theme setting</comment>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
   <data name="Toggle_top_node_visibility" xml:space="preserve">
     <value>Toggle top node visibility</value>
+  </data>
+  <data name="Your_DFD_code_preview" xml:space="preserve">
+    <value>Your DFD code preview</value>
   </data>
 </root>

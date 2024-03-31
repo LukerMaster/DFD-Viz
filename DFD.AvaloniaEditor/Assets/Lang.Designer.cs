@@ -70,6 +70,15 @@ namespace DFD.AvaloniaEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dark.
+        /// </summary>
+        public static string Dark {
+            get {
+                return ResourceManager.GetString("Dark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DFD Graph Files.
         /// </summary>
         public static string DFD_Graph_Files {
@@ -102,6 +111,15 @@ namespace DFD.AvaloniaEditor.Assets {
         public static string Graph {
             get {
                 return ResourceManager.GetString("Graph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Light.
+        /// </summary>
+        public static string Light {
+            get {
+                return ResourceManager.GetString("Light", resourceCulture);
             }
         }
         
@@ -169,11 +187,38 @@ namespace DFD.AvaloniaEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        public static string System {
+            get {
+                return ResourceManager.GetString("System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        public static string Theme {
+            get {
+                return ResourceManager.GetString("Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toggle top node visibility.
         /// </summary>
         public static string Toggle_top_node_visibility {
             get {
                 return ResourceManager.GetString("Toggle_top_node_visibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your DFD code preview.
+        /// </summary>
+        public static string Your_DFD_code_preview {
+            get {
+                return ResourceManager.GetString("Your_DFD_code_preview", resourceCulture);
             }
         }
     }
