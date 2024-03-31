@@ -84,3 +84,12 @@ internal class IndentationWrongException : DfdException
 
     }
 }
+
+internal class RedefinitionOfNodeException : DfdException
+{
+    public RedefinitionOfNodeException(string fullNodeName)
+        : base($"Node with same name on the same level is already defined. Node name: {fullNodeName}.")
+    {
+
+    }
+}

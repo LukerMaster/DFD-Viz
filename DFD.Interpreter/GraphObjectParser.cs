@@ -31,8 +31,16 @@ internal class GraphObjectParser
 
         if (_validDefinitions.TryGetValue(typeName, out var type))
         {
-            node = CreateStandardNode(type, nodeName, displayedName, currentParent);
-            currentParent.Children.Add(node);
+            try
+            {
+                node = CreateStandardNode(type, nodeName, displayedName, currentParent);
+                currentParent.Children.Add(node);
+            }
+            catch (SameFullNodeNameException e)
+            {
+                throw new RedefinitionOfNodeException(nodeName);
+            }
+            
         }
         else
         {
@@ -127,10 +135,10 @@ internal class GraphObjectParser
             throw new InvalidNodeTypeException(type.ToString());
 
         return new TreeNode<IGraphNodeData>() 
-        { 
+        {
+            Parent = parent,
             NodeName = name,
-            Data = data, 
-            Parent = parent
+            Data = data
         };
     }
 }
