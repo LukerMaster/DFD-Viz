@@ -129,6 +129,9 @@
   <data name="Export_As" xml:space="preserve">
     <value>Wyeksportuj jako</value>
   </data>
+  <data name="Export_Graph_As" xml:space="preserve">
+    <value>Wyeksportuj graf jako</value>
+  </data>
   <data name="File" xml:space="preserve">
     <value>Plik</value>
   </data>

@@ -86,21 +86,18 @@ public partial class MainView : UserControl
 
     private void ExportAs_Clicked(object? sender, RoutedEventArgs e)
     {
-        var filePath = "C:\\Users\\lacho\\Documents\\diagramxd.png";
-        var panel = this.Find<DiagramDrawControl>("DrawControl").Find<Panel>("MainPanel");
-        var bitmap = new RenderTargetBitmap(new PixelSize((int)panel.Bounds.Width, (int)panel.Bounds.Height));
-        //ViewModel.ExportGraphAsAsync();
-        using (var context = bitmap.CreateDrawingContext())
+        if (ViewModel.GraphViewModel.VisualGraph.Size.SquaredLength > 0)
         {
- 
-            bitmap.Render(panel);
-        }
+            var panel = this.Find<DiagramDrawControl>("DrawControl").Find<Panel>("MainPanel");
+            var bitmap = new RenderTargetBitmap(
+                new PixelSize((int)panel.Bounds.Width * 5, (int)panel.Bounds.Height * 5),
+                Vector.One * 400);
+            using (bitmap.CreateDrawingContext())
+            {
+                bitmap.Render(panel);
+            }
 
-        // Save the RenderTargetBitmap to a file.
-        using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-        {
-            // Encode the RenderTargetBitmap to a PNG image.
-             bitmap.Save(fileStream);
+            ViewModel.ExportGraphAsAsync(bitmap);
         }
     }
 

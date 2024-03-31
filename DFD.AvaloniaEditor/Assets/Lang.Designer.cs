@@ -97,6 +97,15 @@ namespace DFD.AvaloniaEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export graph as.
+        /// </summary>
+        public static string Export_Graph_As {
+            get {
+                return ResourceManager.GetString("Export_Graph_As", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
         public static string File {

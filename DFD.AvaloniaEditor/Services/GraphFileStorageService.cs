@@ -3,7 +3,10 @@ using System.IO;
 using System.Threading.Tasks;
 using Avalonia.Platform.Storage;
 using System;
+using Avalonia.Media.Imaging;
 using DFD.AvaloniaEditor.Assets;
+using Avalonia;
+using DFD.AvaloniaEditor.Views;
 
 namespace DFD.AvaloniaEditor.Services;
 
@@ -83,5 +86,23 @@ public class GraphFileStorageService : IFileStorageService
         }
 
         return null;
+    }
+
+    public async void ExportFileAsync(Bitmap image)
+    {
+        var file = await _storageProvider.SaveFilePickerAsync(new FilePickerSaveOptions()
+        {
+            DefaultExtension = "png",
+            ShowOverwritePrompt = true,
+            SuggestedFileName = "Graph-" + DateTime.Now.ToFileTimeUtc(),
+            Title = Lang.Export_Graph_As
+        });
+
+        // Save the RenderTargetBitmap to a file.
+        using (var fileStream = new FileStream(file.TryGetLocalPath(), FileMode.Create, FileAccess.Write))
+        {
+            // Encode the RenderTargetBitmap to a PNG image.
+            image.Save(fileStream);
+        }
     }
 }

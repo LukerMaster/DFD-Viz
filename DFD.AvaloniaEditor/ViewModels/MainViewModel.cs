@@ -87,6 +87,6 @@ internal partial class MainViewModel : ViewModelBase
 
     public async void ExportGraphAsAsync(Bitmap bitmap)
     {
-        
+        _storageService.ExportFileAsync(bitmap);
     }
 }
