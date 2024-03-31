@@ -19,9 +19,7 @@ internal partial class MainViewModel : ViewModelBase
     private IFileStorageService _storageService;
 
     IDfdCodeStringProvider _dfdCodeProvider = new DfdCodeStringProvider();
-
-    public ThemeVariant Theme { get; set; } = ThemeVariant.Default;
-
+    
     public MainViewModel(IVisualGraphGenerationPipeline visualGraphGenerationPipeline,
         IDfdCodeStringProvider? dfdCode,
         IFileStorageService storageService)
