@@ -70,7 +70,12 @@ internal class AvaloniaVisualGraph : IAvaloniaVisualGraph
         }).ToList();
         ArrowHeads = visualGraph.ArrowHeads.Select(ToAvaloniaObject).ToList();
 
-        TextLabels = visualGraph.TextLabels.Select(label => new AvaloniaCanvasText(label)).ToList();
+        TextLabels = visualGraph.TextLabels.Select(label =>
+        {
+            var textLabel = new AvaloniaCanvasText(label);
+            textLabel.FontSize *= 0.875f;
+            return textLabel;
+        }).ToList();
 
         Nodes = visualGraph.Nodes.Select(node => new AvaloniaVisualNode()
         {
