@@ -88,10 +88,7 @@ namespace DFD.Parsing
                 {
                     throw new DfdInterpreterException(codeLine.Statement, codeLine.LineNumber, new Exception($"Unknown error occured. Inner exception:\n{e.Message}"));
                 }
-                // Setting a correct scope for the statement (correct Parent).
-                
             }
-
             return new Graph<IGraphNodeData>(nodes.First().Root, flows);
         }
 
