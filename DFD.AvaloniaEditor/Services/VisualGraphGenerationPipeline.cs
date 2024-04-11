@@ -18,7 +18,7 @@ public class VisualGraphGenerationPipeline : IVisualGraphGenerationPipeline
     private readonly IDfdCodeStringProvider _dfdCodeProvider;
 
 
-    private IGraph<IEditableGraphNode> _logicalGraph;
+    private IGraph<IMultilevelGraphNode> _logicalGraph;
     private IVisualGraph _visualGraph;
     
     public VisualGraphGenerationPipeline(IInterpreter interpreter, IMultilevelGraphConverter converter, IVisualGraphCreator graphCreator, IDfdCodeStringProvider dfdCodeProvider)
@@ -77,9 +77,9 @@ public class VisualGraphGenerationPipeline : IVisualGraphGenerationPipeline
         }
     }
 
-    public void ExecuteOnNode(string nodeName, Action<IEditableGraphNode> command)
+    public void ExecuteOnNode(string nodeName, Action<IMultilevelGraphNode> command)
     {
-        Queue<ITreeNode<IEditableGraphNode>> nodes = new Queue<ITreeNode<IEditableGraphNode>>();
+        Queue<ITreeNode<IMultilevelGraphNode>> nodes = new Queue<ITreeNode<IMultilevelGraphNode>>();
         
         nodes.Enqueue(_logicalGraph.Root);
         while (nodes.Count > 0)

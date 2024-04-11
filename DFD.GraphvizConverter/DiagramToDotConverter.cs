@@ -9,7 +9,7 @@ namespace DFD.GraphvizConverter
     public class DiagramToDotConverter
     {
         private readonly string BiDirectionalAttribute = "[dir=both]";
-        private string RepresentNode(ITreeNode<IEditableGraphNode> node, string code, bool useDisplayNames = false)
+        private string RepresentNode(ITreeNode<IMultilevelGraphNode> node, string code, bool useDisplayNames = false)
         {
             if (node.Children.Count > 0 && !node.Data.ChildrenCollapsed)
             {
@@ -55,7 +55,7 @@ namespace DFD.GraphvizConverter
             return code;
         }
 
-        private void CheckIfSubtreeHasCollapsedChildren(ITreeNode<IEditableGraphNode> node,
+        private void CheckIfSubtreeHasCollapsedChildren(ITreeNode<IMultilevelGraphNode> node,
             ICollection<string> currentList)
         {
             if (node.Data.ChildrenCollapsed)
@@ -71,14 +71,14 @@ namespace DFD.GraphvizConverter
             }
         }
 
-        private ICollection<string> GetAllNodeNamesWithCollapsedChildren(ITreeNode<IEditableGraphNode> node)
+        private ICollection<string> GetAllNodeNamesWithCollapsedChildren(ITreeNode<IMultilevelGraphNode> node)
         {
             ICollection<string> collapsedList = new List<string>();
             CheckIfSubtreeHasCollapsedChildren(node, collapsedList);
             return collapsedList;
         }
 
-        public string ToDot(IGraph<IEditableGraphNode> graph)
+        public string ToDot(IGraph<IMultilevelGraphNode> graph)
         {
             ICollection<string> collapsedNodesList = GetAllNodeNamesWithCollapsedChildren(graph.Root);
 

@@ -7,5 +7,5 @@ internal interface IVisualGraphGenerationPipeline
 {
     IVisualGraph RecompiledGraph { get; }
     IVisualGraph RefreshedGraph { get; }
-    void ExecuteOnNode(string nodeName, Action<IEditableGraphNode> command);
+    void ExecuteOnNode(string nodeName, Action<IMultilevelGraphNode> command);
 }

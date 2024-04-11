@@ -5,5 +5,5 @@ namespace DFD.GraphConverter.Interfaces;
 
 public interface IMultilevelGraphConverter
 {
-    IGraph<IEditableGraphNode> ToMultilevelGraph(IGraph<IGraphNodeData> graph);
+    IGraph<IMultilevelGraphNode> ToMultilevelGraph(IGraph<IGraphNodeData> graph);
 }

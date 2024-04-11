@@ -10,7 +10,7 @@ namespace DFD.GraphConverter;
 
 internal class JsonToGraphParser
 {
-    public IVisualGraph CreateGraphFrom(string json, IGraph<IEditableGraphNode> graph)
+    public IVisualGraph CreateGraphFrom(string json, IGraph<IMultilevelGraphNode> graph)
     {
         JObject rootJsonObject = JsonConvert.DeserializeObject<JObject>(json);
 
@@ -163,7 +163,7 @@ internal class JsonToGraphParser
         return visualObject;
     }
 
-    private IReadOnlyList<IVisualGraphNode> GetNodes(IGraph<IEditableGraphNode> graph, JObject rootJsonObject)
+    private IReadOnlyList<IVisualGraphNode> GetNodes(IGraph<IMultilevelGraphNode> graph, JObject rootJsonObject)
     {
         var visualNodes = new List<IVisualGraphNode>();
 

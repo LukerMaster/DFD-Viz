@@ -6,7 +6,7 @@ namespace DFD.GraphConverter.ViewModelImplementation;
 
 public class VisualGraph : IVisualGraph
 {
-    public IGraph<IEditableGraphNode> LogicalGraph { get; set; }
+    public IGraph<IMultilevelGraphNode> LogicalGraph { get; set; }
     public Vector2 Size { get; set; }
     public IReadOnlyCollection<IVisualGraphNode> Nodes { get; set; }
     public IReadOnlyCollection<IVisualObject> Flows { get; set; }

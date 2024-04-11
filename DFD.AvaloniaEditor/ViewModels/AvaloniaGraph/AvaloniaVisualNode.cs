@@ -5,5 +5,5 @@ namespace DFD.AvaloniaEditor.ViewModels.AvaloniaGraph;
 internal class AvaloniaVisualNode
 {
     internal AvaloniaPolygon Polygon { get; set; } = new();
-    internal IEditableGraphNode Node { get; set; }
+    internal IMultilevelGraphNode Node { get; set; }
 }

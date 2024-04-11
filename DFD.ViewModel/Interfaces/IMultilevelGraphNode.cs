@@ -2,7 +2,7 @@
 
 namespace DFD.ViewModel.Interfaces;
 
-public interface IEditableGraphNode
+public interface IMultilevelGraphNode
 {
     IGraphNodeData Data { get; }
     bool ChildrenCollapsed { get; set; }

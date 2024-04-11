@@ -3,7 +3,7 @@ using DFD.ViewModel.Interfaces;
 
 namespace DFD.GraphConverter;
 
-public class EditableGraphNode : IEditableGraphNode
+public class MultilevelGraphNode : IMultilevelGraphNode
 {
     public bool IsHiddenAsParent { get; set; }
     public bool CanBeCollapsed { get; set; } = true;
