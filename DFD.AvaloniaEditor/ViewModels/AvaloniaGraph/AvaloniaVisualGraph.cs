@@ -10,8 +10,8 @@ namespace DFD.AvaloniaEditor.ViewModels.AvaloniaGraph;
 internal class AvaloniaVisualGraph : IAvaloniaVisualGraph
 {
     public IReadOnlyCollection<AvaloniaVisualNode> Nodes { get; set; } = new List<AvaloniaVisualNode>();
-    public IReadOnlyCollection<AvaloniaVisualObject> Flows { get; set; } = new List<AvaloniaVisualObject>();
-    public IReadOnlyCollection<AvaloniaVisualObject> ArrowHeads { get; set; } = new List<AvaloniaVisualObject>(); 
+    public IReadOnlyCollection<AvaloniaPolygon> Flows { get; set; } = new List<AvaloniaPolygon>();
+    public IReadOnlyCollection<AvaloniaPolygon> ArrowHeads { get; set; } = new List<AvaloniaPolygon>(); 
     public IReadOnlyCollection<AvaloniaCanvasText> TextLabels { get; set; } = new List<AvaloniaCanvasText>();
     public Vector Size { get; }
 
@@ -45,9 +45,9 @@ internal class AvaloniaVisualGraph : IAvaloniaVisualGraph
         return curvePoints;
     }
 
-    private AvaloniaVisualObject ToAvaloniaObject(IVisualObject obj)
+    private AvaloniaPolygon ToAvaloniaObject(IVisualObject obj)
     {
-        var newVO = new AvaloniaVisualObject();
+        var newVO = new AvaloniaPolygon();
         foreach (var pointAsVector in obj.Points)
         {
             var point = new Point(pointAsVector.X, pointAsVector.Y);
@@ -80,7 +80,7 @@ internal class AvaloniaVisualGraph : IAvaloniaVisualGraph
         Nodes = visualGraph.Nodes.Select(node => new AvaloniaVisualNode()
         {
             Node = node.Node,
-            VisualObject = ToAvaloniaObject(node.VisualObject)
+            Polygon = ToAvaloniaObject(node.VisualObject)
         }).ToList();
     }
 }

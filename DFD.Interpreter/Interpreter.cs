@@ -40,7 +40,7 @@ namespace DFD.Parsing
             var nodes = new List<ITreeNode<IGraphNodeData>>();
             var flows = new List<INodeFlow>();
 
-            ParserRunData runData = new ParserRunData();
+            InterpreterRunData runData = new InterpreterRunData();
             
 
             foreach (var codeLine in statements)
@@ -95,7 +95,7 @@ namespace DFD.Parsing
             return new Graph<IGraphNodeData>(nodes.First().Root, flows);
         }
 
-        private void SetCorrectScopeLevel(ParserRunData runData, string statement)
+        private void SetCorrectScopeLevel(InterpreterRunData runData, string statement)
         {
             var statementScopeLevel = GetScopeLevel(statement);
             if (statementScopeLevel < runData.CurrentScopeLevel)

@@ -9,8 +9,8 @@ namespace DFD.AvaloniaEditor.ViewModels.AvaloniaGraph;
 internal interface IAvaloniaVisualGraph
 {
     public IReadOnlyCollection<AvaloniaVisualNode> Nodes { get; }
-    public IReadOnlyCollection<AvaloniaVisualObject> Flows { get; }
-    public IReadOnlyCollection<AvaloniaVisualObject> ArrowHeads { get; }
+    public IReadOnlyCollection<AvaloniaPolygon> Flows { get; }
+    public IReadOnlyCollection<AvaloniaPolygon> ArrowHeads { get; }
     public IReadOnlyCollection<AvaloniaCanvasText> TextLabels { get; }
     public Vector Size { get; }
 }

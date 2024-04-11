@@ -4,12 +4,12 @@ using DFD.ModelImplementations;
 
 namespace DFD.Parsing;
 
-internal class ParserRunData
+internal class InterpreterRunData
 {
     public ITreeNode<IGraphNodeData> CurrentScopeNode { get; set; }
     public int CurrentScopeLevel { get; set; }
 
-    public ParserRunData()
+    public InterpreterRunData()
     {
         CurrentScopeNode = new TreeNode<IGraphNodeData>()
         {
