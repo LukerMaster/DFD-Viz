@@ -16,15 +16,16 @@ public class GraphvizProcessStarter
             string arguments = BuildCommandLineArguments(graphFilePath, outputFilePath, layoutAlgorithm, outputFormat, extraCommandLineFlags);
 
             string exePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string osVersion = GetOSName();
             
             var graphVizProcess = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
                     CreateNoWindow = true,
-                    FileName = Path.Combine(exePath, "graphviz", "win64", "dot"),
+                    FileName = Path.Combine(exePath, "graphviz", osVersion, "dot"),
                     Arguments = arguments,
-                    WorkingDirectory = Path.Combine(exePath, "graphviz", "ubuntu"),
+                    WorkingDirectory = Path.Combine(exePath, "graphviz", osVersion),
                     RedirectStandardError = true,
                     RedirectStandardOutput = true,
                     RedirectStandardInput = true,
@@ -59,6 +60,16 @@ public class GraphvizProcessStarter
 
             return result;
         }
+
+    private static string GetOSName()
+    {
+        if (Environment.OSVersion.Platform == PlatformID.Unix)
+            return "ubuntu";
+        if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+            return "win64";
+
+        throw new Exception("Unsupported operating system");
+    }
     
     public static string BuildCommandLineArguments(string inputFilePath, string outputFilePath, string layout, string format,
         params string[] extraCommandLineFlags)
