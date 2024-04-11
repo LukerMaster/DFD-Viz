@@ -32,10 +32,5 @@ namespace DFD.AvaloniaEditor.Views
                 diagramViewModel.RefreshGraph();
             }
         }
-
-        private void SaveAsPng()
-        {
-            
-        }
     }
 }
