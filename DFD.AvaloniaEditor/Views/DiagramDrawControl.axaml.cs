@@ -24,13 +24,13 @@ namespace DFD.AvaloniaEditor.Views
             var diagramViewModel = DataContext as DiagramViewModel;
 
             var polygon = sender as Polygon;
-            var node = polygon.Tag as AvaloniaVisualNode;
+            var visualNode = polygon.Tag as AvaloniaVisualNode;
 
 
             var point = e.GetCurrentPoint(this);
             if (point.Properties.IsLeftButtonPressed)
             {
-                node.Node.Collapsed = !node.Node.Collapsed;
+                visualNode.Node.Collapsed = !visualNode.Node.Collapsed;
                 diagramViewModel.RefreshGraph();
             }
         }
@@ -44,7 +44,7 @@ namespace DFD.AvaloniaEditor.Views
 
 
             if (visualNode.Node.Collapsable)
-                visualNode.Polygon.CurrentColor = Color.FromArgb(90, 120, 200, 200);
+                visualNode.Polygon.CurrentColor = new SolidColorBrush(Color.FromArgb(90, 120, 200, 200));
 
             diagramViewModel.RefreshGraph();
         }
@@ -57,7 +57,7 @@ namespace DFD.AvaloniaEditor.Views
             var diagramViewModel = DataContext as DiagramViewModel;
 
             diagramViewModel.RefreshGraph();
-            //visualNode.Polygon.CurrentColor = visualNode.Polygon.DefaultColor;
+            visualNode.Polygon.CurrentColor = new SolidColorBrush(visualNode.Polygon.DefaultColor);
         }
     }
 }
