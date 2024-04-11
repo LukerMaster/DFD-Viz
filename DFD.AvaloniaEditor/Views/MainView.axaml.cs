@@ -51,7 +51,7 @@ public partial class MainView : UserControl
     {
         foreach (var avaloniaVisualNode in ViewModel.GraphViewModel.VisualGraph.Nodes)
         {
-            avaloniaVisualNode.Node.ChildrenCollapsed = true;
+            avaloniaVisualNode.Node.Collapsed = true;
         }
 
         ViewModel.GraphViewModel.RefreshGraph();

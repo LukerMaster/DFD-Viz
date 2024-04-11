@@ -20,10 +20,11 @@
                 <DataTemplate>
                     <Polygon IsEnabled="{Binding !Node.IsHiddenAsParent}"
 						     Points="{Binding Polygon.Points}" 
-                             Fill="Transparent" 
+                             Fill="{Binding Polygon.Color}" 
                              Stroke="{DynamicResource PrimaryText}" 
                              StrokeThickness="1"
                              PointerPressed="Node_PointerPressed"
+                             PointerEntered="Node_PointerEntered"
                              Tag="{Binding Node}"></Polygon>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

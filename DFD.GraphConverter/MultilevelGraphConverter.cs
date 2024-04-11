@@ -12,10 +12,10 @@ public class MultilevelGraphConverter : IMultilevelGraphConverter
             graph.CopyGraphAs<IMultilevelGraphNode>(data => new MultilevelGraphNode()
             {
                 Data = data,
-                ChildrenCollapsed = false
+                Collapsed = false
             });
 
-        (multilevelGraph.Root.Data as MultilevelGraphNode).CanBeCollapsed = false;
+        (multilevelGraph.Root.Data as MultilevelGraphNode).LockedFromCollapsing = true;
 
         return multilevelGraph;
     }

@@ -37,7 +37,7 @@ public class ProgramUI : IProgramUI
                     var inWorldCoords = _window.MapPixelToCoords(new Vector2i(args.X, args.Y));
                     if (HitboxChecker.IsPointInPolygon4(node.VisualObject.Points, new Vector2(inWorldCoords.X, inWorldCoords.Y)))
                     {
-                        node.Node.ChildrenCollapsed = !node.Node.ChildrenCollapsed;
+                        node.Node.Collapsed = !node.Node.Collapsed;
                         break;
                     }
                 }

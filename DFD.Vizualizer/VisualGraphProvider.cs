@@ -29,7 +29,7 @@ namespace DFD.Vizualizer
 
         private void UpdatePreviousCollapsedStates(ITreeNode<IMultilevelGraphNode> node)
         {
-            _previousCollapsedStates[node.Data] = node.Data.ChildrenCollapsed;
+            _previousCollapsedStates[node.Data] = node.Data.Collapsed;
             foreach (var child in node.Children)
             {
                 UpdatePreviousCollapsedStates(child);
@@ -40,7 +40,7 @@ namespace DFD.Vizualizer
         {
             foreach (var node in _visualGraph.Nodes)
             {
-                if (node.Node.ChildrenCollapsed != _previousCollapsedStates[node.Node])
+                if (node.Node.Collapsed != _previousCollapsedStates[node.Node])
                     return true;
             }
 

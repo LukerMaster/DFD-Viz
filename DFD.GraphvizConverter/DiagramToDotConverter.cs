@@ -11,7 +11,7 @@ namespace DFD.GraphvizConverter
         private readonly string BiDirectionalAttribute = "[dir=both]";
         private string RepresentNode(ITreeNode<IMultilevelGraphNode> node, string code, bool useDisplayNames = false)
         {
-            if (node.Children.Count > 0 && !node.Data.ChildrenCollapsed)
+            if (node.Children.Count > 0 && !node.Data.Collapsed)
             {
                 if (node.Data.IsHiddenAsParent)
                 {
@@ -58,7 +58,7 @@ namespace DFD.GraphvizConverter
         private void CheckIfSubtreeHasCollapsedChildren(ITreeNode<IMultilevelGraphNode> node,
             ICollection<string> currentList)
         {
-            if (node.Data.ChildrenCollapsed)
+            if (node.Data.Collapsed)
             {
                 currentList.Add(node.FullNodeName);
             }

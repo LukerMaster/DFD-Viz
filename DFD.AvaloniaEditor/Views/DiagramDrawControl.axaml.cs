@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
+using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using DFD.AvaloniaEditor.ViewModels;
 using DFD.ViewModel.Interfaces;
@@ -28,9 +29,19 @@ namespace DFD.AvaloniaEditor.Views
             var point = e.GetCurrentPoint(this);
             if (point.Properties.IsLeftButtonPressed)
             {
-                node.ChildrenCollapsed = !node.ChildrenCollapsed;
+                node.Collapsed = !node.Collapsed;
                 diagramViewModel.RefreshGraph();
             }
+        }
+
+        private void Node_PointerEntered(object? sender, PointerEventArgs e)
+        {
+            var polygon = sender as Polygon;
+            var node = polygon.Tag as IMultilevelGraphNode;
+
+
+            polygon.Fill = new SolidColorBrush(Color.FromArgb(30, 120, 200, 200));
+
         }
     }
 }
