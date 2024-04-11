@@ -6,14 +6,14 @@ namespace DFD.GraphConverter;
 public class MultilevelGraphNode : IMultilevelGraphNode
 {
     public bool IsHiddenAsParent { get; set; }
-    public bool LockedFromCollapsing { get; set; } = true;
-    public IGraphNodeData Data { get; set; }
+    public bool LockedFromCollapsing { get; set; } = false;
+    public IGraphNodeData Data { get; init; }
 
-    private bool _childrenCollapsed;
+    private bool _collapsed;
     public bool Collapsed
     { 
-        get => LockedFromCollapsing ? false : _childrenCollapsed;
-        set => _childrenCollapsed = LockedFromCollapsing ? false : value;
+        get => !LockedFromCollapsing && Collapsable && _collapsed;
+        set => _collapsed = value;
     }
 
     public bool Collapsable { get; set; }

@@ -19,13 +19,14 @@
             <ItemsControl.ItemTemplate >
                 <DataTemplate>
                     <Polygon IsEnabled="{Binding !Node.IsHiddenAsParent}"
-						     Points="{Binding Polygon.Points}" 
-                             Fill="{Binding Polygon.Color}" 
+						                 Points="{Binding Polygon.Points}" 
+                             Fill="{Binding Polygon.CurrentColor}"
                              Stroke="{DynamicResource PrimaryText}" 
                              StrokeThickness="1"
                              PointerPressed="Node_PointerPressed"
                              PointerEntered="Node_PointerEntered"
-                             Tag="{Binding Node}"></Polygon>
+                             PointerExited="Node_PointerExited"
+                             Tag="{Binding $self.DataContext}"></Polygon>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
