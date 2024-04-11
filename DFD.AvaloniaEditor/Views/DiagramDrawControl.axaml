@@ -19,7 +19,7 @@
             <ItemsControl.ItemTemplate >
                 <DataTemplate>
                     <Polygon IsEnabled="{Binding !Node.IsHiddenAsParent}"
-						     Points="{Binding VisualObject.Points}" 
+						     Points="{Binding Polygon.Points}" 
                              Fill="Transparent" 
                              Stroke="{DynamicResource PrimaryText}" 
                              StrokeThickness="1"

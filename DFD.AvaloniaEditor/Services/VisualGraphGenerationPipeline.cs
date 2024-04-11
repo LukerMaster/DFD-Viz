@@ -46,8 +46,8 @@ public class VisualGraphGenerationPipeline : IVisualGraphGenerationPipeline
     {
         if (!string.IsNullOrEmpty(_dfdCodeProvider.DfdCode))
         {
-            var logicalGraph = _interpreter.ToDiagram(_dfdCodeProvider.DfdCode);
-            _logicalGraph = _converter.ToMultilevelGraph(logicalGraph);
+            var rawGraph = _interpreter.ToDiagram(_dfdCodeProvider.DfdCode);
+            _logicalGraph = _converter.ToMultilevelGraph(rawGraph);
             RegenerateVisualGraph();
         }
     }
