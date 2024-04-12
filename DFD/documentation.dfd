@@ -43,7 +43,7 @@ Process AdvancedProcess "Advanced Process":
 
 # Flows will only search for nodes on the same or lower (more indented)
 # levels, which means you cannot declare flow from (or to) an node that
-# is somewhere higher up (less indented) - Breath-first search is utilized here.
+# is somewhere higher up (less indented) - Breadth-first search is utilized here.
 
 # Allowed:
 # Process A "A":
