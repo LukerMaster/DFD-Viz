@@ -41,7 +41,11 @@ namespace DFD.AvaloniaEditor.Views
             var visualNode = polygon.Tag as AvaloniaVisualNode;
 
             if (visualNode.Node.Collapsible)
-                visualNode.Polygon.CurrentColor = new SolidColorBrush(Color.FromArgb(90, 120, 200, 200));
+            {
+                this.TryFindResource("Selection", this.ActualThemeVariant, out var brush);
+                if (brush is not null)
+                    visualNode.Polygon.CurrentColor = brush as IBrush;
+            }
             
             
         }

@@ -10,6 +10,7 @@
 			<SolidColorBrush x:Key="SecondaryText">#161616</SolidColorBrush>
 			<SolidColorBrush x:Key="PrimaryAccent">#218294</SolidColorBrush>
 			<SolidColorBrush x:Key="SecondaryAccent">#c5ebf2</SolidColorBrush>
+      <SolidColorBrush x:Key="Selection">#48218294</SolidColorBrush>
     </ResourceDictionary>
     <ResourceDictionary x:Key="Dark">
       <SolidColorBrush x:Key="PrimaryBackground">#171717</SolidColorBrush>
@@ -19,6 +20,7 @@
       <SolidColorBrush x:Key="SecondaryText">#BBBBBB</SolidColorBrush>
       <SolidColorBrush x:Key="PrimaryAccent">#218294</SolidColorBrush>
       <SolidColorBrush x:Key="SecondaryAccent">#c5ebf2</SolidColorBrush>
+      <SolidColorBrush x:Key="Selection">#48218294</SolidColorBrush>
     </ResourceDictionary>
   </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>
