@@ -6,6 +6,6 @@ public interface IMultilevelGraphNode
 {
     IGraphNodeData Data { get; }
     bool Collapsed { get; set; }
-    bool Collapsable { get; }
+    bool Collapsible { get; }
     bool IsHiddenAsParent { get; set; }
 }

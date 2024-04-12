@@ -20,7 +20,7 @@
                 <DataTemplate>
                     <Polygon IsEnabled="{Binding !Node.IsHiddenAsParent}"
 						                 Points="{Binding Polygon.Points}" 
-                             Fill="{Binding Polygon.CurrentColor, Mode=TwoWay}"
+                             Fill="{Binding Polygon.CurrentColor}"
                              Stroke="{DynamicResource PrimaryText}" 
                              StrokeThickness="1"
                              PointerPressed="Node_PointerPressed"

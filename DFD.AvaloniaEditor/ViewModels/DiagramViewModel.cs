@@ -43,7 +43,7 @@ internal class DiagramViewModel : ViewModelBase
         VisualGraph = new AvaloniaVisualGraph(diagramGenerationPipeline.RecompiledGraph);
     }
 
-    public void RefreshGraph()
+    public void ReconstructGraph()
     {
         VisualGraph = new AvaloniaVisualGraph(_diagramGenerationPipeline.RefreshedGraph);
     }
@@ -56,6 +56,6 @@ internal class DiagramViewModel : ViewModelBase
     {
         if (VisualGraph.Nodes.Count > 0)
             _diagramGenerationPipeline.ExecuteOnNode(nodeName, node => node.IsHiddenAsParent = !node.IsHiddenAsParent);
-        RefreshGraph();
+        ReconstructGraph();
     }
 }

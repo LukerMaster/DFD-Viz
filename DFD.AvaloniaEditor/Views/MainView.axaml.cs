@@ -44,7 +44,7 @@ public partial class MainView : UserControl
 
     private void RefreshGraph_Clicked(object? sender, RoutedEventArgs e)
     {
-        ViewModel.GraphViewModel.RefreshGraph();
+        ViewModel.GraphViewModel.ReconstructGraph();
     }
 
     private void CollapseAllNodes_Clicked(object? sender, RoutedEventArgs e)
@@ -54,7 +54,7 @@ public partial class MainView : UserControl
             avaloniaVisualNode.Node.Collapsed = true;
         }
 
-        ViewModel.GraphViewModel.RefreshGraph();
+        ViewModel.GraphViewModel.ReconstructGraph();
     }
 
     private async void OpenFile_Clicked(object? sender, RoutedEventArgs e)

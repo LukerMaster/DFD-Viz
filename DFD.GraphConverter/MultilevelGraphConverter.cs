@@ -16,18 +16,22 @@ public class MultilevelGraphConverter : IMultilevelGraphConverter
                 Collapsed = false
             });
 
-        (multilevelGraph.Root.Data as MultilevelGraphNode).LockedFromCollapsing = true;
+        // Top level node cannot be collapsed - Graph would just vanish.
+        (multilevelGraph.Root.Data as MultilevelGraphNode).Collapsible = false;
 
 
         var queue = new Queue<ITreeNode<IMultilevelGraphNode>>();
-        queue.Enqueue(multilevelGraph.Root);
+
+        foreach (var rootChild in multilevelGraph.Root.Children) 
+            queue.Enqueue(rootChild);
+
         while (queue.Count > 0)
         {
             var node = queue.Dequeue();
 
             if (node.Children.Count > 0)
             {
-                (node.Data as MultilevelGraphNode).Collapsable = true;
+                (node.Data as MultilevelGraphNode).Collapsible = true;
             }
 
             foreach (var child in node.Children)

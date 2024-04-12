@@ -28,10 +28,10 @@ namespace DFD.AvaloniaEditor.Views
 
 
             var point = e.GetCurrentPoint(this);
-            if (point.Properties.IsLeftButtonPressed)
+            if (point.Properties.IsLeftButtonPressed && visualNode.Node.Collapsible)
             {
                 visualNode.Node.Collapsed = !visualNode.Node.Collapsed;
-                diagramViewModel.RefreshGraph();
+                diagramViewModel.ReconstructGraph();
             }
         }
 
@@ -40,24 +40,19 @@ namespace DFD.AvaloniaEditor.Views
             var polygon = sender as Polygon;
             var visualNode = polygon.Tag as AvaloniaVisualNode;
 
-            var diagramViewModel = DataContext as DiagramViewModel;
-
-
-            if (visualNode.Node.Collapsable)
+            if (visualNode.Node.Collapsible)
                 visualNode.Polygon.CurrentColor = new SolidColorBrush(Color.FromArgb(90, 120, 200, 200));
-
-            diagramViewModel.RefreshGraph();
+            
+            
         }
 
         private void Node_PointerExited(object? sender, PointerEventArgs e)
         {
             var polygon = sender as Polygon;
             var visualNode = polygon.Tag as AvaloniaVisualNode;
-
-            var diagramViewModel = DataContext as DiagramViewModel;
-
-            diagramViewModel.RefreshGraph();
-            visualNode.Polygon.CurrentColor = new SolidColorBrush(visualNode.Polygon.DefaultColor);
+            
+            if (visualNode is not null)
+                visualNode.Polygon.CurrentColor = new SolidColorBrush(visualNode.Polygon.DefaultColor);
         }
     }
 }
