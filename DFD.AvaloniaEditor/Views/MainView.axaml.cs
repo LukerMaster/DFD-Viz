@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Avalonia;
@@ -8,9 +9,12 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using Avalonia.Styling;
+using DFD.AvaloniaEditor.Assets;
 using DFD.AvaloniaEditor.Services;
 using DFD.AvaloniaEditor.ViewModels;
 using DFD.Parsing;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 
 namespace DFD.AvaloniaEditor.Views;
 
@@ -132,5 +136,19 @@ public partial class MainView : UserControl
     private void ToSystemTheme_Clicked(object? sender, RoutedEventArgs e)
     {
         TopLevel.GetTopLevel(this).RequestedThemeVariant = ThemeVariant.Default;
+    }
+
+    private async void Click_English(object? sender, RoutedEventArgs e)
+    {
+        ViewModel.LanguageService.CultureInfo = CultureInfo.GetCultureInfo("en-US");
+        var box = MessageBoxManager.GetMessageBoxStandard(Lang.Info, Lang.Application_Needs_Restart, ButtonEnum.Ok);
+        await box.ShowAsync();
+    }
+
+    private async void Click_Polish(object? sender, RoutedEventArgs e)
+    {
+        ViewModel.LanguageService.CultureInfo = CultureInfo.GetCultureInfo("pl-PL");
+        var box = MessageBoxManager.GetMessageBoxStandard(Lang.Info, Lang.Application_Needs_Restart, ButtonEnum.Ok);
+        await box.ShowAsync();
     }
 }

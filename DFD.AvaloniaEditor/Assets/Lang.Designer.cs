@@ -61,6 +61,15 @@ namespace DFD.AvaloniaEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application needs a restart for changes to apply.
+        /// </summary>
+        public static string Application_Needs_Restart {
+            get {
+                return ResourceManager.GetString("Application_Needs_Restart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Collapse all nodes.
         /// </summary>
         public static string Collapse_all_nodes {
@@ -84,6 +93,15 @@ namespace DFD.AvaloniaEditor.Assets {
         public static string DFD_Graph_Files {
             get {
                 return ResourceManager.GetString("DFD_Graph_Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Documentation.
+        /// </summary>
+        public static string Documentation {
+            get {
+                return ResourceManager.GetString("Documentation", resourceCulture);
             }
         }
         
@@ -124,11 +142,38 @@ namespace DFD.AvaloniaEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string Info {
+            get {
+                return ResourceManager.GetString("Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language 🌍.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Light.
         /// </summary>
         public static string Light {
             get {
                 return ResourceManager.GetString("Light", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         

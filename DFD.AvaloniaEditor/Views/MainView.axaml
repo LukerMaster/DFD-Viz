@@ -35,6 +35,10 @@
                     <MenuItem Click="ToDarkTheme_Clicked" Header="{x:Static lang:Lang.Dark}"></MenuItem>
                     <MenuItem Click="ToSystemTheme_Clicked" Header="{x:Static lang:Lang.System}"></MenuItem>
                 </MenuItem>
+                <MenuItem Header="{x:Static lang:Lang.Language}">
+                    <MenuItem Click="Click_English" Header="English"></MenuItem>
+                    <MenuItem Click="Click_Polish" Header="Polski"></MenuItem>
+                </MenuItem>
             </Menu>
 		    <Grid ColumnDefinitions="*,4,3*">
                 <Grid Grid.Column="0" RowDefinitions="6*,*,*">

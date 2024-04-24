@@ -6,6 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using Avalonia.Styling;
+using DFD.AvaloniaEditor.Assets;
 using DFD.AvaloniaEditor.Interfaces;
 using DFD.AvaloniaEditor.Services;
 using DFD.GraphConverter.Interfaces;
@@ -19,10 +20,10 @@ internal partial class MainViewModel : ViewModelBase
     private IFileStorageService _storageService;
 
     IDfdCodeStringProvider _dfdCodeProvider = new DfdCodeStringProvider();
-    
+    public ILanguageService LanguageService { get; }
     public MainViewModel(IVisualGraphGenerationPipeline visualGraphGenerationPipeline,
         IDfdCodeStringProvider? dfdCode,
-        IFileStorageService storageService)
+        IFileStorageService storageService, ILanguageService languageService)
     {
         if (dfdCode is not null)
         {
@@ -31,10 +32,14 @@ internal partial class MainViewModel : ViewModelBase
 
         GraphViewModel = new DiagramViewModel(visualGraphGenerationPipeline);
         _storageService = storageService;
+        LanguageService = languageService;
+
+        
     }
 
-    public MainViewModel()
+    public MainViewModel(ILanguageService languageService)
     {
+        LanguageService = languageService;
         // Design only
     }
 

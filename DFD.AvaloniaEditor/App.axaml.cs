@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System.Globalization;
+using System.IO;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using DFD.AvaloniaEditor.Assets;
 using DFD.AvaloniaEditor.Interfaces;
 using DFD.AvaloniaEditor.Services;
 using DFD.AvaloniaEditor.ViewModels;
@@ -27,6 +29,8 @@ public partial class App : Application
         // Without this line you will get duplicate validations from both Avalonia and CT
         BindingPlugins.DataValidators.RemoveAt(0);
 
+        ILanguageService languageService = new LanguageService("UserPrefs.txt");
+        Lang.Culture = languageService.CultureInfo;
 
         IDfdCodeStringProvider codeProvider = new DfdCodeStringProvider();
 
@@ -37,8 +41,9 @@ public partial class App : Application
         IVisualGraphCreator creator = new VisualGraphCreator();
 
         IVisualGraphGenerationPipeline generationPipeline = new VisualGraphGenerationPipeline(interpreter, converter, creator, codeProvider);
-
         
+        // Classic way of doing IoC results in circular dependency so creation of this object needs to be broken up
+        GraphFileStorageService storageService = new GraphFileStorageService();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
@@ -48,12 +53,9 @@ public partial class App : Application
                 codeProvider.DfdCode = File.ReadAllText(desktop.Args[0]);
             }
 
-            // Classic way of doing IoC results in circular dependency so creation of this object needs to be broken up
-            GraphFileStorageService storageService = new GraphFileStorageService();
-
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainViewModel(generationPipeline, codeProvider, storageService)
+                DataContext = new MainViewModel(generationPipeline, codeProvider, storageService, languageService)
             };
 
             storageService.SetStorageProvider(desktop.MainWindow.StorageProvider);
@@ -62,9 +64,11 @@ public partial class App : Application
         {
             singleViewPlatform.MainView = new MainView
             {
-                DataContext = new MainViewModel(null, null, null)
+                DataContext = new MainViewModel(null, null, null, null)
             };
         }
+
+        
 
         base.OnFrameworkInitializationCompleted();
     }
