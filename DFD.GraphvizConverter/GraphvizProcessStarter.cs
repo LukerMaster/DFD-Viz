@@ -29,6 +29,9 @@ public class GraphvizProcessStarter
                     RedirectStandardError = true,
                     RedirectStandardOutput = true,
                     RedirectStandardInput = true,
+                    StandardInputEncoding = new UTF8Encoding(false), // BOM (Byte order mark) breaks Graphviz, so I explicitly disable it.
+                    StandardErrorEncoding = Encoding.UTF8,
+                    StandardOutputEncoding = Encoding.UTF8,
                     UseShellExecute = false
                 }
             };
