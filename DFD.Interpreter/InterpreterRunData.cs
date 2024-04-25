@@ -13,10 +13,10 @@ internal class InterpreterRunData
     {
         CurrentScopeNode = new TreeNode<IGraphNodeData>()
         {
-            NodeName = "top",
+            NodeName = "root",
             Data = new GraphNodeData()
             {
-                Name = "System",
+                Name = "Graph Root",
                 Type = NodeType.Process
             }
         };

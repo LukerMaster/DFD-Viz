@@ -198,10 +198,6 @@ Process AdvancedProcess "Zaawansowany proces":
 # 		Process C1 "C1"
 # 		C1 --&gt; B
 
-# Wszystkie procesy są zamknięte w najwyższym procesie "System" o nazwie programistycznej "top".
-# top.JakikolwiekProces.JakikolwiekInnyProces
-# Zatem lepiej nie definiować węzła o nazwie programistycznej "top", żeby uniknąć zamieszania.
-
 # Przy okazji, ta dokumentacja to poprawny plik DFD
 # Możesz wkleić go w edytor i wygeneruje on graf.</value>
   </data>
@@ -260,7 +256,7 @@ Process AdvancedProcess "Zaawansowany proces":
   <data name="Theme" xml:space="preserve">
     <value>Motyw</value>
   </data>
-  <data name="Toggle_top_node_visibility" xml:space="preserve">
+  <data name="Toggle_root_node_visibility" xml:space="preserve">
     <value>Przełącz widoczność najwyższego węzła</value>
   </data>
   <data name="Your_DFD_code_preview" xml:space="preserve">

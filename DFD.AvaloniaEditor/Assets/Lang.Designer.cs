@@ -106,7 +106,11 @@ namespace DFD.AvaloniaEditor.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to # To start drawing, you need to define nodes.
+        ///   Looks up a localized string similar to # Hold scroll and move mouse to pan.
+        ///# Scroll to zoom.
+        ///# Left click to collapse (collapsable) nodes.
+        ///
+        ///# To start drawing, you need to define nodes.
         ///# An node is one of the objects in DFD diagram.
         ///# Process, Input/Output (IO) or Storage
         ///
@@ -120,10 +124,7 @@ namespace DFD.AvaloniaEditor.Assets {
         ///
         ///Storage Db &quot;Main Database&quot;
         ///
-        ///# NodeName is essentially an unique identifier of an node.
-        ///# These identifiers are necessary when creating flows between nodes.
-        ///
-        ///# Now to make flows b [rest of string was truncated]&quot;;.
+        ///# NodeName is essentially an unique identifier  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Entire_Docs_File {
             get {
@@ -294,11 +295,11 @@ namespace DFD.AvaloniaEditor.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toggle top node visibility.
+        ///   Looks up a localized string similar to Toggle root node visibility.
         /// </summary>
-        public static string Toggle_top_node_visibility {
+        public static string Toggle_root_node_visibility {
             get {
-                return ResourceManager.GetString("Toggle_top_node_visibility", resourceCulture);
+                return ResourceManager.GetString("Toggle_root_node_visibility", resourceCulture);
             }
         }
         

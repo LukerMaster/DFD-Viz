@@ -37,9 +37,8 @@ internal partial class MainViewModel : ViewModelBase
         
     }
 
-    public MainViewModel(ILanguageService languageService)
+    public MainViewModel()
     {
-        LanguageService = languageService;
         // Design only
     }
 

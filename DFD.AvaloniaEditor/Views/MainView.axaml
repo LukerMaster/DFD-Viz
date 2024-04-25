@@ -28,7 +28,7 @@
                     <MenuItem Click="RefreshGraph_Clicked" HotKey="Ctrl+F5" Header="{x:Static lang:Lang.Refresh}"></MenuItem>
                     <MenuItem Click="RecompileGraph_Clicked" HotKey="F5" Header="{x:Static lang:Lang.Recompile}"></MenuItem>
                     <MenuItem Click="CollapseAllNodes_Clicked" Header="{x:Static lang:Lang.Collapse_all_nodes}"></MenuItem>
-                    <MenuItem Click="ToggleTopNodeVisibility_Clicked" Header="{x:Static lang:Lang.Toggle_top_node_visibility}"></MenuItem>
+                    <MenuItem Click="ToggleTopNodeVisibility_Clicked" Header="{x:Static lang:Lang.Toggle_root_node_visibility}"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="{x:Static lang:Lang.Theme}">
                     <MenuItem Click="ToLightTheme_Clicked" Header="{x:Static lang:Lang.Light}"></MenuItem>

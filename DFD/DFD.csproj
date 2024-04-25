@@ -17,9 +17,6 @@
     <None Update="example-ml.dfd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="documentation.dfd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="wrong-comment.dfd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

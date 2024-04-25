@@ -16,8 +16,10 @@ public class MultilevelGraphConverter : IMultilevelGraphConverter
                 Collapsed = false
             });
 
-        // Top level node cannot be collapsed - Graph would just vanish.
+        // Top level node (root) shouldn't be collapsable.
         (multilevelGraph.Root.Data as MultilevelGraphNode).Collapsible = false;
+        // Don't show the root node on the graph.
+        (multilevelGraph.Root.Data as MultilevelGraphNode).IsHiddenAsParent = true;
 
 
         var queue = new Queue<ITreeNode<IMultilevelGraphNode>>();

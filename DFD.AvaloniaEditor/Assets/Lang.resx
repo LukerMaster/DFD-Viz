@@ -198,10 +198,6 @@ Process AdvancedProcess "Advanced Process":
 # 		Process C1 "C1"
 # 		C1 --&gt; B
 
-# All Processes are enclosed within "System" process with NodeName "top".
-# top.AnyProcess.EveryOtherProcess
-# So you don't define a node with a NodeName "top" to avoid confusion.
-
 # By the way, this documentation is a valid DFD file
 # you can paste it into the editor and it will generate a graph.</value>
   </data>
@@ -260,8 +256,8 @@ Process AdvancedProcess "Advanced Process":
   <data name="Theme" xml:space="preserve">
     <value>Theme</value>
   </data>
-  <data name="Toggle_top_node_visibility" xml:space="preserve">
-    <value>Toggle top node visibility</value>
+  <data name="Toggle_root_node_visibility" xml:space="preserve">
+    <value>Toggle root node visibility</value>
   </data>
   <data name="Your_DFD_code_preview" xml:space="preserve">
     <value>Your DFD code preview</value>

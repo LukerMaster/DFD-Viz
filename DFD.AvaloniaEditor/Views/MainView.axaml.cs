@@ -88,7 +88,7 @@ public partial class MainView : UserControl
 
     private void ToggleTopNodeVisibility_Clicked(object? sender, RoutedEventArgs e)
     {
-        ViewModel.GraphViewModel.ToggleVisibility("top");
+        ViewModel.GraphViewModel.ToggleVisibility("root");
     }
 
     private void ExportAs_Clicked(object? sender, RoutedEventArgs e)
