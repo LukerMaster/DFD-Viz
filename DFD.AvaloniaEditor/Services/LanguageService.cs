@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using Avalonia;
+using DFD.AvaloniaEditor.Assets;
 
 namespace DFD.AvaloniaEditor.Services;
 
@@ -31,6 +32,7 @@ public class LanguageService : ILanguageService
         {
             Directory.CreateDirectory(FolderPath);
             File.WriteAllText(FilePath, value.Name);
+            Lang.Culture = value;
         }
     }
 }
