@@ -63,3 +63,6 @@ Process AdvancedProcess "Advanced Process":
 # top.AnyProcess.EveryOtherProcess
 # once again - not necessary since you do not have to specify full node names
 # with each flow.
+
+# By the way, this documentation is a valid DFD file
+# you can paste it into the editor and it will generate a graph.

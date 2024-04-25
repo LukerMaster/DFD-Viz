@@ -132,6 +132,79 @@
   <data name="Documentation" xml:space="preserve">
     <value>Dokumentacja</value>
   </data>
+  <data name="Entire_Docs_File" xml:space="preserve">
+    <value># Przytrzymaj środkowy przycisk myszy oraz ruszaj aby przesunąć.
+# Pokrętło aby przybliżać.
+# Lewy przycisk myszy aby zwijać (zwijalne) węzły.
+
+# Żeby zacząć rysować, należy zdefiniować węzły.
+# Węzeł to jeden z obiektów grafu DFD.
+# Proces (Process), Wejście/Wyjście (IO) lub Dane (Storage)
+
+# Żeby zadefiniować węzeł, zawsze używa się składni:
+# Typ NazwaWęzła "Nazwa wyświetlana"
+# Tutaj kilka prostych definicji:
+
+Process SomeProcess "Jakiś Proces"
+
+IO UserInput "Wejście danych użytkownika"
+
+Storage Db "Główna baza danych"
+
+# NazwaWęzła to nazwa programistyczna, unikalna dla danego węzła.
+# Te nazwy są one potrzebne przy tworzeniu przepływów.
+
+# Teraz, aby zrobić przepływ pomiędzy węzłami używa się składni:
+# NazwaWęzłaA TypPrzepływu NazwaWęzłaB "Opcjonalna nazwa wyświetlana"
+
+UserInput --&gt; SomeProcess "Użytkownik wprowadza dane dla procesu"
+SomeProcess &lt;-&gt; Db "Wymiana kluczy połączenia"
+
+# Są dwa typy przepływów
+# Jednokierunkowe: --&gt;
+# Dwukierunkowe: &lt;-&gt; 
+
+# Linie zaczynające się na # są ignorowane (komentarze)
+# Nie można umieszczać natomiast # po jakiejkolwiek definicji na tej samej linii.
+
+# Aby stworzyć diagram wielopoziomowy, należy zdefiniować procesy z procesami w środku.
+# Wystarczy dodać ':' na końcu deklaracji procesu
+# I wpisać podprocesy z wcięciem.
+Process AdvancedProcess "Zaawansowany proces":
+	Process SubProcessA "Podproces A"
+	Process SubProcessB "Podproces B"
+	Process SubProcessC "Podproces C z podprocesem":
+		Process SubProcessC1 "Podproces C1"
+
+	# Aby stworzyć połączenie pomiędzy podprocesami można użyć składni z kropką
+	SubProcessA --&gt; SubProcessC.SubProcessC1
+	# Nie musisz definiować pełnej ścieżki do węzła, ważne żeby była jednoznaczna
+
+# Przepływy szukają węzłów tylko na swoim poziomie oraz niższym (bardziej wciętym)
+# Co znaczy, że nie można definiować przepływów do węzłów umieszczonych wyżej w hierarchii (mniej wciętych)
+# Breadth-first search jest używany do wyszukiwania.
+
+# Dozwolone:
+# Process A "A":
+#	Process B "B"
+#	Process C "C":
+#		Process C1 "C1"
+#	B --&gt; C1
+
+# Nie dozwolone:
+# Process A "A":
+# 	Process B "B"
+# 	Process C "C":
+# 		Process C1 "C1"
+# 		C1 --&gt; B
+
+# Wszystkie procesy są zamknięte w najwyższym procesie "System" o nazwie programistycznej "top".
+# top.JakikolwiekProces.JakikolwiekInnyProces
+# Zatem lepiej nie definiować węzła o nazwie programistycznej "top", żeby uniknąć zamieszania.
+
+# Przy okazji, ta dokumentacja to poprawny plik DFD
+# Możesz wkleić go w edytor i wygeneruje on graf.</value>
+  </data>
   <data name="Export_As" xml:space="preserve">
     <value>Wyeksportuj jako</value>
   </data>
@@ -176,6 +249,9 @@
   </data>
   <data name="Save_Graph_As" xml:space="preserve">
     <value>Zapisz graf jako</value>
+  </data>
+  <data name="Show_Local_Docs" xml:space="preserve">
+    <value>Pokaż dokumentacje lokalną</value>
   </data>
   <data name="System" xml:space="preserve">
     <value>Systemowy</value>

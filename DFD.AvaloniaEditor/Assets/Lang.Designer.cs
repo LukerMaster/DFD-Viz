@@ -106,6 +106,32 @@ namespace DFD.AvaloniaEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to # To start drawing, you need to define nodes.
+        ///# An node is one of the objects in DFD diagram.
+        ///# Process, Input/Output (IO) or Storage
+        ///
+        ///# To define any node you always use this syntax:
+        ///# Type NodeName &quot;Displayed name&quot;
+        ///# Here are some simple definitions:
+        ///
+        ///Process SomeProcess &quot;Some Process&quot;
+        ///
+        ///IO UserInput &quot;User Input&quot;
+        ///
+        ///Storage Db &quot;Main Database&quot;
+        ///
+        ///# NodeName is essentially an unique identifier of an node.
+        ///# These identifiers are necessary when creating flows between nodes.
+        ///
+        ///# Now to make flows b [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Entire_Docs_File {
+            get {
+                return ResourceManager.GetString("Entire_Docs_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export as.
         /// </summary>
         public static string Export_As {
@@ -237,6 +263,15 @@ namespace DFD.AvaloniaEditor.Assets {
         public static string Save_Graph_As {
             get {
                 return ResourceManager.GetString("Save_Graph_As", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show local documentation.
+        /// </summary>
+        public static string Show_Local_Docs {
+            get {
+                return ResourceManager.GetString("Show_Local_Docs", resourceCulture);
             }
         }
         

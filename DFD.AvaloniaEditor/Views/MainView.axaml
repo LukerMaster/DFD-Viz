@@ -39,6 +39,9 @@
                     <MenuItem Click="Click_English" Header="English"></MenuItem>
                     <MenuItem Click="Click_Polish" Header="Polski"></MenuItem>
                 </MenuItem>
+                <MenuItem Header="{x:Static lang:Lang.Documentation}">
+                    <MenuItem Click="Click_ShowLocalDocs" Header="{x:Static lang:Lang.Show_Local_Docs}"></MenuItem>
+                </MenuItem>
             </Menu>
 		    <Grid ColumnDefinitions="*,4,3*">
                 <Grid Grid.Column="0" RowDefinitions="6*,*,*">

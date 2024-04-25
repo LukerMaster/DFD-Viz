@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -14,7 +15,9 @@ using DFD.AvaloniaEditor.Services;
 using DFD.AvaloniaEditor.ViewModels;
 using DFD.Parsing;
 using MsBox.Avalonia;
+using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
+using MsBox.Avalonia.Models;
 
 namespace DFD.AvaloniaEditor.Views;
 
@@ -149,6 +152,23 @@ public partial class MainView : UserControl
     {
         ViewModel.LanguageService.CultureInfo = CultureInfo.GetCultureInfo("pl-PL");
         var box = MessageBoxManager.GetMessageBoxStandard(Lang.Info, Lang.Application_Needs_Restart, ButtonEnum.Ok);
+        await box.ShowAsync();
+    }
+
+    private async void Click_ShowLocalDocs(object? sender, RoutedEventArgs e)
+    {
+        var box = MessageBoxManager.GetMessageBoxCustom(
+            new MessageBoxCustomParams()
+            {
+                ButtonDefinitions = new List<ButtonDefinition>()
+                {
+                    new ButtonDefinition() { Name = Lang.OK }
+                },
+                ContentTitle = Lang.Documentation,
+                ContentMessage = Lang.Entire_Docs_File,
+                CanResize = true,
+                SizeToContent = SizeToContent.WidthAndHeight
+            });
         await box.ShowAsync();
     }
 }
