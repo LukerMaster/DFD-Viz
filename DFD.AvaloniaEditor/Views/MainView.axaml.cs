@@ -13,6 +13,7 @@ using Avalonia.Styling;
 using DFD.AvaloniaEditor.Assets;
 using DFD.AvaloniaEditor.Services;
 using DFD.AvaloniaEditor.ViewModels;
+using DFD.GraphvizConverter;
 using DFD.Parsing;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
@@ -32,7 +33,14 @@ public partial class MainView : UserControl
 
     private void RecompileGraph_Clicked(object? sender, RoutedEventArgs e)
     {
-        RecompileGraph();
+        try
+        {
+            RecompileGraph();
+        }
+        catch (GraphvizNotFoundException)
+        {
+            MessageBoxManager.GetMessageBoxStandard(Lang.Info, Lang.Grap)
+        }
     }
 
     private void RecompileGraph()

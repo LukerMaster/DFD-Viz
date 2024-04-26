@@ -262,4 +262,10 @@ Process AdvancedProcess "Zaawansowany proces":
   <data name="Your_DFD_code_preview" xml:space="preserve">
     <value>Twój podgląd kodu DFD</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Błąd</value>
+  </data>
+  <data name="Graphiz_Not_Found_Ubuntu" xml:space="preserve">
+    <value>Wystąpił błąd z pakietem Graphviz. Upewnij się, że jest on zainstalowany. Jeśli jesteś na ubuntu, możesz go zainstalować tym skryptem</value>
+  </data>
 </root>

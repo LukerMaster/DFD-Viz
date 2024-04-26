@@ -30,7 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Assets\Lang.pl-PL.resx">
-      <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using DFD.GraphConverter;
 using DFD.GraphConverter.Interfaces;
+using DFD.GraphvizConverter;
 using DFD.Model.Interfaces;
 using DFD.ViewModel.Interfaces;
 using DFD.Vizualizer.Interfaces;
@@ -43,7 +44,7 @@ namespace DFD.Vizualizer
                 return;
             }
 
-            IVisualGraphCreator creator = new VisualGraphCreator();
+            IVisualGraphCreator creator = new VisualGraphCreator(new GraphvizRunnerFactory(Environment.OSVersion.Platform).CreateRunner());
 
             VisualGraphProvider provider = new VisualGraphProvider(logicalGraph, creator);
 
