@@ -37,9 +37,9 @@ public partial class MainView : UserControl
         {
             RecompileGraph();
         }
-        catch (GraphvizNotFoundException)
+        catch (GraphvizNotFoundException e)
         {
-            MessageBoxManager.GetMessageBoxStandard(Lang.Info, Lang.Grap)
+            MessageBoxManager.GetMessageBoxStandard(Lang.Info, Lang.Graphiz_Not_Found_Ubuntu + ":" + e.CommandToInstallGraphviz);
         }
     }
 
