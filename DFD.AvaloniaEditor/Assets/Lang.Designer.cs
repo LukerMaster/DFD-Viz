@@ -178,7 +178,7 @@ namespace DFD.AvaloniaEditor.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There seems to be an error with Graphviz. Make sure it is installed.
+        ///   Looks up a localized string similar to There seems to be an error with Graphviz.
         /// </summary>
         public static string Graphviz_Error {
             get {
@@ -210,6 +210,15 @@ namespace DFD.AvaloniaEditor.Assets {
         public static string Light {
             get {
                 return ResourceManager.GetString("Light", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are using local installation of Graphviz, so make sure the graphviz folder with all the executables is present.
+        /// </summary>
+        public static string Local_Graphviz_Error_Hint {
+            get {
+                return ResourceManager.GetString("Local_Graphviz_Error_Hint", resourceCulture);
             }
         }
         
@@ -300,6 +309,15 @@ namespace DFD.AvaloniaEditor.Assets {
         public static string System {
             get {
                 return ResourceManager.GetString("System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are using system installation of Graphviz, so make sure graphviz package is installed on your system.
+        /// </summary>
+        public static string Systemwise_Graphviz_Error_Hint {
+            get {
+                return ResourceManager.GetString("Systemwise_Graphviz_Error_Hint", resourceCulture);
             }
         }
         

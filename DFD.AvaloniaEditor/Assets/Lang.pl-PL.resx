@@ -266,6 +266,12 @@ Process AdvancedProcess "Zaawansowany proces":
     <value>Błąd</value>
   </data>
   <data name="Graphviz_Error" xml:space="preserve">
-    <value>Wystąpił błąd z pakietem Graphviz. Upewnij się, że jest on zainstalowany</value>
+    <value>Wystąpił błąd z pakietem Graphviz</value>
+  </data>
+  <data name="Local_Graphviz_Error_Hint" xml:space="preserve">
+    <value>Używasz lokalnej instalacji pakietu Graphviz, dlatego upewnij się, że folder graphviz wraz z jego komponentami jest obecny</value>
+  </data>
+  <data name="Systemwise_Graphviz_Error_Hint" xml:space="preserve">
+    <value>Używasz systemowej instalacji pakietu Graphviz, dlatego upewnij się, że jest on zainstalowany na Twoim systemie</value>
   </data>
 </root>

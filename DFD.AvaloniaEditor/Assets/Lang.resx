@@ -266,6 +266,12 @@ Process AdvancedProcess "Advanced Process":
     <value>Error</value>
   </data>
   <data name="Graphviz_Error" xml:space="preserve">
-    <value>There seems to be an error with Graphviz. Make sure it is installed</value>
+    <value>There seems to be an error with Graphviz</value>
+  </data>
+  <data name="Local_Graphviz_Error_Hint" xml:space="preserve">
+    <value>You are using local installation of Graphviz, so make sure the graphviz folder with all the executables is present</value>
+  </data>
+  <data name="Systemwise_Graphviz_Error_Hint" xml:space="preserve">
+    <value>You are using system installation of Graphviz, so make sure graphviz package is installed on your system</value>
   </data>
 </root>

@@ -14,12 +14,9 @@ internal class SystemwiseProcessStarter : IGraphvizProcessStarter
             StandardProcessStarter s = new StandardProcessStarter("dot", null);
             return s.Render(graph, layoutAlgorithm, outputFormat, extraCommandLineFlags);
         }
-        catch (Win32Exception e)
+        catch (Exception ex)
         {
-            // If file not found - basically - error codes are weird
-            if (e.ErrorCode == -2147467259 && e.NativeErrorCode == 2)
-                throw new GraphvizErrorException(GraphvizErrorException.InstallationType.Systemwise);
-            throw;
+            throw new GraphvizErrorException(GraphvizErrorException.InstallationType.Systemwise, ex);
         }
     }
 }

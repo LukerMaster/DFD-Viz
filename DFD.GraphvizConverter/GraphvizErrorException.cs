@@ -9,7 +9,7 @@ public class GraphvizErrorException : Exception
     }
     public InstallationType Type { get; }
 
-    public GraphvizErrorException(InstallationType type)
+    public GraphvizErrorException(InstallationType type, Exception inner) : base("Graphviz thrown an error", inner)
     {
         Type = type;
     }
