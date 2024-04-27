@@ -265,7 +265,7 @@ Process AdvancedProcess "Zaawansowany proces":
   <data name="Error" xml:space="preserve">
     <value>Błąd</value>
   </data>
-  <data name="Graphiz_Not_Found_Ubuntu" xml:space="preserve">
-    <value>Wystąpił błąd z pakietem Graphviz. Upewnij się, że jest on zainstalowany. Jeśli jesteś na ubuntu, możesz go zainstalować tym skryptem</value>
+  <data name="Graphviz_Error" xml:space="preserve">
+    <value>Wystąpił błąd z pakietem Graphviz. Upewnij się, że jest on zainstalowany</value>
   </data>
 </root>

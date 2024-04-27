@@ -13,12 +13,12 @@ public class GraphvizRunnerFactory
     {
         if (_os == PlatformID.Win32NT)
         {
-            return new GraphvizRunner(new WindowsProcessStarter());
+            return new GraphvizRunner(new LocalWindowsProcessStarter());
         }
 
         if (_os == PlatformID.Unix)
         {
-            return new GraphvizRunner(new UbuntuProcessStarter());
+            return new GraphvizRunner(new SystemwiseProcessStarter());
         }
 
         throw new NotSupportedException("OS not supported.");

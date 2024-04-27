@@ -3,7 +3,7 @@ using System.Text;
 
 namespace DFD.GraphvizConverter;
 
-internal class WindowsProcessStarter : IGraphvizProcessStarter
+internal class LocalWindowsProcessStarter : IGraphvizProcessStarter
 {
     public byte[] LayoutAndRender(string graph, string layoutAlgorithm, string outputFormat,
         params string[] extraCommandLineFlags)

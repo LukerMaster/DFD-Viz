@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DFD.GraphvizConverter;
 
-internal class UbuntuProcessStarter : IGraphvizProcessStarter
+internal class SystemwiseProcessStarter : IGraphvizProcessStarter
 {
     public byte[] LayoutAndRender(string graph, string layoutAlgorithm, string outputFormat,
         params string[] extraCommandLineFlags)
@@ -18,7 +18,7 @@ internal class UbuntuProcessStarter : IGraphvizProcessStarter
         {
             // If file not found - basically - error codes are weird
             if (e.ErrorCode == -2147467259 && e.NativeErrorCode == 2)
-                throw new GraphvizNotFoundException("sudo apt install graphviz");
+                throw new GraphvizErrorException(GraphvizErrorException.InstallationType.Systemwise);
             throw;
         }
     }
