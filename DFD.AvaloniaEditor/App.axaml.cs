@@ -31,7 +31,7 @@ public partial class App : Application
         // Without this line you will get duplicate validations from both Avalonia and CT
         BindingPlugins.DataValidators.RemoveAt(0);
 
-        ILanguageService languageService = new LanguageService("UserPrefs.txt");
+        ILanguageService languageService = new LanguageService("LangSettings.txt");
         Lang.Culture = languageService.CultureInfo;
 
         IDfdCodeStringProvider codeProvider = new DfdCodeStringProvider();

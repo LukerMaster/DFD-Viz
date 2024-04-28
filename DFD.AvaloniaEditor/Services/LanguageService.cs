@@ -8,7 +8,7 @@ namespace DFD.AvaloniaEditor.Services;
 
 public class LanguageService : ILanguageService
 {
-    private readonly string _fileName = "UserPrefs.txt";
+    private readonly string _fileName = "LangSettings.txt";
     private readonly string _appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     private string FilePath => Path.Combine(FolderPath, _fileName);
     private string FolderPath => Path.Combine(_appData, "DFD-Viz");
