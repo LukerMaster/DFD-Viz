@@ -6,7 +6,7 @@
         xmlns:views="clr-namespace:DFD.AvaloniaEditor.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DFD.AvaloniaEditor.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="DFD.AvaloniaEditor">
+        Icon="/Assets/DFDViz-icon.ico"
+        Title="DFD-Viz">
         <views:MainView />
 </Window>

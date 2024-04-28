@@ -4,6 +4,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <ApplicationIcon>DFDViz-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
@@ -11,6 +12,12 @@
   <ItemGroup>
     <AvaloniaResource Remove="Assets\Lang.pl-PL.resx" />
     <AvaloniaResource Remove="Assets\Lang.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\DFDViz-icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DFDViz-icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.9" />
