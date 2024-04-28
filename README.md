@@ -1,10 +1,35 @@
+![DFDViz-icon](https://github.com/LukerMaster/DFD-Viz/assets/35941818/19fa79ac-f0e9-4e14-9d1e-3abbfdba7601)
 # DFD-Viz
-DFD-Viz is a solution for easily drawing DFD diagrams using DFD-script (very simple declarative language designed for non-tech people).
-## Components
+DFD-Viz is a solution for easily drawing multi-level DFD diagrams using DFD-script (very simple declarative language designed for non-tech people).
+## DFD-Script fast start
+Here is a simple snippet to draw a simple, multilevel DFD diagram:
+```dfd
+# Level 1
+Process SomeProcA "Process A":
+	# Level 2
+	Process SomeProcB "Process B"
+	Process SomeProcC "Process C"
+	SomeProcB --> SomeProcC "Process pipeline"
+
+Storage DbA "Database A"
+
+IO SomeInputA "Input A"
+
+SomeInputA --> DbA "Logging into DB"
+```
+will produce:
+
+![diagram](https://github.com/LukerMaster/DFD-Viz/assets/35941818/0ad1f2d6-b5ae-4904-b860-468a7b09b226)
+## Features
+- Diagram creation purely from code
+- Collapsing diagram levels with a single click
+- Exporting diagrams to png files
+## Program is currently in very early stages of production
+Things may break and be incompatible across versions.
+### Technical Components
 DFD-Viz is composed of:
 - DFD-Script (declarative language for defining graphs)
 - Interpreter (an interpreter implementation as a DLL)
 - DFD-Vizualizer (a simple cross-platform DFD graph viewer written using SFML.NET)
 - DFD.Avalonia.Editor (an editor designed to work with DFD-Script in real-time)
-# This program is currently work-in-progress and therefore there are no official releases provided
-To get the program you have to compile and run it yourself.
+
