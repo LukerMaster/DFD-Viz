@@ -8,6 +8,10 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>DFDViz-icon.ico</ApplicationIcon>
+    <Version>0.1.0</Version>
+    <AssemblyVersion></AssemblyVersion>
+    <FileVersion></FileVersion>
+    <AssemblyName>DFD-Viz</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="DFDViz-icon.ico" />
