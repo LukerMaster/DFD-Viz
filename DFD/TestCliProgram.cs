@@ -1,4 +1,5 @@
 ﻿using DFD.GraphConverter;
+using DFD.GraphvizConverter;
 using DFD.Parsing;
 using DFD.Model.Interfaces;
 
@@ -23,7 +24,7 @@ class TestCliProgram
         }
 
         var multilevelGraph = new MultilevelGraphConverter().ToMultilevelGraph(graph);
-        var visualGraph = new VisualGraphCreator().GetVisualGraph(multilevelGraph);
+        var visualGraph = new VisualGraphCreator(new GraphvizRunnerFactory(Environment.OSVersion.Platform).CreateRunner()).GetVisualGraph(multilevelGraph);
 
 
         Console.WriteLine("END");

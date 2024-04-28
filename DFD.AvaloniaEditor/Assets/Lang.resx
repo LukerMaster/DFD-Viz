@@ -262,4 +262,16 @@ Process AdvancedProcess "Advanced Process":
   <data name="Your_DFD_code_preview" xml:space="preserve">
     <value>Your DFD code preview</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Graphviz_Error" xml:space="preserve">
+    <value>There seems to be an error with Graphviz</value>
+  </data>
+  <data name="Local_Graphviz_Error_Hint" xml:space="preserve">
+    <value>You are using local installation of Graphviz, so make sure the graphviz folder with all the executables is present</value>
+  </data>
+  <data name="Systemwise_Graphviz_Error_Hint" xml:space="preserve">
+    <value>You are using system installation of Graphviz, so make sure graphviz package is installed on your system</value>
+  </data>
 </root>

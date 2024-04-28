@@ -13,6 +13,7 @@ using Avalonia.Styling;
 using DFD.AvaloniaEditor.Assets;
 using DFD.AvaloniaEditor.Services;
 using DFD.AvaloniaEditor.ViewModels;
+using DFD.GraphvizConverter;
 using DFD.Parsing;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
@@ -30,16 +31,35 @@ public partial class MainView : UserControl
         InitializeComponent();
     }
 
-    private void RecompileGraph_Clicked(object? sender, RoutedEventArgs e)
+    private async void RecompileGraph_Clicked(object? sender, RoutedEventArgs e)
     {
         RecompileGraph();
     }
 
-    private void RecompileGraph()
+    private async void ShowErrorBox(GraphvizErrorException error)
+    {
+        string hint = error.Type == GraphvizErrorException.InstallationType.Local ? Lang.Local_Graphviz_Error_Hint : Lang.Systemwise_Graphviz_Error_Hint;
+        var box = MessageBoxManager.GetMessageBoxStandard(Lang.Info, Lang.Graphviz_Error + ". " + hint + ".\n\n" + error.ToString());
+        await box.ShowAsync();
+    }
+
+    private async void ReconstructGraph()
     {
         try
         {
-            ErrorTextBlock.Text = String.Empty;
+            ViewModel.GraphViewModel.ReconstructGraph();
+        }
+        catch (GraphvizErrorException ex)
+        {
+            ShowErrorBox(ex);
+        }
+    }
+
+    private async void RecompileGraph()
+    {
+        try
+        {
+            ErrorTextBlock.Text = string.Empty;
             ViewModel.GraphViewModel.RecompileGraph();
         }
         catch (DfdInterpreterException interpreterException)
@@ -47,11 +67,15 @@ public partial class MainView : UserControl
             ErrorTextBlock.Text =
                 $"{interpreterException.Inner.Message}\nLine: {interpreterException.Line}\nStatement: {interpreterException.Statement}";
         }
+        catch (GraphvizErrorException error)
+        {
+            ShowErrorBox(error);
+        }
     }
 
     private void RefreshGraph_Clicked(object? sender, RoutedEventArgs e)
     {
-        ViewModel.GraphViewModel.ReconstructGraph();
+        ReconstructGraph();
     }
 
     private void CollapseAllNodes_Clicked(object? sender, RoutedEventArgs e)
@@ -60,8 +84,7 @@ public partial class MainView : UserControl
         {
             avaloniaVisualNode.Node.Collapsed = true;
         }
-
-        ViewModel.GraphViewModel.ReconstructGraph();
+        ReconstructGraph();
     }
 
     private async void OpenFile_Clicked(object? sender, RoutedEventArgs e)
