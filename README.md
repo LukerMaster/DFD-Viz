@@ -26,10 +26,3 @@ will produce:
 - Exporting diagrams to png files
 ## Program is currently in very early stages of production
 Things may break and be incompatible across versions.
-### Technical Components
-DFD-Viz is composed of:
-- DFD-Script (declarative language for defining graphs)
-- Interpreter (an interpreter implementation as a DLL)
-- DFD-Vizualizer (a simple cross-platform DFD graph viewer written using SFML.NET)
-- DFD.Avalonia.Editor (an editor designed to work with DFD-Script in real-time)
-
