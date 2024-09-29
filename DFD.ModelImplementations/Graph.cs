@@ -30,8 +30,8 @@ public class Graph<T> : IGraph<T>
             {
                 BiDirectional = flow.BiDirectional,
                 FlowName = flow.FlowName,
-                SourceNodeName = flow.SourceNodeName,
-                TargetNodeName = flow.TargetNodeName
+                SourceNodeName = flow.Source,
+                TargetNodeName = flow.Target
             });
         }
 

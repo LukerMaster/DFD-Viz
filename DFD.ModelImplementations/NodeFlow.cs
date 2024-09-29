@@ -3,10 +3,10 @@ using DFD.Model.Interfaces;
 
 namespace DFD.ModelImplementations
 {
-    public class NodeFlow : INodeFlow
+    public class NodeFlow<T> : INodeFlow
     {
-        public string SourceNodeName { get; set; }
-        public string TargetNodeName { get; set; }
+        public T SourceNodeName { get; set; }
+        public T TargetNodeName { get; set; }
         public bool BiDirectional { get; set; }
         public string FlowName { get; set; }
     }

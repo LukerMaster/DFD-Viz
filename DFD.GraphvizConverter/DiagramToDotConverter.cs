@@ -90,7 +90,7 @@ namespace DFD.GraphvizConverter
             {
                 var attribute = flow.BiDirectional ? BiDirectionalAttribute : String.Empty;
 
-                code += $"{flow.SourceNodeName.Replace('.', '_')} -> {flow.TargetNodeName.Replace('.', '_')} [label=\"{flow.FlowName}\"] {attribute}; \n";
+                code += $"{flow.Source.Replace('.', '_')} -> {flow.Target.Replace('.', '_')} [label=\"{flow.FlowName}\"] {attribute}; \n";
             }
 
             code += " } \n";
@@ -107,8 +107,8 @@ namespace DFD.GraphvizConverter
                 {
                     BiDirectional = logicalGraphFlow.BiDirectional,
                     FlowName = logicalGraphFlow.FlowName,
-                    SourceNodeName = logicalGraphFlow.SourceNodeName,
-                    TargetNodeName = logicalGraphFlow.TargetNodeName
+                    SourceNodeName = logicalGraphFlow.Source,
+                    TargetNodeName = logicalGraphFlow.Target
                 };
 
                 foreach (var nodeName in collapsedNodesList)

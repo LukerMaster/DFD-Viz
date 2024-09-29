@@ -20,7 +20,7 @@ class TestCliProgram
 
         foreach (var flow in graph.Flows)
         {
-            Console.WriteLine($"Flow {flow.SourceNodeName} --> {flow.TargetNodeName}");
+            Console.WriteLine($"Flow {flow.Source} --> {flow.Target}");
         }
 
         var multilevelGraph = new MultilevelGraphConverter().ToMultilevelGraph(graph);
