@@ -2,7 +2,7 @@
 
 namespace DFD.Parsing.Interfaces;
 
-public interface IInterpreter
+public interface IInterpreter<T> where T : INodeData
 {
-    IGraph<INodeData> ToDiagram(string dfdString);
+    IGraph<T> ToDiagram(string dfdString);
 }

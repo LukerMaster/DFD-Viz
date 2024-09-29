@@ -8,11 +8,11 @@ class TestCliProgram
     static void Main()
     {
         
-        Interpreter interpreter = new Interpreter(new NodeDataFactory());
+        Interpreter<ICollapsibleNodeData> interpreter = new(new NodeDataFactory());
 
         var dfdString = File.ReadAllText("documentation.dfd");
 
-        IGraph<INodeData> graph = interpreter.ToDiagram(dfdString);
+        IGraph<ICollapsibleNodeData> graph = interpreter.ToDiagram(dfdString);
 
         foreach (var child in graph.Root.Children)
         {
@@ -24,8 +24,8 @@ class TestCliProgram
             Console.WriteLine($"Flow {flow.Source} --> {flow.Target}");
         }
 
-        var multilevelGraph = new MultilevelGraphConverter().ToMultilevelGraph(graph);
-        var visualGraph = new VisualGraphCreator(new GraphvizRunnerFactory(Environment.OSVersion.Platform).CreateRunner()).GetVisualGraph(multilevelGraph);
+        new MultilevelGraphPreparator().TweakCollapsability(graph);
+        var visualGraph = new VisualGraphCreator(new GraphvizRunnerFactory(Environment.OSVersion.Platform).CreateRunner()).GetVisualGraph(graph);
 
 
         Console.WriteLine("END");

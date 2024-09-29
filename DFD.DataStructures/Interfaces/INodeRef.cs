@@ -136,8 +136,7 @@
                     stack.Push(currentNode);
                 }
             }
-
-            return stack.Peek();
+            return stack.Count > 0 ? stack.Peek() : null;
         }
 
         public int GetAncestorCount()

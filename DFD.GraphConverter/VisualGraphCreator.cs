@@ -13,7 +13,7 @@ namespace DFD.GraphConverter
 
         private JsonToGraphParser jsonToGraphParser = new JsonToGraphParser();
 
-        private MultilevelGraphConverter _multilevelGraphConverter = new MultilevelGraphConverter();
+        private MultilevelGraphPreparator _multilevelGraphPreparator = new MultilevelGraphPreparator();
 
         public VisualGraphCreator(GraphvizRunner runner)
         {

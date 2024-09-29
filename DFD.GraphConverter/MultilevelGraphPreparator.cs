@@ -4,21 +4,18 @@ using DFD.GraphConverter.Interfaces;
 
 namespace DFD.GraphConverter;
 
-public class MultilevelGraphConverter : IMultilevelGraphConverter
+public class MultilevelGraphPreparator : IMultilevelGraphPreparator
 {
-    public IGraph<ICollapsibleNodeData> ToMultilevelGraph(IGraph<INodeData> graph)
+    public void TweakCollapsability(IGraph<ICollapsibleNodeData> graph)
     {
-        IGraph<ICollapsibleNodeData> multilevelGraph = (IGraph<ICollapsibleNodeData>)graph;
-
-        // Top level node (root) shouldn't be collapsable.
-        multilevelGraph.Root.Data.Collapsible = false;
+        // Top level node (root) shouldn't be collapsible.
+        graph.Root.Data.Collapsible = false;
         // Don't show the root node on the graph.
-        multilevelGraph.Root.Data.IsHiddenAsParent = true;
-
+        graph.Root.Data.IsHiddenAsParent = true;
 
         var queue = new Queue<INodeRef<ICollapsibleNodeData>>();
 
-        foreach (var rootChild in multilevelGraph.Root.Children) 
+        foreach (var rootChild in graph.Root.Children) 
             queue.Enqueue(rootChild);
 
         while (queue.Count > 0)
@@ -35,8 +32,5 @@ public class MultilevelGraphConverter : IMultilevelGraphConverter
                 queue.Enqueue(child);
             }
         }
-
-
-        return multilevelGraph;
     }
 }

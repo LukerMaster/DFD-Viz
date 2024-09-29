@@ -4,27 +4,27 @@ using DFD.Parsing.Interfaces;
 
 namespace DFD.Parsing;
 
-internal class InterpreterRunData
+internal class InterpreterRunData<T> where T : INodeData
 {
     protected INodeDataFactory DataFactory { get; }
 
-    public INodeRef<INodeData> CurrentScopeNode { get; set; }
+    public INodeRef<T> CurrentScopeNode { get; set; }
     public int CurrentScopeLevel { get; set; }
 
-    public INodeRef<INodeData> Root { get; }
+    public INodeRef<T> Root { get; }
 
     public InterpreterRunData(INodeDataFactory dataFactory)
     {
         DataFactory = dataFactory;
-        CurrentScopeNode = new Node<INodeData>()
+        CurrentScopeNode = new Node<T>()
         {
             Name = "root",
-            Data = DataFactory.CreateData("Graph Root", NodeType.Process)
+            Data = (T)DataFactory.CreateData("Graph Root", NodeType.Process)
         };
         Root = CurrentScopeNode;
     }
 
-    public void RaiseScope(INodeRef<INodeData> newChild)
+    public void RaiseScope(INodeRef<T> newChild)
     {
         CurrentScopeNode = newChild;
         CurrentScopeLevel++;

@@ -5,7 +5,7 @@ using DFD.Parsing.Interfaces;
 
 namespace DFD.Parsing;
 
-internal class GraphObjectParser
+internal class GraphObjectParser<T> where T : INodeData
 {
     public GraphObjectParser(INodeDataFactory dataFactory)
     {
@@ -21,9 +21,9 @@ internal class GraphObjectParser
         { "IO", NodeType.InputOutput },
     };
 
-    public INodeRef<INodeData> TryParseNode(string line, INode<INodeData> currentParent)
+    public INodeRef<T> TryParseNode(string line, INode<T> currentParent)
     {
-        INodeRef<INodeData>? node = null;
+        INodeRef<T>? node = null;
 
         // Split by any amount of whitespace
         var definition = SplitByWhitespace(line);
@@ -40,7 +40,7 @@ internal class GraphObjectParser
         {
             try
             {
-                currentParent.AddChild(DataFactory.CreateData(displayedName.Trim('"'), type), nodeName);
+                node = currentParent.AddChild((T)DataFactory.CreateData(displayedName.Trim('"'), type), nodeName);
             }
             catch (SameFullNodeNameException e)
             {
@@ -74,9 +74,9 @@ internal class GraphObjectParser
         return result;
     }
 
-    public IFlow<INodeData> TryParseFlow(string statement, INodeRef<INodeData> currentParent)
+    public IFlow<T> TryParseFlow(string statement, INodeRef<T> currentParent)
     {
-        IFlow<INodeData>? flow = null;
+        IFlow<T>? flow = null;
 
         var definition = SplitByWhitespace(statement);
 
@@ -94,11 +94,11 @@ internal class GraphObjectParser
             var target = currentParent.FindMatchingNode(nodeNameB, leavesOnly: true);
 
             if (source.Children.Count > 0)
-                throw new ProcessWithChildrenConnectedException<INodeData>(source);
+                throw new ProcessWithChildrenConnectedException<T>(source);
             if (source.Children.Count > 0)
-                throw new ProcessWithChildrenConnectedException<INodeData>(target);
+                throw new ProcessWithChildrenConnectedException<T>(target);
 
-            flow = new Flow<INodeData>()
+            flow = new Flow<T>()
             {
                 Source = source,
                 Target = target,

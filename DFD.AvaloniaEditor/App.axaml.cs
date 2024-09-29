@@ -9,6 +9,7 @@ using DFD.AvaloniaEditor.Interfaces;
 using DFD.AvaloniaEditor.Services;
 using DFD.AvaloniaEditor.ViewModels;
 using DFD.AvaloniaEditor.Views;
+using DFD.DataStructures.Interfaces;
 using DFD.GraphConverter;
 using DFD.GraphConverter.Interfaces;
 using DFD.GraphvizConverter;
@@ -37,13 +38,13 @@ public partial class App : Application
 
         INodeDataFactory dataFactory = new NodeDataFactory();
 
-        IInterpreter interpreter = new Interpreter(dataFactory);
+        IInterpreter<ICollapsibleNodeData> interpreter = new Interpreter<ICollapsibleNodeData>(dataFactory);
 
-        IMultilevelGraphConverter converter = new MultilevelGraphConverter();
+        IMultilevelGraphPreparator preparator = new MultilevelGraphPreparator();
 
         IVisualGraphCreator creator = new VisualGraphCreator(new GraphvizRunnerFactory(Environment.OSVersion.Platform).CreateRunner());
 
-        IVisualGraphGenerationPipeline generationPipeline = new VisualGraphGenerationPipeline(interpreter, converter, creator, codeProvider);
+        IVisualGraphGenerationPipeline generationPipeline = new VisualGraphGenerationPipeline(interpreter, preparator, creator, codeProvider);
         
         // Classic way of doing IoC results in circular dependency so creation of this object needs to be broken up
         GraphFileStorageService storageService = new GraphFileStorageService();

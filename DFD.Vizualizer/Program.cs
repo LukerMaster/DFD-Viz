@@ -18,9 +18,9 @@ namespace DFD.Vizualizer
             bool shouldRun = true;
             window.Closed += (sender, eventArgs) => shouldRun = false;
 
-            Parsing.Interpreter interpreter = new Parsing.Interpreter(new NodeDataFactory());
-            MultilevelGraphConverter converter = new MultilevelGraphConverter();
-            LogicalGraphLoader loader = new LogicalGraphLoader(interpreter, converter);
+            Parsing.Interpreter<ICollapsibleNodeData> interpreter = new(new NodeDataFactory());
+            MultilevelGraphPreparator preparator = new MultilevelGraphPreparator();
+            LogicalGraphLoader loader = new LogicalGraphLoader(interpreter, preparator);
 
             IGraph<ICollapsibleNodeData> logicalGraph = null;
             IProgramUI ui = null;
