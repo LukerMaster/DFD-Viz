@@ -20,15 +20,15 @@ namespace DFD.Parsing
         {
             {
                 StatementType.SimpleNodeDeclaration,
-                new Regex("^\\s*[a-zA-Z][a-zA-Z0-9]*\\s+[a-zA-Z][a-zA-Z0-9]*(?:\\s+\"[^\"]*\")?$")
+                new Regex("^\\s*[a-zA-Z][a-zA-Z0-9]*\\s+[a-zA-Z][a-zA-Z0-9_]*(?:\\s+\"[^\"]*\")?$")
             },
             {
                 StatementType.FlowDeclaration,
-                new Regex("^\\s*[a-zA-Z][a-zA-Z0-9.]*\\s+(?:<->|-->) [a-zA-Z][a-zA-Z0-9.]*(?:\\s+\"[^\"]*\")?$")
+                new Regex("^\\s*[a-zA-Z][a-zA-Z0-9_.]*\\s+(?:<->|-->) [a-zA-Z][a-zA-Z0-9_.]*(?:\\s+\"[^\"]*\")?$")
             },
             {
                 StatementType.NestedProcessDeclaration,
-                new Regex("^\\s*[a-zA-Z][a-zA-Z0-9]*\\s+[a-zA-Z][a-zA-Z0-9]*(?:\\s+\"[^\"]*\")?:$")
+                new Regex("^\\s*[a-zA-Z][a-zA-Z0-9]*\\s+[a-zA-Z][a-zA-Z0-9_]*(?:\\s+\"[^\"]*\")?:$")
             }
         };
 
