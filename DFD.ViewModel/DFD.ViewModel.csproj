@@ -6,6 +6,5 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFD.DataStructures\DFD.DataStructures.csproj" />
-    <ProjectReference Include="..\DFD.Model\DFD.Model.csproj" />
   </ItemGroup>
 </Project>

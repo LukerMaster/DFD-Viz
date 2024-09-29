@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using DFD.Model.Interfaces;
 
 namespace DFD.ViewModel.Interfaces
 {

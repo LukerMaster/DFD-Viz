@@ -1,6 +1,4 @@
 ﻿using System;
-using Avalonia;
-using DataStructure.NamedTree;
 using DFD.AvaloniaEditor.Interfaces;
 using DFD.GraphConverter.Interfaces;
 using DFD.Parsing.Interfaces;

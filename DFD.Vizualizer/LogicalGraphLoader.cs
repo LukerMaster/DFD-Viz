@@ -1,6 +1,5 @@
-﻿using DFD.GraphConverter;
-using DFD.Model.Interfaces;
-using DFD.ViewModel.Interfaces;
+﻿using DFD.DataStructures.Interfaces;
+using DFD.GraphConverter;
 
 namespace DFD.Vizualizer;
 
@@ -15,7 +14,7 @@ public class LogicalGraphLoader
         _converter = converter;
     }
 
-    public IGraph<IMultilevelGraphNode> GetLogicalGraph(string filePath)
+    public IGraph<ICollapsibleNodeData> GetLogicalGraph(string filePath)
     {
         var dfdCode = File.ReadAllText(filePath);
         var rawGraph = _interpreter.ToDiagram(dfdCode);

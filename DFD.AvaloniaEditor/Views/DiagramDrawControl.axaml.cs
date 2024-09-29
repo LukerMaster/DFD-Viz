@@ -1,14 +1,9 @@
-using System.Diagnostics;
-using System.IO;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
 using DFD.AvaloniaEditor.ViewModels;
 using DFD.AvaloniaEditor.ViewModels.AvaloniaGraph;
-using DFD.ViewModel.Interfaces;
 
 namespace DFD.AvaloniaEditor.Views
 {

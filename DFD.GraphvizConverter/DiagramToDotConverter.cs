@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using DFD.DataStructures.Implementations;
+﻿using DFD.DataStructures.Implementations;
 using DFD.DataStructures.Interfaces;
-using DFD.Model.Interfaces;
-using DFD.ViewModel.Interfaces;
 using ICollapsibleNodeData = DFD.DataStructures.Interfaces.ICollapsibleNodeData;
 using NodeType = DFD.DataStructures.Interfaces.NodeType;
 

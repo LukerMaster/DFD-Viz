@@ -1,6 +1,4 @@
-﻿using DataStructure.NamedTree;
-
-namespace DFD.Model.Interfaces;
+﻿namespace DFD.Model.Interfaces;
 
 /// <summary>
 /// Represents a flow of data between two objects

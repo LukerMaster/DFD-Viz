@@ -1,12 +1,9 @@
-﻿using Avalonia.Controls;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Avalonia.Platform.Storage;
 using System;
 using Avalonia.Media.Imaging;
 using DFD.AvaloniaEditor.Assets;
-using Avalonia;
-using DFD.AvaloniaEditor.Views;
 
 namespace DFD.AvaloniaEditor.Services;
 

@@ -1,5 +1,4 @@
-﻿using DFD.GraphConverter.ViewModelImplementation;
-using DFD.ViewModel.Interfaces;
+﻿using DFD.ViewModel.Interfaces;
 using SFML.Graphics;
 using SFML.System;
 using System.Numerics;

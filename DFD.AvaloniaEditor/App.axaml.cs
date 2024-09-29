@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -36,7 +35,9 @@ public partial class App : Application
 
         IDfdCodeStringProvider codeProvider = new DfdCodeStringProvider();
 
-        IInterpreter interpreter = new Interpreter();
+        INodeDataFactory dataFactory = new NodeDataFactory();
+
+        IInterpreter interpreter = new Interpreter(dataFactory);
 
         IMultilevelGraphConverter converter = new MultilevelGraphConverter();
 

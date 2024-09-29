@@ -1,17 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Reflection.Metadata;
-using System.Threading.Tasks;
-using Avalonia.Controls;
+﻿using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
-using Avalonia.Styling;
-using DFD.AvaloniaEditor.Assets;
 using DFD.AvaloniaEditor.Interfaces;
 using DFD.AvaloniaEditor.Services;
-using DFD.GraphConverter.Interfaces;
-using DFD.Parsing.Interfaces;
-using DFD.ViewModel.Interfaces;
 
 namespace DFD.AvaloniaEditor.ViewModels;
 
