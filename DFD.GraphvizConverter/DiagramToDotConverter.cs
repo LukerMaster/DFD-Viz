@@ -1,28 +1,30 @@
 ﻿using System.Collections;
-using DataStructure.NamedTree;
+using DFD.DataStructures.Implementations;
+using DFD.DataStructures.Interfaces;
 using DFD.Model.Interfaces;
-using DFD.ModelImplementations;
 using DFD.ViewModel.Interfaces;
+using ICollapsibleNodeData = DFD.DataStructures.Interfaces.ICollapsibleNodeData;
+using NodeType = DFD.DataStructures.Interfaces.NodeType;
 
 namespace DFD.GraphvizConverter
 {
     public class DiagramToDotConverter
     {
         private readonly string BiDirectionalAttribute = "[dir=both]";
-        private string RepresentNode(ITreeNode<IMultilevelGraphNode> node, string code, bool useDisplayNames = false)
+        private string RepresentNode(INodeRef<ICollapsibleNodeData> node, string code, bool useDisplayNames = false)
         {
             if (node.Children.Count > 0 && !node.Data.Collapsed)
             {
                 if (node.Data.IsHiddenAsParent)
                 {
-                    code += $"subgraph {node.FullNodeName.Replace('.', '_')} \n" +
+                    code += $"subgraph {node.HexHash} \n" +
                             $"{{ peripheries=0 \n " +
                             $"cluster=True \n";
                 }
                 else
                 {
-                    code += $"subgraph {node.FullNodeName.Replace('.', '_')} \n" +
-                            $"{{ label=\"{node.Data.Data.Name}\" \n " +
+                    code += $"subgraph {node.HexHash} \n" +
+                            $"{{ label=\"{node.Data.DisplayedName}\" \n " +
                             $"peripheries=1 \n" +
                             $"cluster=True \n";
                 }
@@ -36,88 +38,60 @@ namespace DFD.GraphvizConverter
             else
             {
                 var formatting = String.Empty;
-                switch (node.Data.Data.Type)
+                switch (node.Data.Type)
                 {
                     case NodeType.Process:
-                        formatting = $"[label=\"{node.Data.Data.Name}\", shape=cds]";
+                        formatting = $"[label=\"{node.Data.DisplayedName}\", shape=cds]";
                         break;
                     case NodeType.Storage:
-                        formatting = $"[label=\"{node.Data.Data.Name}\",shape=cylinder]";
+                        formatting = $"[label=\"{node.Data.DisplayedName}\",shape=cylinder]";
                         break;
                     case NodeType.InputOutput:
-                        formatting = $"[label=\"{node.Data.Data.Name}\",style=rounded, shape=box]";
+                        formatting = $"[label=\"{node.Data.DisplayedName}\",style=rounded, shape=box]";
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                code += $"{node.FullNodeName.Replace('.', '_')} {formatting}; \n";
+                code += $"{node.HexHash} {formatting}; \n";
             }
             return code;
         }
 
-        private void CheckIfSubtreeHasCollapsedChildren(ITreeNode<IMultilevelGraphNode> node,
-            ICollection<string> currentList)
+        public string ToDot(DataStructures.Interfaces.IGraph<ICollapsibleNodeData> graph)
         {
-            if (node.Data.Collapsed)
-            {
-                currentList.Add(node.FullNodeName);
-            }
-            else
-            {
-                foreach (var childNode in node.Children)
-                {
-                    CheckIfSubtreeHasCollapsedChildren(childNode, currentList);
-                }
-            }
-        }
-
-        private ICollection<string> GetAllNodeNamesWithCollapsedChildren(ITreeNode<IMultilevelGraphNode> node)
-        {
-            ICollection<string> collapsedList = new List<string>();
-            CheckIfSubtreeHasCollapsedChildren(node, collapsedList);
-            return collapsedList;
-        }
-
-        public string ToDot(IGraph<IMultilevelGraphNode> graph)
-        {
-            ICollection<string> collapsedNodesList = GetAllNodeNamesWithCollapsedChildren(graph.Root);
-
-            var flowsInVisualGraph = CreateRedirectedFlowsIfNodesAreCollapsed(graph.Flows, collapsedNodesList);
+            var flowsInVisualGraph = CreateRedirectedFlowsIfNodesAreCollapsed(graph.Flows);
 
             string code = "digraph { ";
             code = RepresentNode(graph.Root, code);
             foreach (var flow in flowsInVisualGraph)
             {
-                var attribute = flow.BiDirectional ? BiDirectionalAttribute : String.Empty;
+                var attribute = flow.IsBidirectional ? BiDirectionalAttribute : String.Empty;
 
-                code += $"{flow.Source.Replace('.', '_')} -> {flow.Target.Replace('.', '_')} [label=\"{flow.FlowName}\"] {attribute}; \n";
+                code += $"{flow.Source.HexHash} -> {flow.Target.HexHash} [label=\"{flow.Name}\"] {attribute}; \n";
             }
 
             code += " } \n";
             return code;
         }
 
-        private static ICollection<INodeFlow> CreateRedirectedFlowsIfNodesAreCollapsed(IReadOnlyCollection<INodeFlow> logicalFlows, ICollection<string> collapsedNodesList)
+        private static ICollection<IFlowRef<ICollapsibleNodeData>> CreateRedirectedFlowsIfNodesAreCollapsed(IReadOnlyCollection<IFlow<ICollapsibleNodeData>> logicalFlows)
         {
-            ICollection<INodeFlow> flowsInVisualGraph = new List<INodeFlow>();
+            ICollection<IFlowRef<ICollapsibleNodeData>> flowsInVisualGraph = new List<IFlowRef<ICollapsibleNodeData>>();
 
             foreach (var logicalGraphFlow in logicalFlows)
             {
-                var newFlow = new NodeFlow()
+                var newFlow = new Flow<ICollapsibleNodeData>()
                 {
-                    BiDirectional = logicalGraphFlow.BiDirectional,
-                    FlowName = logicalGraphFlow.FlowName,
-                    SourceNodeName = logicalGraphFlow.Source,
-                    TargetNodeName = logicalGraphFlow.Target
+                    IsBidirectional = logicalGraphFlow.IsBidirectional,
+                    Name = logicalGraphFlow.Name,
+                    Source = logicalGraphFlow.Source,
+                    Target = logicalGraphFlow.Target
                 };
 
-                foreach (var nodeName in collapsedNodesList)
-                {
-                    if (newFlow.SourceNodeName.StartsWith(nodeName))
-                        newFlow.SourceNodeName = nodeName;
-                    if (newFlow.TargetNodeName.StartsWith(nodeName))
-                        newFlow.TargetNodeName = nodeName;
-                }
+                if (newFlow.Source.FindEarliestAncestorThatMatches(d => d.Collapsible && d.Collapsed) is var srcAncestor && srcAncestor is not null)
+                    newFlow.Source = srcAncestor;
+                if (newFlow.Target.FindEarliestAncestorThatMatches(d => d.Collapsible && d.Collapsed) is var tgtAncestor && tgtAncestor is not null)
+                    newFlow.Target = tgtAncestor;
 
                 flowsInVisualGraph.Add(newFlow);
             }

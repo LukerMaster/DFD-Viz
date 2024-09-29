@@ -1,9 +1,8 @@
-﻿using DFD.Model.Interfaces;
-using DFD.ViewModel.Interfaces;
+﻿using DFD.DataStructures.Interfaces;
 
 namespace DFD.GraphConverter.Interfaces;
 
 public interface IMultilevelGraphConverter
 {
-    IGraph<IMultilevelGraphNode> ToMultilevelGraph(IGraph<IGraphNodeData> graph);
+    IGraph<ICollapsibleNodeData> ToMultilevelGraph(IGraph<INodeData> graph);
 }

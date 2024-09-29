@@ -1,13 +1,14 @@
 ﻿using System.Text.RegularExpressions;
-using DataStructure.NamedTree;
-using DFD.Model.Interfaces;
-using DFD.ModelImplementations;
+using DFD.DataStructures.Implementations;
+using DFD.DataStructures.Interfaces;
 using DFD.Parsing.Interfaces;
 
 namespace DFD.Parsing
 {
     public class Interpreter : IInterpreter
     {
+        protected INodeDataFactory DataFactory { get; }
+
         private enum StatementType
         {
             SimpleNodeDeclaration,
@@ -32,41 +33,41 @@ namespace DFD.Parsing
         };
 
         private readonly CodeSanitizer _codeSanitizer = new CodeSanitizer();
-        private readonly GraphObjectParser _objectParser = new GraphObjectParser();
+        private readonly GraphObjectParser _objectParser;
 
-        public IGraph<IGraphNodeData> ToDiagram(string dfdString)
+        public Interpreter(INodeDataFactory dataFactory)
+        {
+            DataFactory = dataFactory;
+            _objectParser = new GraphObjectParser(DataFactory);
+        }
+
+        public IGraph<INodeData> ToDiagram(string dfdString)
         {
             var statements = _codeSanitizer.PrepareAsCode(dfdString);
-            var nodes = new List<ITreeNode<IGraphNodeData>>();
-            var flows = new List<INodeFlow>();
+            var flows = new List<IFlow<INodeData>>();
 
-            InterpreterRunData runData = new InterpreterRunData();
+            InterpreterRunData runData = new InterpreterRunData(DataFactory);
             
-
             foreach (var codeLine in statements)
             {
                 try
                 {
                     SetCorrectScopeLevel(runData, codeLine.Statement);
 
-                    ITreeNode<IGraphNodeData>? newNode = null;
+                    INodeRef<INodeData>? newNode = null;
 
                     // Creation of basic nodes.
                     if (_regexes[StatementType.SimpleNodeDeclaration].Match(codeLine.Statement).Success)
                     {
-                        newNode = _objectParser.TryParseNode(codeLine.Statement,
-                            (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
-                        nodes.Add(newNode);
+                        newNode = _objectParser.TryParseNode(codeLine.Statement, (INode<INodeData>)runData.CurrentScopeNode);
                         continue;
                     }
 
                     // Creation of nested nodes.
                     if (_regexes[StatementType.NestedProcessDeclaration].Match(codeLine.Statement).Success)
                     {
-                        newNode = _objectParser.TryParseNode(codeLine.Statement.TrimEnd(':'),
-                            (runData.CurrentScopeNode as IModifiableTreeNode<IGraphNodeData>)!);
+                        newNode = _objectParser.TryParseNode(codeLine.Statement.TrimEnd(':'), (INode<INodeData>)runData.CurrentScopeNode);
                         runData.RaiseScope(newNode);
-                        nodes.Add(newNode);
                         continue;
                     }
 
@@ -89,7 +90,7 @@ namespace DFD.Parsing
                     throw new DfdInterpreterException(codeLine.Statement, codeLine.LineNumber, new Exception($"Unknown error occured. Inner exception:\n{e.Message}"));
                 }
             }
-            return new Graph<IGraphNodeData>(nodes.First().Root, flows);
+            return new Graph<INodeData>((INode<INodeData>)runData.Root, flows);
         }
 
         private void SetCorrectScopeLevel(InterpreterRunData runData, string statement)

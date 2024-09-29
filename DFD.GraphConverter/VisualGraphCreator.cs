@@ -1,6 +1,6 @@
-﻿using DFD.GraphConverter.Interfaces;
+﻿using DFD.DataStructures.Interfaces;
+using DFD.GraphConverter.Interfaces;
 using DFD.GraphvizConverter;
-using DFD.Model.Interfaces;
 using DFD.ViewModel.Interfaces;
 
 namespace DFD.GraphConverter
@@ -20,7 +20,7 @@ namespace DFD.GraphConverter
             this.runner = runner;
         }
 
-        public IVisualGraph GetVisualGraph(IGraph<IMultilevelGraphNode> logicalGraph)
+        public IVisualGraph GetVisualGraph(IGraph<ICollapsibleNodeData> logicalGraph)
         {
             string dotCode = dotConverter.ToDot(logicalGraph);
             string json = runner.GetGraphAsJson(dotCode);

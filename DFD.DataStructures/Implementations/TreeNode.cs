@@ -68,7 +68,7 @@ namespace DFD.DataStructures.Implementations
             {
                 if (AreThereSiblingsWithSameName(value))
                 {
-                    throw new SameFullNodeNameException();
+                    throw new SameFullNodeNameException(value);
                 }
                 else
                 {
@@ -95,21 +95,6 @@ namespace DFD.DataStructures.Implementations
             }
 
             return false;
-        }
-
-        public INodeRef<TNew> CopySubtreeAs<TNew>(Func<T, TNew> dataConversionFunc, INodeRef<TNew> newParent)
-        {
-            Node<TNew> newNode = new Node<TNew>()
-            {
-                Parent = newParent,
-                Data = dataConversionFunc(Data),
-                Name = Name,
-            };
-            foreach (var child in Children)
-            {
-                newNode._children.Add((INode<TNew>)child.CopySubtreeAs(dataConversionFunc, newNode));
-            }
-            return newNode;
         }
     }
 }

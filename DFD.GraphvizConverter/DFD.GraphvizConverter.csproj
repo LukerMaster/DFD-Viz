@@ -8,8 +8,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataStructure.NamedTree\DataStructure.NamedTree.csproj" />
-    <ProjectReference Include="..\DFD.ModelImplementations\DFD.ModelImplementations.csproj" />
+    <ProjectReference Include="..\DFD.DataStructures\DFD.DataStructures.csproj" />
     <ProjectReference Include="..\DFD.ViewModel\DFD.ViewModel.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿using DataStructure.NamedTree;
+﻿using DFD.DataStructures.Interfaces;
 
 namespace DFD.Parsing;
 
@@ -33,8 +33,8 @@ internal class InvalidNodeTypeException : DfdException
 }
 internal class ProcessWithChildrenConnectedException<T> : DfdException
 {
-    public ProcessWithChildrenConnectedException(ITreeNode<T> process) 
-        : base($"Cannot create flow from (or to) a process containing subprocesses. {process.FullNodeName} contains subprocesses.")
+    public ProcessWithChildrenConnectedException(INodeRef<T> process) 
+        : base($"Cannot create flow from (or to) a process containing subprocesses. {process.FullPath} contains subprocesses.")
     {
 
     }
@@ -59,8 +59,8 @@ internal class IndentationTooBigException : DfdException
 
 internal class FlowWithAmbiguousNodeException<T> : DfdException
 {
-    public FlowWithAmbiguousNodeException(string nodeName, ITreeNode<T>[] candidates)
-        : base($"Flow with ambiguous node: '{nodeName}' declared. Valid candidates are: {string.Join("; ", candidates.Select(c => c.FullNodeName))}")
+    public FlowWithAmbiguousNodeException(string nodeName, INodeRef<T>[] candidates)
+        : base($"Flow with ambiguous node: '{nodeName}' declared. Valid candidates are: {string.Join("; ", candidates.Select(c => c.FullPath))}")
     {
 
     }

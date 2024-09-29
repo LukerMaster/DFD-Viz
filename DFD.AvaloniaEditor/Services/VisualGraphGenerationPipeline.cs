@@ -6,7 +6,8 @@ using DFD.GraphConverter.Interfaces;
 using DFD.Parsing.Interfaces;
 using DFD.ViewModel.Interfaces;
 using System.Collections.Generic;
-using DFD.Model.Interfaces;
+using DFD.DataStructures.Interfaces;
+using ICollapsibleNodeData = DFD.DataStructures.Interfaces.ICollapsibleNodeData;
 
 namespace DFD.AvaloniaEditor.Services;
 
@@ -18,7 +19,7 @@ public class VisualGraphGenerationPipeline : IVisualGraphGenerationPipeline
     private readonly IDfdCodeStringProvider _dfdCodeProvider;
 
 
-    private IGraph<IMultilevelGraphNode> _logicalGraph;
+    private IGraph<ICollapsibleNodeData> _logicalGraph;
     private IVisualGraph _visualGraph;
     
     public VisualGraphGenerationPipeline(IInterpreter interpreter, IMultilevelGraphConverter converter, IVisualGraphCreator graphCreator, IDfdCodeStringProvider dfdCodeProvider)
@@ -77,15 +78,15 @@ public class VisualGraphGenerationPipeline : IVisualGraphGenerationPipeline
         }
     }
 
-    public void ExecuteOnNode(string nodeName, Action<IMultilevelGraphNode> command)
+    public void ExecuteOnNode(string nodeName, Action<ICollapsibleNodeData> command)
     {
-        Queue<ITreeNode<IMultilevelGraphNode>> nodes = new Queue<ITreeNode<IMultilevelGraphNode>>();
+        Queue<INodeRef<ICollapsibleNodeData>> nodes = new();
         
         nodes.Enqueue(_logicalGraph.Root);
         while (nodes.Count > 0)
         {
             var node = nodes.Dequeue();
-            if (node.FullNodeName == nodeName)
+            if (node.FullPath == nodeName)
             {
                 command(node.Data);
                 break;

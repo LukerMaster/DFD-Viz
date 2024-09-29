@@ -1,9 +1,9 @@
-﻿using DFD.Model.Interfaces;
+﻿using DFD.DataStructures.Interfaces;
 using DFD.ViewModel.Interfaces;
 
 namespace DFD.GraphConverter.Interfaces;
 
 public interface IVisualGraphCreator
 {
-    IVisualGraph GetVisualGraph(IGraph<IMultilevelGraphNode> logicalGraph);
+    IVisualGraph GetVisualGraph(IGraph<ICollapsibleNodeData> logicalGraph);
 }

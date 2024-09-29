@@ -1,28 +1,22 @@
-﻿using DataStructure.NamedTree;
+﻿
+using DFD.DataStructures.Interfaces;
 using DFD.GraphConverter.Interfaces;
-using DFD.Model.Interfaces;
-using DFD.ViewModel.Interfaces;
 
 namespace DFD.GraphConverter;
 
 public class MultilevelGraphConverter : IMultilevelGraphConverter
 {
-    public IGraph<IMultilevelGraphNode> ToMultilevelGraph(IGraph<IGraphNodeData> graph)
+    public IGraph<ICollapsibleNodeData> ToMultilevelGraph(IGraph<INodeData> graph)
     {
-        IGraph<IMultilevelGraphNode> multilevelGraph =
-            graph.CopyGraphAs<IMultilevelGraphNode>(data => new MultilevelGraphNode()
-            {
-                Data = data,
-                Collapsed = false
-            });
+        IGraph<ICollapsibleNodeData> multilevelGraph = (IGraph<ICollapsibleNodeData>)graph;
 
         // Top level node (root) shouldn't be collapsable.
-        (multilevelGraph.Root.Data as MultilevelGraphNode).Collapsible = false;
+        multilevelGraph.Root.Data.Collapsible = false;
         // Don't show the root node on the graph.
-        (multilevelGraph.Root.Data as MultilevelGraphNode).IsHiddenAsParent = true;
+        multilevelGraph.Root.Data.IsHiddenAsParent = true;
 
 
-        var queue = new Queue<ITreeNode<IMultilevelGraphNode>>();
+        var queue = new Queue<INodeRef<ICollapsibleNodeData>>();
 
         foreach (var rootChild in multilevelGraph.Root.Children) 
             queue.Enqueue(rootChild);
@@ -33,7 +27,7 @@ public class MultilevelGraphConverter : IMultilevelGraphConverter
 
             if (node.Children.Count > 0)
             {
-                (node.Data as MultilevelGraphNode).Collapsible = true;
+                node.Data.Collapsible = true;
             }
 
             foreach (var child in node.Children)
