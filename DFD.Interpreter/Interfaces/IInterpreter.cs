@@ -1,8 +1,8 @@
-﻿using DFD.Model.Interfaces;
+﻿using DFD.DataStructures.Interfaces;
 
 namespace DFD.Parsing.Interfaces;
 
-public interface IInterpreter
+public interface IInterpreter<T> where T : INodeData
 {
-    IGraph<IGraphNodeData> ToDiagram(string dfdString);
+    IGraph<T> ToDiagram(string dfdString);
 }

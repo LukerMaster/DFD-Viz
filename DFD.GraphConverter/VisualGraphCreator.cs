@@ -1,6 +1,6 @@
-﻿using DFD.GraphConverter.Interfaces;
+﻿using DFD.DataStructures.Interfaces;
+using DFD.GraphConverter.Interfaces;
 using DFD.GraphvizConverter;
-using DFD.Model.Interfaces;
 using DFD.ViewModel.Interfaces;
 
 namespace DFD.GraphConverter
@@ -13,14 +13,14 @@ namespace DFD.GraphConverter
 
         private JsonToGraphParser jsonToGraphParser = new JsonToGraphParser();
 
-        private MultilevelGraphConverter _multilevelGraphConverter = new MultilevelGraphConverter();
+        private MultilevelGraphPreparator _multilevelGraphPreparator = new MultilevelGraphPreparator();
 
         public VisualGraphCreator(GraphvizRunner runner)
         {
             this.runner = runner;
         }
 
-        public IVisualGraph GetVisualGraph(IGraph<IMultilevelGraphNode> logicalGraph)
+        public IVisualGraph GetVisualGraph(IGraph<ICollapsibleNodeData> logicalGraph)
         {
             string dotCode = dotConverter.ToDot(logicalGraph);
             string json = runner.GetGraphAsJson(dotCode);

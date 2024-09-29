@@ -1,31 +1,30 @@
 ﻿using System;
-using Avalonia;
-using DataStructure.NamedTree;
 using DFD.AvaloniaEditor.Interfaces;
 using DFD.GraphConverter.Interfaces;
 using DFD.Parsing.Interfaces;
 using DFD.ViewModel.Interfaces;
 using System.Collections.Generic;
-using DFD.Model.Interfaces;
+using DFD.DataStructures.Interfaces;
+using ICollapsibleNodeData = DFD.DataStructures.Interfaces.ICollapsibleNodeData;
 
 namespace DFD.AvaloniaEditor.Services;
 
 public class VisualGraphGenerationPipeline : IVisualGraphGenerationPipeline
 {
     private readonly IVisualGraphCreator _graphCreator;
-    private readonly IInterpreter _interpreter;
-    private readonly IMultilevelGraphConverter _converter;
+    private readonly IInterpreter<ICollapsibleNodeData> _interpreter;
+    private readonly IMultilevelGraphPreparator _preparator;
     private readonly IDfdCodeStringProvider _dfdCodeProvider;
 
 
-    private IGraph<IMultilevelGraphNode> _logicalGraph;
+    private IGraph<ICollapsibleNodeData> _logicalGraph;
     private IVisualGraph _visualGraph;
     
-    public VisualGraphGenerationPipeline(IInterpreter interpreter, IMultilevelGraphConverter converter, IVisualGraphCreator graphCreator, IDfdCodeStringProvider dfdCodeProvider)
+    public VisualGraphGenerationPipeline(IInterpreter<ICollapsibleNodeData> interpreter, IMultilevelGraphPreparator preparator, IVisualGraphCreator graphCreator, IDfdCodeStringProvider dfdCodeProvider)
     {
         _graphCreator = graphCreator;
         _interpreter = interpreter;
-        _converter = converter;
+        _preparator = preparator;
         _dfdCodeProvider = dfdCodeProvider;
 
         if (!string.IsNullOrEmpty(dfdCodeProvider.DfdCode))
@@ -46,8 +45,8 @@ public class VisualGraphGenerationPipeline : IVisualGraphGenerationPipeline
     {
         if (!string.IsNullOrEmpty(_dfdCodeProvider.DfdCode))
         {
-            var rawGraph = _interpreter.ToDiagram(_dfdCodeProvider.DfdCode);
-            _logicalGraph = _converter.ToMultilevelGraph(rawGraph);
+            _logicalGraph = _interpreter.ToDiagram(_dfdCodeProvider.DfdCode);
+            _preparator.TweakCollapsability(_logicalGraph);
             RegenerateVisualGraph();
         }
     }
@@ -77,15 +76,15 @@ public class VisualGraphGenerationPipeline : IVisualGraphGenerationPipeline
         }
     }
 
-    public void ExecuteOnNode(string nodeName, Action<IMultilevelGraphNode> command)
+    public void ExecuteOnNode(string nodeName, Action<ICollapsibleNodeData> command)
     {
-        Queue<ITreeNode<IMultilevelGraphNode>> nodes = new Queue<ITreeNode<IMultilevelGraphNode>>();
+        Queue<INodeRef<ICollapsibleNodeData>> nodes = new();
         
         nodes.Enqueue(_logicalGraph.Root);
         while (nodes.Count > 0)
         {
             var node = nodes.Dequeue();
-            if (node.FullNodeName == nodeName)
+            if (node.FullPath == nodeName)
             {
                 command(node.Data);
                 break;

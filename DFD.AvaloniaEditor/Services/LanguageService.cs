@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using Avalonia;
 using DFD.AvaloniaEditor.Assets;
 
 namespace DFD.AvaloniaEditor.Services;

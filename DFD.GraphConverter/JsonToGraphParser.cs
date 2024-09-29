@@ -1,16 +1,17 @@
 ﻿using System.Globalization;
 using System.Numerics;
+using DFD.DataStructures.Interfaces;
 using DFD.GraphConverter.ViewModelImplementation;
-using DFD.Model.Interfaces;
 using DFD.ViewModel.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ICollapsibleNodeData = DFD.DataStructures.Interfaces.ICollapsibleNodeData;
 
 namespace DFD.GraphConverter;
 
 internal class JsonToGraphParser
 {
-    public IVisualGraph CreateGraphFrom(string json, IGraph<IMultilevelGraphNode> graph)
+    public IVisualGraph CreateGraphFrom(string json, IGraph<ICollapsibleNodeData> graph)
     {
         JObject rootJsonObject = JsonConvert.DeserializeObject<JObject>(json);
 
@@ -163,7 +164,7 @@ internal class JsonToGraphParser
         return visualObject;
     }
 
-    private IReadOnlyList<IVisualGraphNode> GetNodes(IGraph<IMultilevelGraphNode> graph, JObject rootJsonObject)
+    private IReadOnlyList<IVisualGraphNode> GetNodes(IGraph<ICollapsibleNodeData> graph, JObject rootJsonObject)
     {
         var visualNodes = new List<IVisualGraphNode>();
 
@@ -173,8 +174,8 @@ internal class JsonToGraphParser
 
             if (vo is not null)
             {
-                var graphNode = graph.Root.FindMatchingNode(jsonNode["name"].ToString().Replace("_", "."), false);
-                vo.DrawOrder = graphNode.FullNodeName.ToCharArray().Count(x => x == '.');
+                var graphNode = graph.Root.FindMatchingNode(jsonNode["name"].ToString());
+                vo.DrawOrder = graphNode.GetAncestorCount();
 
                 visualNodes.Add(new VisualGraphNode()
                 {

@@ -1,8 +1,8 @@
-﻿using DFD.GraphConverter;
+﻿using DFD.DataStructures.Interfaces;
+using DFD.GraphConverter;
 using DFD.GraphConverter.Interfaces;
 using DFD.GraphvizConverter;
-using DFD.Model.Interfaces;
-using DFD.ViewModel.Interfaces;
+using DFD.Parsing;
 using DFD.Vizualizer.Interfaces;
 using SFML.Graphics;
 using SFML.Window;
@@ -18,11 +18,11 @@ namespace DFD.Vizualizer
             bool shouldRun = true;
             window.Closed += (sender, eventArgs) => shouldRun = false;
 
-            Parsing.Interpreter interpreter = new Parsing.Interpreter();
-            MultilevelGraphConverter converter = new MultilevelGraphConverter();
-            LogicalGraphLoader loader = new LogicalGraphLoader(interpreter, converter);
+            Parsing.Interpreter<ICollapsibleNodeData> interpreter = new(new NodeDataFactory());
+            MultilevelGraphPreparator preparator = new MultilevelGraphPreparator();
+            LogicalGraphLoader loader = new LogicalGraphLoader(interpreter, preparator);
 
-            IGraph<IMultilevelGraphNode> logicalGraph = null;
+            IGraph<ICollapsibleNodeData> logicalGraph = null;
             IProgramUI ui = null;
 
             try

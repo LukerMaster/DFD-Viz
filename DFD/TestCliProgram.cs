@@ -1,30 +1,31 @@
-﻿using DFD.GraphConverter;
+﻿using DFD.DataStructures.Interfaces;
+using DFD.GraphConverter;
 using DFD.GraphvizConverter;
 using DFD.Parsing;
-using DFD.Model.Interfaces;
 
 class TestCliProgram
 {
     static void Main()
     {
-        Interpreter interpreter = new Interpreter();
+        
+        Interpreter<ICollapsibleNodeData> interpreter = new(new NodeDataFactory());
 
         var dfdString = File.ReadAllText("documentation.dfd");
 
-        IGraph<IGraphNodeData> graph = interpreter.ToDiagram(dfdString);
+        IGraph<ICollapsibleNodeData> graph = interpreter.ToDiagram(dfdString);
 
         foreach (var child in graph.Root.Children)
         {
-            Console.WriteLine($"Node {child.FullNodeName}");
+            Console.WriteLine($"Node {child.FullPath}");
         }
 
         foreach (var flow in graph.Flows)
         {
-            Console.WriteLine($"Flow {flow.SourceNodeName} --> {flow.TargetNodeName}");
+            Console.WriteLine($"Flow {flow.Source} --> {flow.Target}");
         }
 
-        var multilevelGraph = new MultilevelGraphConverter().ToMultilevelGraph(graph);
-        var visualGraph = new VisualGraphCreator(new GraphvizRunnerFactory(Environment.OSVersion.Platform).CreateRunner()).GetVisualGraph(multilevelGraph);
+        new MultilevelGraphPreparator().TweakCollapsability(graph);
+        var visualGraph = new VisualGraphCreator(new GraphvizRunnerFactory(Environment.OSVersion.Platform).CreateRunner()).GetVisualGraph(graph);
 
 
         Console.WriteLine("END");

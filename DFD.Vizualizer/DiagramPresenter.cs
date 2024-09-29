@@ -1,8 +1,6 @@
-﻿using System.Numerics;
-using DFD.ViewModel.Interfaces;
+﻿using DFD.ViewModel.Interfaces;
 using DFD.Vizualizer.Interfaces;
 using SFML.Graphics;
-using SFML.System;
 
 namespace DFD.Vizualizer;
 

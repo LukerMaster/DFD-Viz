@@ -1,12 +1,19 @@
 ﻿using System.Text.RegularExpressions;
-using DataStructure.NamedTree;
-using DFD.Model.Interfaces;
-using DFD.ModelImplementations;
+using DFD.DataStructures.Implementations;
+using DFD.DataStructures.Interfaces;
+using DFD.Parsing.Interfaces;
 
 namespace DFD.Parsing;
 
-internal class GraphObjectParser
+internal class GraphObjectParser<T> where T : INodeData
 {
+    public GraphObjectParser(INodeDataFactory dataFactory)
+    {
+        DataFactory = dataFactory;
+    }
+
+    protected INodeDataFactory DataFactory { get; }
+
     private readonly Dictionary<string, NodeType> _validDefinitions = new()
     {
         { "Process", NodeType.Process },
@@ -14,9 +21,9 @@ internal class GraphObjectParser
         { "IO", NodeType.InputOutput },
     };
 
-    public ITreeNode<IGraphNodeData> TryParseNode(string line, IModifiableTreeNode<IGraphNodeData> currentParent)
+    public INodeRef<T> TryParseNode(string line, INode<T> currentParent)
     {
-        ITreeNode<IGraphNodeData>? node = null;
+        INodeRef<T>? node = null;
 
         // Split by any amount of whitespace
         var definition = SplitByWhitespace(line);
@@ -33,8 +40,7 @@ internal class GraphObjectParser
         {
             try
             {
-                node = CreateStandardNode(type, nodeName, displayedName, currentParent);
-                currentParent.Children.Add(node);
+                node = currentParent.AddChild((T)DataFactory.CreateData(displayedName.Trim('"'), type), nodeName);
             }
             catch (SameFullNodeNameException e)
             {
@@ -68,9 +74,9 @@ internal class GraphObjectParser
         return result;
     }
 
-    public INodeFlow TryParseFlow<T>(string statement, ITreeNode<T> currentParent)
+    public IFlow<T> TryParseFlow(string statement, INodeRef<T> currentParent)
     {
-        INodeFlow? flow = null;
+        IFlow<T>? flow = null;
 
         var definition = SplitByWhitespace(statement);
 
@@ -92,17 +98,17 @@ internal class GraphObjectParser
             if (source.Children.Count > 0)
                 throw new ProcessWithChildrenConnectedException<T>(target);
 
-            flow = new NodeFlow()
+            flow = new Flow<T>()
             {
-                SourceNodeName = source.FullNodeName,
-                TargetNodeName = target.FullNodeName,
-                FlowName = flowName,
-                BiDirectional = flowType == "<->"
+                Source = source,
+                Target = target,
+                Name = flowName,
+                IsBidirectional = flowType == "<->"
             };
         }
-        catch (AmbiguousNodeMatchException<T> e)
+        catch (AmbiguousNodeMatchException<INodeData> e)
         {
-            throw new FlowWithAmbiguousNodeException<T>(e.NodeName, e.Candidates);
+            throw new FlowWithAmbiguousNodeException<INodeData>(e.NodeName, e.Candidates);
         }
         catch (NodeNotFoundException e)
         {
@@ -110,36 +116,6 @@ internal class GraphObjectParser
         }
 
         return flow;
-    }
-
-    private ITreeNode<IGraphNodeData> CreateStandardNode(NodeType type, string name, string displayedName, ITreeNode<IGraphNodeData> parent)
-    {
-        GraphNodeData? data = null;
-
-        if (type == NodeType.Process)
-        {
-            data = new GraphNodeData() { Name = displayedName.Trim('"'), Type = NodeType.Process };
-        }
-
-        if (type == NodeType.Storage)
-        {
-            data = new GraphNodeData() { Name = displayedName.Trim('"'), Type = NodeType.Storage };
-        }
-
-        if (type == NodeType.InputOutput)
-        {
-            data = new GraphNodeData() { Name = displayedName.Trim('"'), Type = NodeType.InputOutput };
-        }
-
-        if (data == null)
-            throw new InvalidNodeTypeException(type.ToString());
-
-        return new TreeNode<IGraphNodeData>() 
-        {
-            Parent = parent,
-            NodeName = name,
-            Data = data
-        };
     }
 }
 

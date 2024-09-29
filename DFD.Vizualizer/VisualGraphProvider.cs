@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using DataStructure.NamedTree;
+﻿using System.Numerics;
+using DFD.DataStructures.Interfaces;
 using DFD.GraphConverter.Interfaces;
-using DFD.Model.Interfaces;
 using DFD.ViewModel.Interfaces;
 using DFD.Vizualizer.Interfaces;
 
@@ -15,10 +9,10 @@ namespace DFD.Vizualizer
     public class VisualGraphProvider : IVisualGraphProvider, IViewDataProvider
     {
         private IVisualGraph _visualGraph;
-        private IGraph<IMultilevelGraphNode> _logicalGraph;
+        private IGraph<ICollapsibleNodeData> _logicalGraph;
         private readonly IVisualGraphCreator _creator;
-        private Dictionary<IMultilevelGraphNode, bool> _previousCollapsedStates = new Dictionary<IMultilevelGraphNode, bool>();
-        public VisualGraphProvider(IGraph<IMultilevelGraphNode> logicalGraph, IVisualGraphCreator creator)
+        private Dictionary<ICollapsibleNodeData, bool> _previousCollapsedStates = new();
+        public VisualGraphProvider(IGraph<ICollapsibleNodeData> logicalGraph, IVisualGraphCreator creator)
         {
             _logicalGraph = logicalGraph;
             _creator = creator;
@@ -27,7 +21,7 @@ namespace DFD.Vizualizer
             UpdatePreviousCollapsedStates(logicalGraph.Root);
         }
 
-        private void UpdatePreviousCollapsedStates(ITreeNode<IMultilevelGraphNode> node)
+        private void UpdatePreviousCollapsedStates(INodeRef<ICollapsibleNodeData> node)
         {
             _previousCollapsedStates[node.Data] = node.Data.Collapsed;
             foreach (var child in node.Children)

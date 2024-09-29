@@ -1,10 +1,10 @@
-﻿using System.Numerics;
+﻿using DFD.DataStructures.Interfaces;
 
 namespace DFD.ViewModel.Interfaces;
 
 
 public interface IVisualGraphNode
 {
-    IMultilevelGraphNode Node { get; }
+    ICollapsibleNodeData Node { get; }
     IVisualObject VisualObject { get; }
 }
