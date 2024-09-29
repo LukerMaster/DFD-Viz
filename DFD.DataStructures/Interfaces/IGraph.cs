@@ -1,8 +1,9 @@
 ﻿namespace DFD.DataStructures.Interfaces;
 
-public interface IGraph<T> : INodeRef<T>
+public interface IGraph<T> : IGraphRef<T>
 {
     INode<T> Root { get; }
     IReadOnlyCollection<IFlow<T>> Flows { get; }
-    void AddNode(INode<T> parent);
+    
+    IGraph<TNew> CopyGraphAs(Func<T, TNew> dataConversionFunc)
 }

@@ -2,6 +2,6 @@
 
 public interface IGraphRef<T>
 {
-    INodeRef<T> Root { get; }
+    INodeRef<T>? Root { get; }
     IReadOnlyCollection<IFlowRef<T>> Flows { get; }
 }
