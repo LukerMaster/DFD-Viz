@@ -9,7 +9,7 @@ namespace DFD.GraphvizConverter
     public class DiagramToDotConverter
     {
         
-        private readonly string lineTerminator = " "; // TODO: \n does not work on unix?
+        private readonly string lineTerminator = "\n";
         private readonly string BiDirectionalAttribute = "[dir=both]";
         private string RepresentNode(INodeRef<ICollapsibleNodeData> node, string code, bool useDisplayNames = false)
         {

@@ -6,7 +6,7 @@ namespace DFD.GraphConverter.ViewModelImplementation;
 
 public class VisualGraphNode : IVisualGraphNode
 {
-    public ICollapsibleNodeData Node { get; set; }
+    public required ICollapsibleNodeData Node { get; set; }
     public IVisualObject VisualObject { get; set; }
     public Vector2 TextPosition { get; set; }
 }

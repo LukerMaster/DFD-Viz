@@ -147,8 +147,8 @@ internal class JsonToGraphParser
 
     private VisualObject ParseDrawDefinition(JToken drawDefinition, bool isClosed = false)
     {
-        VisualObject visualObject = new VisualObject();
-        visualObject.DrawTechnique = drawDefinition["op"].ToString() == "b"
+        
+        DrawTechnique drawTechnique = drawDefinition["op"].ToString() == "b"
             ? DrawTechnique.Bezier
             : DrawTechnique.Straight;
 
@@ -159,9 +159,14 @@ internal class JsonToGraphParser
             pointList.Add(new Vector2((float)point[0], (float)point[1]));
         }
 
-        visualObject.Points = pointList;
-        visualObject.IsClosed = isClosed;
-        return visualObject;
+        
+        var points = pointList;
+        return new VisualObject()
+        {
+            Points = pointList,
+            IsClosed = isClosed,
+            DrawTechnique = drawTechnique,
+        };
     }
 
     private IReadOnlyList<IVisualGraphNode> GetNodes(IGraph<ICollapsibleNodeData> graph, JObject rootJsonObject)
@@ -170,7 +175,7 @@ internal class JsonToGraphParser
 
         foreach (JObject jsonNode in rootJsonObject["objects"])
         {
-            VisualObject vo = TryGetVisualObjectFrom(jsonNode, "_draw_", true);
+            VisualObject? vo = TryGetVisualObjectFrom(jsonNode, "_draw_", true);
 
             if (vo is not null)
             {

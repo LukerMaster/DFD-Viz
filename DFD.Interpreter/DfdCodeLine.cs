@@ -3,5 +3,5 @@
 internal class DfdCodeLine
 {
     public int LineNumber { get; set; }
-    public string Statement { get; set; }
+    public required string Statement { get; set; }
 }

@@ -32,6 +32,11 @@ internal class InterpreterRunData<T> where T : INodeData
 
     public void LowerScope()
     {
+        if (CurrentScopeNode.Parent == null)
+        {
+            throw new Exception("Cannot lower scope any more.");
+        }
+        
         CurrentScopeNode = CurrentScopeNode.Parent;
         CurrentScopeLevel--;
     }

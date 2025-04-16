@@ -15,16 +15,25 @@ public class GraphvizRunnerFactory
     {
         if (_os == PlatformID.Win32NT)
         {
-            return new GraphvizRunner(new LocalFolderStrategy("win64", null));
+            var exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            
+            var exeFolder = Path.GetDirectoryName(exePath);
+
+            if (!Directory.Exists(exeFolder))
+            {
+                throw new DirectoryNotFoundException($"Could not determine folder of executing assembly.");
+            }
+            
+            var dotDirectory = Path.Combine(exeFolder, "graphviz/win64");
+            
+            var dotFile = Path.Combine(dotDirectory, "dot.exe");
+            
+            return new GraphvizRunner(new LocalFolderStrategy(dotFile, dotDirectory, null));
         }
 
         if (_os == PlatformID.Unix)
         {
-            string exePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            
-            var libEnvVar = new Dictionary<string, string>() { { "LD_LIBRARY_PATH", "./unix" } };
-            
-            return new GraphvizRunner(new LocalFolderStrategy("unix", libEnvVar));
+            return new GraphvizRunner(new SystemwiseStrategy(null));
         }
 
         throw new NotSupportedException("OS not supported.");

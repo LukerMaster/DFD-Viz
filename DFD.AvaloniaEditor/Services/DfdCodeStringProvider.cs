@@ -1,9 +1,10 @@
-﻿using DFD.AvaloniaEditor.Interfaces;
+﻿using System;
+using DFD.AvaloniaEditor.Interfaces;
 
 namespace DFD.AvaloniaEditor.Services;
 
 public class DfdCodeStringProvider : IDfdCodeStringProvider
 {
     public string? FilePath { get; set; }
-    public string DfdCode { get; set; }
+    public string DfdCode { get; set; } = String.Empty;
 }

@@ -42,7 +42,7 @@ internal class GraphObjectParser<T> where T : INodeData
             {
                 node = currentParent.AddChild((T)DataFactory.CreateData(displayedName.Trim('"'), type), nodeName);
             }
-            catch (SameFullNodeNameException e)
+            catch (SameFullNodeNameException)
             {
                 throw new RedefinitionOfNodeException(nodeName);
             }

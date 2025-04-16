@@ -9,10 +9,10 @@ internal class GraphvizProcess
     private readonly string _fileName;
     private readonly Dictionary<string, string>? _envVariables;
     
-    internal GraphvizProcess(string FileName, string? WorkingDirectory, Dictionary<string, string>? envVariables)
+    internal GraphvizProcess(string fileName, string? workingDirectory, Dictionary<string, string>? envVariables)
     {
-        _fileName = FileName;
-        _workingDirectory = WorkingDirectory;
+        _fileName = fileName;
+        _workingDirectory = workingDirectory;
         _envVariables = envVariables;
     }
 
@@ -42,20 +42,18 @@ internal class GraphvizProcess
             }
         };
 
-        foreach (var envVariable in _envVariables)
+        if (_envVariables != null)
         {
-            graphVizProcess.StartInfo.EnvironmentVariables[envVariable.Key] = envVariable.Value;
+            foreach (var envVariable in _envVariables)
+            {
+                graphVizProcess.StartInfo.EnvironmentVariables[envVariable.Key] = envVariable.Value;
+            }    
         }
-        
-
         graphVizProcess.Start();
-
-        if (graph != null)
-        {
-            graphVizProcess.StandardInput.Write(graph);
-            graphVizProcess.StandardInput.Close();
-        }
-
+        
+        graphVizProcess.StandardInput.Write(graph);
+        graphVizProcess.StandardInput.Close();
+        
         byte[] result;
         using (Stream baseStream = graphVizProcess.StandardOutput.BaseStream)
         using (var memoryStream = new MemoryStream())

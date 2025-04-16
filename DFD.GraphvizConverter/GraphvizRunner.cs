@@ -20,14 +20,4 @@ internal class GraphvizRunner : IGraphvizRunner
     {
         return System.Text.Encoding.UTF8.GetString(GetGraphInMemory(dotCode, "json"));
     }
-
-    public byte[] GetGraphAsPng(string dotCode)
-    {
-        return GetGraphInMemory(dotCode, "png");
-    }
-
-    public void OutputDebugGraphAsPng(string dotCode, string outputPath = "./debug.png")
-    {
-        _processStartingStrategy.LayoutAndRender( dotCode, outputPath, "png");
-    }
 }
