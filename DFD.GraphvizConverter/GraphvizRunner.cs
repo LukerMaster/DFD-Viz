@@ -1,18 +1,20 @@
-﻿namespace DFD.GraphvizConverter;
+﻿using DFD.GraphvizConverter.API;
 
-public class GraphvizRunner
+namespace DFD.GraphvizConverter;
+
+internal class GraphvizRunner : IGraphvizRunner
 {
 
-    private IGraphvizProcessStarter _processStarter;
+    private IProcessStartingStrategy _processStartingStrategy;
 
-    internal GraphvizRunner(IGraphvizProcessStarter processStarter)
+    internal GraphvizRunner(IProcessStartingStrategy processStartingStrategy)
     {
-        _processStarter = processStarter;
+        _processStartingStrategy = processStartingStrategy;
     }
     
     private byte[] GetGraphInMemory(string dotCode, string outputType)
     {
-        return _processStarter.LayoutAndRender(dotCode, null, outputType);
+        return _processStartingStrategy.LayoutAndRender(dotCode, null, outputType);
     }
     public string GetGraphAsJson(string dotCode)
     {
@@ -26,6 +28,6 @@ public class GraphvizRunner
 
     public void OutputDebugGraphAsPng(string dotCode, string outputPath = "./debug.png")
     {
-        _processStarter.LayoutAndRender( dotCode, outputPath, null, "png");
+        _processStartingStrategy.LayoutAndRender( dotCode, outputPath, "png");
     }
 }

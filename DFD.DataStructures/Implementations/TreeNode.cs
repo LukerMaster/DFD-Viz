@@ -36,7 +36,7 @@ namespace DFD.DataStructures.Implementations
                 var endoded = Encoding.UTF8.GetBytes(FullPath);
                 var hashed = SHA512.HashData(endoded);
                 var hexed = Convert.ToHexString(hashed);
-                return "NODEBASE64" + Name + hexed;
+                return "NODEHEX" + Name + hexed;
             }
         }
 

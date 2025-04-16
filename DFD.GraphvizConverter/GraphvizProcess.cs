@@ -3,27 +3,26 @@ using System.Text;
 
 namespace DFD.GraphvizConverter;
 
-internal class StandardProcessStarter
+internal class GraphvizProcess
 {
     private readonly string? _workingDirectory;
     private readonly string _fileName;
-
-    internal StandardProcessStarter(string FileName, string? WorkingDirectory)
+    private readonly Dictionary<string, string>? _envVariables;
+    
+    internal GraphvizProcess(string FileName, string? WorkingDirectory, Dictionary<string, string>? envVariables)
     {
         _fileName = FileName;
         _workingDirectory = WorkingDirectory;
+        _envVariables = envVariables;
     }
 
-    internal byte[] Render(string graph, string layoutAlgorithm, string outputFormat,
-        params string[] extraCommandLineFlags)
+    internal byte[] Render(string graph, string layoutAlgorithm, string outputFormat)
     {
         if (graph == null)
         {
             throw new ArgumentException($"Argument {nameof(graph)} cannot be null.");
         }
-        string arguments = CommandArgumentsBuilder.BuildCommandLineArguments(layoutAlgorithm, outputFormat, extraCommandLineFlags);
-
-        string exePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+        string arguments = CommandArgumentsBuilder.BuildCommandLineArguments(layoutAlgorithm, outputFormat);
         
         var graphVizProcess = new Process
         {
@@ -42,6 +41,12 @@ internal class StandardProcessStarter
                 UseShellExecute = false
             }
         };
+
+        foreach (var envVariable in _envVariables)
+        {
+            graphVizProcess.StartInfo.EnvironmentVariables[envVariable.Key] = envVariable.Value;
+        }
+        
 
         graphVizProcess.Start();
 

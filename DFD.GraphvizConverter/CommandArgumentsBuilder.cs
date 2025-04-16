@@ -4,7 +4,7 @@ namespace DFD.GraphvizConverter;
 
 internal class CommandArgumentsBuilder
 {
-    public static string BuildCommandLineArguments(string layout, string format,
+    internal static string BuildCommandLineArguments(string layout, string format,
         params string[] extraCommandLineFlags)
     {
         var argumentsBuilder = new StringBuilder();

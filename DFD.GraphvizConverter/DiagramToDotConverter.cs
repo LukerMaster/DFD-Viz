@@ -1,5 +1,6 @@
 ﻿using DFD.DataStructures.Implementations;
 using DFD.DataStructures.Interfaces;
+using DFD.GraphvizConverter.API;
 using ICollapsibleNodeData = DFD.DataStructures.Interfaces.ICollapsibleNodeData;
 using NodeType = DFD.DataStructures.Interfaces.NodeType;
 
@@ -7,6 +8,8 @@ namespace DFD.GraphvizConverter
 {
     public class DiagramToDotConverter
     {
+        
+        private readonly string lineTerminator = " "; // TODO: \n does not work on unix?
         private readonly string BiDirectionalAttribute = "[dir=both]";
         private string RepresentNode(INodeRef<ICollapsibleNodeData> node, string code, bool useDisplayNames = false)
         {
@@ -14,23 +17,23 @@ namespace DFD.GraphvizConverter
             {
                 if (node.Data.IsHiddenAsParent)
                 {
-                    code += $"subgraph {node.HexHash} \n" +
-                            $"{{ peripheries=0 \n " +
-                            $"cluster=True \n";
+                    code += $"subgraph {node.HexHash} {lineTerminator}" +
+                            $"{{ peripheries=0 {lineTerminator} " +
+                            $"cluster=True {lineTerminator}";
                 }
                 else
                 {
-                    code += $"subgraph {node.HexHash} \n" +
-                            $"{{ label=\"{node.Data.DisplayedName}\" \n " +
-                            $"peripheries=1 \n" +
-                            $"cluster=True \n";
+                    code += $"subgraph {node.HexHash} {lineTerminator}" +
+                            $"{{ label=\"{node.Data.DisplayedName}\" {lineTerminator} " +
+                            $"peripheries=1 {lineTerminator}" +
+                            $"cluster=True {lineTerminator}";
                 }
 
                 foreach (var child in node.Children)
                 {
                     code = RepresentNode(child, code);
                 }
-                code += "} \n";
+                code += $"}} {lineTerminator}";
             }
             else
             {
@@ -49,7 +52,7 @@ namespace DFD.GraphvizConverter
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                code += $"{node.HexHash} {formatting}; \n";
+                code += $"{node.HexHash} {formatting}; {lineTerminator}";
             }
             return code;
         }
@@ -64,10 +67,10 @@ namespace DFD.GraphvizConverter
             {
                 var attribute = flow.IsBidirectional ? BiDirectionalAttribute : String.Empty;
 
-                code += $"{flow.Source.HexHash} -> {flow.Target.HexHash} [label=\"{flow.Name}\"] {attribute}; \n";
+                code += $"{flow.Source.HexHash} -> {flow.Target.HexHash} [label=\"{flow.Name}\"] {attribute}; {lineTerminator}";
             }
 
-            code += " } \n";
+            code += $" }} {lineTerminator}";
             return code;
         }
 
