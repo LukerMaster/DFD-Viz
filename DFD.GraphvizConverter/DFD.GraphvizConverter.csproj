@@ -13,9 +13,6 @@
     <ProjectReference Include="..\DFD.ViewModel\DFD.ViewModel.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="graphviz\unix\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Update="graphviz\ubuntu\acyclic">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
