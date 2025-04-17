@@ -45,8 +45,8 @@ namespace DFD.DataStructures.Implementations
             Node<T> new_node = new Node<T>()
             {
                 Data = data,
-                Name = name,
                 Parent = this,
+                Name = name,
             };
             _children.Add(new_node);
             return new_node;
